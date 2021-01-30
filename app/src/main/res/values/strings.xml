@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Care Corner</string>
+    <string name="login">Login</string>
+    <string name="resources">Resources</string>
+    <string name="register">New User?</string>
+    <string name="forgot_username">Forgot Username?</string>
+    <string name="forgot_password">Forgot Password?</string>
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+</resources>
