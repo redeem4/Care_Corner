@@ -10,82 +10,82 @@
         android:id="@+id/CareCornerLogo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="16dp"
         android:text="@string/app_name"
         android:textSize="60sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintEnd_toEndOf="@id/main_menu_logo"
+        app:layout_constraintStart_toStartOf="@id/main_menu_logo"
+        app:layout_constraintTop_toBottomOf="@+id/main_menu_logo" />
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/fake_call_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:text="@string/fake_call"
         android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="@+id/imageView2"
-        app:layout_constraintStart_toStartOf="@+id/imageView2"
-        app:layout_constraintTop_toBottomOf="@+id/imageView2" />
+        app:layout_constraintEnd_toEndOf="@+id/fake_call_image"
+        app:layout_constraintStart_toStartOf="@+id/fake_call_image"
+        app:layout_constraintTop_toBottomOf="@+id/fake_call_image" />
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/mombot_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:text="@string/mombot"
         android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="@+id/imageView3"
-        app:layout_constraintStart_toStartOf="@+id/imageView3"
-        app:layout_constraintTop_toBottomOf="@+id/imageView3" />
+        app:layout_constraintEnd_toEndOf="@+id/mombot_image"
+        app:layout_constraintStart_toStartOf="@+id/mombot_image"
+        app:layout_constraintTop_toBottomOf="@+id/mombot_image" />
 
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/start_walk_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:text="@string/start_walk"
         android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="@+id/imageView4"
-        app:layout_constraintStart_toStartOf="@+id/imageView4"
-        app:layout_constraintTop_toBottomOf="@+id/imageView4" />
+        app:layout_constraintEnd_toEndOf="@+id/start_walk_image"
+        app:layout_constraintStart_toStartOf="@+id/start_walk_image"
+        app:layout_constraintTop_toBottomOf="@+id/start_walk_image" />
 
     <TextView
-        android:id="@+id/textView4"
+        android:id="@+id/journal_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:text="@string/journal"
         android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="@+id/imageView5"
-        app:layout_constraintStart_toStartOf="@+id/imageView5"
-        app:layout_constraintTop_toBottomOf="@+id/imageView5" />
+        app:layout_constraintEnd_toEndOf="@+id/journal_image"
+        app:layout_constraintStart_toStartOf="@+id/journal_image"
+        app:layout_constraintTop_toBottomOf="@+id/journal_image" />
 
     <TextView
-        android:id="@+id/textView5"
+        android:id="@+id/resources_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:text="@string/resources"
         android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="@+id/imageView6"
-        app:layout_constraintStart_toStartOf="@+id/imageView6"
-        app:layout_constraintTop_toBottomOf="@+id/imageView6" />
+        app:layout_constraintEnd_toEndOf="@+id/resources_image"
+        app:layout_constraintStart_toStartOf="@+id/resources_image"
+        app:layout_constraintTop_toBottomOf="@+id/resources_image" />
 
     <TextView
-        android:id="@+id/textView6"
+        android:id="@+id/reporting_assistance_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:text="@string/reporting_assistance"
         android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="@+id/imageView7"
+        app:layout_constraintEnd_toEndOf="@+id/reporting_assistance_image"
         app:layout_constraintHorizontal_bias="0.53"
-        app:layout_constraintStart_toStartOf="@+id/imageView7"
-        app:layout_constraintTop_toBottomOf="@+id/imageView7" />
+        app:layout_constraintStart_toStartOf="@+id/reporting_assistance_image"
+        app:layout_constraintTop_toBottomOf="@+id/reporting_assistance_image" />
 
     <ImageView
-        android:id="@+id/imageView2"
+        android:id="@+id/fake_call_image"
         android:layout_width="72dp"
         android:layout_height="70dp"
         android:layout_marginTop="50dp"
@@ -97,7 +97,7 @@
         tools:srcCompat="@tools:sample/avatars" />
 
     <ImageView
-        android:id="@+id/imageView3"
+        android:id="@+id/mombot_image"
         android:layout_width="72dp"
         android:layout_height="70dp"
         android:layout_marginStart="200dp"
@@ -109,45 +109,55 @@
         tools:srcCompat="@tools:sample/avatars" />
 
     <ImageView
-        android:id="@+id/imageView4"
+        android:id="@+id/start_walk_image"
         android:layout_width="72dp"
         android:layout_height="70dp"
         android:layout_marginTop="50dp"
-        app:layout_constraintEnd_toEndOf="@+id/textView"
-        app:layout_constraintStart_toStartOf="@+id/textView"
-        app:layout_constraintTop_toBottomOf="@+id/textView"
+        app:layout_constraintEnd_toEndOf="@+id/fake_call_text"
+        app:layout_constraintStart_toStartOf="@+id/fake_call_text"
+        app:layout_constraintTop_toBottomOf="@+id/fake_call_text"
         tools:srcCompat="@tools:sample/avatars" />
 
     <ImageView
-        android:id="@+id/imageView5"
+        android:id="@+id/journal_image"
         android:layout_width="72dp"
         android:layout_height="70dp"
         android:layout_marginTop="50dp"
-        app:layout_constraintEnd_toEndOf="@+id/textView2"
+        app:layout_constraintEnd_toEndOf="@+id/mombot_text"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/textView2"
-        app:layout_constraintTop_toBottomOf="@+id/textView2"
+        app:layout_constraintStart_toStartOf="@+id/mombot_text"
+        app:layout_constraintTop_toBottomOf="@+id/mombot_text"
         tools:srcCompat="@tools:sample/avatars" />
 
     <ImageView
-        android:id="@+id/imageView6"
+        android:id="@+id/resources_image"
         android:layout_width="72dp"
         android:layout_height="70dp"
         android:layout_marginTop="50dp"
-        app:layout_constraintEnd_toEndOf="@+id/textView3"
-        app:layout_constraintStart_toStartOf="@+id/textView3"
-        app:layout_constraintTop_toBottomOf="@+id/textView3"
+        app:layout_constraintEnd_toEndOf="@+id/start_walk_text"
+        app:layout_constraintStart_toStartOf="@+id/start_walk_text"
+        app:layout_constraintTop_toBottomOf="@+id/start_walk_text"
         tools:srcCompat="@tools:sample/avatars" />
 
     <ImageView
-        android:id="@+id/imageView7"
+        android:id="@+id/reporting_assistance_image"
         android:layout_width="72dp"
         android:layout_height="70dp"
         android:layout_marginTop="50dp"
-        app:layout_constraintEnd_toEndOf="@+id/textView4"
+        app:layout_constraintEnd_toEndOf="@+id/journal_text"
         app:layout_constraintHorizontal_bias="0.416"
-        app:layout_constraintStart_toStartOf="@+id/textView4"
-        app:layout_constraintTop_toBottomOf="@+id/textView4"
+        app:layout_constraintStart_toStartOf="@+id/journal_text"
+        app:layout_constraintTop_toBottomOf="@+id/journal_text"
+        tools:srcCompat="@tools:sample/avatars" />
+
+    <ImageView
+        android:id="@+id/main_menu_logo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         tools:srcCompat="@tools:sample/avatars" />
 
 
