@@ -12,4 +12,9 @@
     <string name="send_username">Send Username</string>
     <string name="create">Create</string>
     <string name="email">Email</string>
+    <string name="fake_call">Fake Call</string>
+    <string name="mombot">Mombot</string>
+    <string name="start_walk">Start Walk</string>
+    <string name="journal">Journal</string>
+    <string name="reporting_assistance">Reporting Assistance</string>
 </resources>
