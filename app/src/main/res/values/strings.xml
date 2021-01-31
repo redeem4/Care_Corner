@@ -7,4 +7,9 @@
     <string name="forgot_password">Forgot Password?</string>
     <string name="username">Username</string>
     <string name="password">Password</string>
+    <string name="send_reset">Send Reset</string>
+    <string name="avatar_picture">avatar_picture</string>
+    <string name="send_username">Send Username</string>
+    <string name="create">Create</string>
+    <string name="email">Email</string>
 </resources>

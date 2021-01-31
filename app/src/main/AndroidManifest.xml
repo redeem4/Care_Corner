@@ -10,6 +10,11 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.CareCorner">
         <activity android:name=".LoginActivity"></activity>
+        <activity android:name=".ForgotPasswordActivity"></activity>
+        <activity android:name=".ForgotUsernameActivity"></activity>
+        <activity android:name=".RegisterActivity"></activity>
+        <activity android:name=".ResourceActivity"></activity>
+
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
