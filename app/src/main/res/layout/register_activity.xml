@@ -26,33 +26,33 @@
         android:hint="@string/password"
         android:importantForAutofill="no"
         android:inputType="textPassword"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/usernameEntryBox"
+        app:layout_constraintStart_toStartOf="@+id/usernameEntryBox"
         app:layout_constraintTop_toBottomOf="@+id/usernameEntryBox" />
 
     <EditText
         android:id="@+id/emailEntryBox"
         android:layout_width="250dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="104dp"
+        android:layout_marginTop="32dp"
         android:hint="@string/email"
         android:importantForAutofill="no"
         android:inputType="textWebEmailAddress"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/passwordEntryBox"
         app:layout_constraintHorizontal_bias="0.503"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/usernameEntryBox" />
+        app:layout_constraintStart_toStartOf="@+id/passwordEntryBox"
+        app:layout_constraintTop_toBottomOf="@+id/passwordEntryBox" />
 
     <Button
         android:id="@+id/btnCreateAccount"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="244dp"
+        android:layout_marginTop="150dp"
         android:text="@string/create"
         app:layout_constraintEnd_toEndOf="@+id/passwordEntryBox"
         app:layout_constraintHorizontal_bias="0.48"
         app:layout_constraintStart_toStartOf="@+id/passwordEntryBox"
-        app:layout_constraintTop_toBottomOf="@+id/passwordEntryBox" />
+        app:layout_constraintTop_toBottomOf="@+id/emailEntryBox" />
 
     <ImageView
         android:id="@+id/imageView"
