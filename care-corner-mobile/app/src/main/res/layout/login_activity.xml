@@ -48,32 +48,4 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:srcCompat="@tools:sample/avatars[0]" />
 
-    <Button
-        android:id="@+id/btnRegister"
-        android:layout_width="150dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="75dp"
-        android:text="@string/register"
-        app:layout_constraintEnd_toEndOf="@+id/btnLogin"
-        app:layout_constraintStart_toStartOf="@+id/btnLogin"
-        app:layout_constraintTop_toBottomOf="@+id/btnLogin" />
-
-    <Button
-        android:id="@+id/btnForgotUsername"
-        android:layout_width="150dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:text="@string/forgot_username"
-        app:layout_constraintEnd_toEndOf="@+id/btnRegister"
-        app:layout_constraintStart_toStartOf="@+id/btnRegister"
-        app:layout_constraintTop_toBottomOf="@+id/btnRegister" />
-
-    <Button
-        android:id="@+id/btnForgotPassword"
-        android:layout_width="150dp"
-        android:layout_height="wrap_content"
-        android:text="@string/forgot_password"
-        app:layout_constraintEnd_toEndOf="@+id/btnForgotUsername"
-        app:layout_constraintStart_toStartOf="@+id/btnForgotUsername"
-        app:layout_constraintTop_toBottomOf="@+id/btnForgotUsername" />
 </androidx.constraintlayout.widget.ConstraintLayout>

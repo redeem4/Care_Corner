@@ -9,7 +9,7 @@ import android.widget.Button;
 
 public class WelcomeActivity extends AppCompatActivity {
 
-    private Button btnLogin, btnResources;
+    private Button btnLogin, btnResources, btnRegister, BtnForgotUsername, BtnForgotPassword;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,21 +32,35 @@ public class WelcomeActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        btnRegister.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(WelcomeActivity.this, RegisterActivity.class);
+                startActivity(intent);
+            }
+        });
+        BtnForgotUsername.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(WelcomeActivity.this, ForgotUsernameActivity.class);
+                startActivity(intent);
+            }
+        });
+        BtnForgotPassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(WelcomeActivity.this, ForgotPasswordActivity.class);
+                startActivity(intent);
+            }
+        });
+
     }
 
     private void initViews() {
         btnLogin = findViewById(R.id.btnLoginMenu);
         btnResources = findViewById(R.id.btnResources);
-    }
-
-    /**
-     * Overrides the Back Button functionality to return to the welcome screen.
-     */
-    @Override
-    public void onBackPressed()
-    {
-        super.onBackPressed();
-        Intent intent = new Intent(WelcomeActivity.this, WelcomeActivity.class);
-        startActivity(intent);
+        btnRegister = findViewById(R.id.btnRegister);
+        BtnForgotUsername = findViewById(R.id.btnForgotUsername);
+        BtnForgotPassword = findViewById(R.id.btnForgotPassword);
     }
 }

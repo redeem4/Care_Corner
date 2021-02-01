@@ -9,11 +9,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.CareCorner">
-        <activity android:name=".DialingActivity"></activity>
+
         <activity android:name=".WelcomeActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -23,9 +22,6 @@
         <activity android:name=".ForgotUsernameActivity" />
         <activity android:name=".RegisterActivity" />
         <activity android:name=".ResourceActivity" />
-        <activity android:name=".FakePhoneCallMenuActivity" />
-        <activity android:name=".CallingActivity" />
-        <service android:name=".EmulatedVoiceService" />
     </application>
 
 </manifest>

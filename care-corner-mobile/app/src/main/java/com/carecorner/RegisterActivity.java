@@ -2,7 +2,6 @@ package com.carecorner;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Intent;
 import android.os.Bundle;
 
 public class RegisterActivity extends AppCompatActivity {
@@ -11,16 +10,5 @@ public class RegisterActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.register_activity);
-    }
-
-    /**
-     * Overrides the Back Button functionality to return to the login screen.
-     */
-    @Override
-    public void onBackPressed()
-    {
-        super.onBackPressed();
-        Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
-        startActivity(intent);
     }
 }
