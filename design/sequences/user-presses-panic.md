@@ -4,6 +4,7 @@
 
 ```mermaid
 sequenceDiagram
+    Care Corner User-->Mobile: Presses panic button
     alt if logged in
     Mobile->Mobile: genearte network packet with Auth header
     else not logged in
