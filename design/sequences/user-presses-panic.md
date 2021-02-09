@@ -17,6 +17,9 @@ sequenceDiagram
     Mobile->>Api: retry panic until connection
     Mobile->>Mobile: call 911 over cell network
     end
+    Mobile->>Mobile: start recording audio/video
+    Mobile-->>Api: stream media
+    Mobile->>Mobile: record audio/video locally
 ```
 
 
