@@ -24,4 +24,9 @@
     <string name="name">Name</string>
     <string name="phone">Phone</string>
     <string name="date">Date</string>
+    <string name="incoming_call">Incoming Call</string>
+    <string name="caller_id">Caller ID</string>
+    <string name="send_message">Send Message</string>
+    <string name="mobile">Mobile: Phone Number Placeholder</string>
+    <string name="select_voice">Select Voice:</string>
 </resources>

@@ -24,9 +24,9 @@
         android:layout_marginTop="8dp"
         android:text="@string/fake_call"
         android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="@+id/fake_call_image"
-        app:layout_constraintStart_toStartOf="@+id/fake_call_image"
-        app:layout_constraintTop_toBottomOf="@+id/fake_call_image" />
+        app:layout_constraintEnd_toEndOf="@+id/btnFakePhoneCall"
+        app:layout_constraintStart_toStartOf="@+id/btnFakePhoneCall"
+        app:layout_constraintTop_toBottomOf="@+id/btnFakePhoneCall" />
 
     <TextView
         android:id="@+id/mombot_text"
@@ -35,9 +35,9 @@
         android:layout_marginTop="8dp"
         android:text="@string/mombot"
         android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="@+id/mombot_image"
-        app:layout_constraintStart_toStartOf="@+id/mombot_image"
-        app:layout_constraintTop_toBottomOf="@+id/mombot_image" />
+        app:layout_constraintEnd_toEndOf="@+id/btnMomBot"
+        app:layout_constraintStart_toStartOf="@+id/btnMomBot"
+        app:layout_constraintTop_toBottomOf="@+id/btnMomBot" />
 
     <TextView
         android:id="@+id/start_walk_text"
@@ -46,9 +46,9 @@
         android:layout_marginTop="8dp"
         android:text="@string/start_walk"
         android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="@+id/start_walk_image"
-        app:layout_constraintStart_toStartOf="@+id/start_walk_image"
-        app:layout_constraintTop_toBottomOf="@+id/start_walk_image" />
+        app:layout_constraintEnd_toEndOf="@+id/btnSafeWalk"
+        app:layout_constraintStart_toStartOf="@+id/btnSafeWalk"
+        app:layout_constraintTop_toBottomOf="@+id/btnSafeWalk" />
 
     <TextView
         android:id="@+id/journal_text"
@@ -57,9 +57,9 @@
         android:layout_marginTop="8dp"
         android:text="@string/journal"
         android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="@+id/journal_image"
-        app:layout_constraintStart_toStartOf="@+id/journal_image"
-        app:layout_constraintTop_toBottomOf="@+id/journal_image" />
+        app:layout_constraintEnd_toEndOf="@+id/btnJournal"
+        app:layout_constraintStart_toStartOf="@+id/btnJournal"
+        app:layout_constraintTop_toBottomOf="@+id/btnJournal" />
 
     <TextView
         android:id="@+id/resources_text"
@@ -68,9 +68,9 @@
         android:layout_marginTop="8dp"
         android:text="@string/resources"
         android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="@+id/resources_image"
-        app:layout_constraintStart_toStartOf="@+id/resources_image"
-        app:layout_constraintTop_toBottomOf="@+id/resources_image" />
+        app:layout_constraintEnd_toEndOf="@+id/btnResourcesMenu"
+        app:layout_constraintStart_toStartOf="@+id/btnResourcesMenu"
+        app:layout_constraintTop_toBottomOf="@+id/btnResourcesMenu" />
 
     <TextView
         android:id="@+id/reporting_assistance_text"
@@ -79,71 +79,77 @@
         android:layout_marginTop="8dp"
         android:text="@string/reporting_assistance"
         android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="@+id/reporting_assistance_image"
+        app:layout_constraintEnd_toEndOf="@+id/btnReportingAssistance"
         app:layout_constraintHorizontal_bias="0.53"
-        app:layout_constraintStart_toStartOf="@+id/reporting_assistance_image"
-        app:layout_constraintTop_toBottomOf="@+id/reporting_assistance_image" />
+        app:layout_constraintStart_toStartOf="@+id/btnReportingAssistance"
+        app:layout_constraintTop_toBottomOf="@+id/btnReportingAssistance" />
 
-    <ImageView
-        android:id="@+id/fake_call_image"
+    <ImageButton
+        android:id="@+id/btnFakePhoneCall"
         android:layout_width="72dp"
         android:layout_height="70dp"
         android:layout_marginTop="50dp"
         android:layout_marginEnd="200dp"
         android:layout_marginRight="200dp"
+        android:visibility="visible"
         app:layout_constraintEnd_toEndOf="@+id/CareCornerLogo"
         app:layout_constraintStart_toStartOf="@+id/CareCornerLogo"
         app:layout_constraintTop_toBottomOf="@+id/CareCornerLogo"
-        tools:srcCompat="@tools:sample/avatars" />
+        app:srcCompat="@drawable/fake_phone_call_image" />
 
-    <ImageView
-        android:id="@+id/mombot_image"
+    <ImageButton
+        android:id="@+id/btnMomBot"
         android:layout_width="72dp"
         android:layout_height="70dp"
         android:layout_marginStart="200dp"
         android:layout_marginLeft="200dp"
         android:layout_marginTop="50dp"
+        android:visibility="visible"
         app:layout_constraintEnd_toEndOf="@+id/CareCornerLogo"
         app:layout_constraintStart_toStartOf="@+id/CareCornerLogo"
         app:layout_constraintTop_toBottomOf="@+id/CareCornerLogo"
         tools:srcCompat="@tools:sample/avatars" />
 
-    <ImageView
-        android:id="@+id/start_walk_image"
+    <ImageButton
+        android:id="@+id/btnSafeWalk"
         android:layout_width="72dp"
         android:layout_height="70dp"
         android:layout_marginTop="50dp"
+        android:visibility="visible"
         app:layout_constraintEnd_toEndOf="@+id/fake_call_text"
         app:layout_constraintStart_toStartOf="@+id/fake_call_text"
         app:layout_constraintTop_toBottomOf="@+id/fake_call_text"
         tools:srcCompat="@tools:sample/avatars" />
 
-    <ImageView
-        android:id="@+id/journal_image"
+    <ImageButton
+        android:id="@+id/btnJournal"
         android:layout_width="72dp"
         android:layout_height="70dp"
         android:layout_marginTop="50dp"
+        android:visibility="visible"
         app:layout_constraintEnd_toEndOf="@+id/mombot_text"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/mombot_text"
         app:layout_constraintTop_toBottomOf="@+id/mombot_text"
         tools:srcCompat="@tools:sample/avatars" />
 
-    <ImageView
-        android:id="@+id/resources_image"
+    <ImageButton
+        android:id="@+id/btnResourcesMenu"
         android:layout_width="72dp"
         android:layout_height="70dp"
         android:layout_marginTop="50dp"
+        android:visibility="visible"
         app:layout_constraintEnd_toEndOf="@+id/start_walk_text"
         app:layout_constraintStart_toStartOf="@+id/start_walk_text"
         app:layout_constraintTop_toBottomOf="@+id/start_walk_text"
         tools:srcCompat="@tools:sample/avatars" />
 
-    <ImageView
-        android:id="@+id/reporting_assistance_image"
+    <ImageButton
+        android:id="@+id/btnReportingAssistance"
         android:layout_width="72dp"
         android:layout_height="70dp"
         android:layout_marginTop="50dp"
+        android:visibility="visible"
         app:layout_constraintEnd_toEndOf="@+id/journal_text"
         app:layout_constraintHorizontal_bias="0.416"
         app:layout_constraintStart_toStartOf="@+id/journal_text"
