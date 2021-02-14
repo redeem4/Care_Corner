@@ -22,8 +22,8 @@
         <activity android:name=".ForgotUsernameActivity" />
         <activity android:name=".RegisterActivity" />
         <activity android:name=".ResourceActivity" />
-        <activity android:name=".Fake_Phone_Call_Menu_Activity" />
-        <activity android:name=".Fake_Phone_Call_Activity" />
+        <activity android:name=".FakePhoneCallMenuActivity" />
+        <activity android:name=".CallingActivity" />
     </application>
 
 </manifest>

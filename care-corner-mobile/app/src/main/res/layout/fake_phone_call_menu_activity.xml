@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Fake_Phone_Call_Menu_Activity">
+    tools:context=".FakePhoneCallMenuActivity">
 
     <TextView
         android:id="@+id/fake_call_header_text"
@@ -65,45 +65,65 @@
         android:layout_width="250dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
+        android:hint="@string/phone"
+        android:inputType="phone"
         app:layout_constraintEnd_toEndOf="@+id/nameEntryBox"
         app:layout_constraintStart_toStartOf="@+id/nameEntryBox"
-        app:layout_constraintTop_toBottomOf="@+id/nameEntryBox"
-        android:hint="@string/phone"
-        android:inputType="phone" />
+        app:layout_constraintTop_toBottomOf="@+id/nameEntryBox" />
 
-    <EditText
-        android:id="@+id/dateEntryBox"
-        android:layout_width="250dp"
+    <Spinner
+        android:id="@+id/spinnerWaitTime"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
+        android:layout_marginStart="100dp"
+        android:layout_marginLeft="100dp"
+        android:layout_marginTop="20dp"
         app:layout_constraintEnd_toEndOf="@+id/phoneEntryBox"
         app:layout_constraintStart_toStartOf="@+id/phoneEntryBox"
-        app:layout_constraintTop_toBottomOf="@+id/phoneEntryBox"
-        android:hint="@string/date"
-        android:inputType="date" />
+        app:layout_constraintTop_toBottomOf="@+id/phoneEntryBox" />
 
     <Spinner
         android:id="@+id/spinnerVoice"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="100dp"
-        android:layout_marginLeft="100dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="20dp"
         android:visibility="visible"
-        app:layout_constraintEnd_toEndOf="@+id/dateEntryBox"
-        app:layout_constraintStart_toStartOf="@+id/dateEntryBox"
-        app:layout_constraintTop_toBottomOf="@+id/dateEntryBox" />
+        app:layout_constraintEnd_toEndOf="@+id/spinnerWaitTime"
+        app:layout_constraintStart_toStartOf="@+id/spinnerWaitTime"
+        app:layout_constraintTop_toBottomOf="@+id/spinnerWaitTime" />
 
     <TextView
         android:id="@+id/textSelectVoice"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
+        android:text="@string/select_voice"
+        app:layout_constraintEnd_toEndOf="@+id/textView"
+        app:layout_constraintStart_toStartOf="@+id/textView"
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+    <Button
+        android:id="@+id/btnSet"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="100dp"
+        android:layout_marginRight="100dp"
+        android:text="@string/set"
+        app:layout_constraintEnd_toEndOf="@+id/spinnerVoice"
+        app:layout_constraintStart_toStartOf="@+id/spinnerVoice"
+        app:layout_constraintTop_toBottomOf="@+id/spinnerVoice" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
         android:layout_marginEnd="160dp"
         android:layout_marginRight="160dp"
-        android:text="@string/select_voice"
-        app:layout_constraintEnd_toEndOf="@+id/dateEntryBox"
-        app:layout_constraintStart_toStartOf="@+id/dateEntryBox"
-        app:layout_constraintTop_toBottomOf="@+id/dateEntryBox" />
+        android:text="@string/waiting_time"
+        app:layout_constraintEnd_toEndOf="@+id/phoneEntryBox"
+        app:layout_constraintStart_toStartOf="@+id/phoneEntryBox"
+        app:layout_constraintTop_toBottomOf="@+id/phoneEntryBox" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

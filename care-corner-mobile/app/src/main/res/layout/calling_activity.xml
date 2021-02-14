@@ -4,20 +4,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Fake_Phone_Call_Activity">
+    tools:context=".CallingActivity">
 
     <TextView
         android:id="@+id/incoming_call_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="8dp"
         android:layout_marginTop="7dp"
-        android:layout_marginRight="8dp"
+        android:gravity="center"
         android:text="@string/incoming_call"
         android:textColor="@android:color/black"
-        app:layout_constraintHorizontal_bias="0.028"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
@@ -63,7 +61,7 @@
         app:layout_constraintTop_toBottomOf="@+id/caller_id_text" />
 
     <ImageButton
-        android:id="@+id/BtnAcceptCall"
+        android:id="@+id/btnAcceptCall"
         android:layout_width="114dp"
         android:layout_height="85dp"
         android:layout_marginLeft="35dp"
@@ -74,7 +72,7 @@
         app:srcCompat="@drawable/accept_call_button" />
 
     <ImageButton
-        android:id="@+id/BtnRejectCall"
+        android:id="@+id/btnRejectCall"
         android:layout_width="106dp"
         android:layout_height="79dp"
         android:layout_marginTop="85dp"

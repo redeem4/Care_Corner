@@ -24,9 +24,27 @@
     <string name="name">Name</string>
     <string name="phone">Phone</string>
     <string name="date">Date</string>
-    <string name="incoming_call">Incoming Call</string>
+    <string name="incoming_call">Calling...</string>
     <string name="caller_id">Caller ID</string>
     <string name="send_message">Send Message</string>
     <string name="mobile">Mobile: Phone Number Placeholder</string>
     <string name="select_voice">Select Voice:</string>
+    <string name="set">Set</string>
+    <string name="waiting_time">Waiting Time:</string>
+
+
+    <string-array name="spinnerWaitTime">
+        <item>Now</item>
+        <item>15 seconds</item>
+        <item>1 minute</item>
+        <item>30 minutes</item>
+        <item>1 hour</item>
+        <item>3 hours</item>
+    </string-array>
+
+    <string-array name="spinnerVoice">
+        <item>malevoice.mp3</item>
+        <item>femalevoice.mp3</item>
+        <item>femalevoice2.mp3</item>
+    </string-array>
 </resources>
