@@ -31,6 +31,12 @@
     <string name="select_voice">Select Voice:</string>
     <string name="set">Set</string>
     <string name="waiting_time">Waiting Time:</string>
+    <string name="add_call">Add call</string>
+    <string name="message">Message</string>
+    <string name="bluetooth">Bluetooth</string>
+    <string name="speaker">Speaker</string>
+    <string name="keypad">Keypad</string>
+    <string name="mute">Mute</string>
 
 
     <string-array name="spinnerWaitTime">
