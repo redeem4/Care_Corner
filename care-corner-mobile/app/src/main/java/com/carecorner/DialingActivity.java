@@ -6,11 +6,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Chronometer;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class DialingActivity extends AppCompatActivity {
 
@@ -53,6 +53,15 @@ public class DialingActivity extends AppCompatActivity {
 
                 AlertDialog recordingAlert = builder.create();
                 recordingAlert.show();
+            }
+        });
+
+        btnRejectCall.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                //TODO: Implement Panic Button Feature and place function call here.
+                Toast.makeText(DialingActivity.this, "Panic Button Activated!", Toast.LENGTH_SHORT).show();
+                return true;
             }
         });
     }
