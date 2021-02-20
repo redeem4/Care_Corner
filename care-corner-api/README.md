@@ -56,4 +56,13 @@ Install maven, wink sdkman
 
 
 
+## Running
+
+    mvn clean install
+
+
+
+## Deploying
+
+    sls deploy
 
