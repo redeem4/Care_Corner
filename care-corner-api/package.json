@@ -13,8 +13,5 @@
     "node": "14.15.5",
     "npm": "7.5.4",
     "yarn": "1.22.10"
-  },
-  "devDependencies": {
-    "serverless-localstack": "^0.4.28"
   }
 }
