@@ -17,10 +17,27 @@ import android.widget.Toast;
 
 public class JournalMenuActivity extends AppCompatActivity {
 
+    private Button btnHome;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.journal_menu_activity);
+
+        initViews();
+
+        //button to click to go back to the home screen
+        btnHome.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(JournalMenuActivity.this, MainMenuActivity.class);
+                startActivity(intent);
+            }
+        });
+
+
+    }
+    private void initViews() {
+        btnHome = findViewById(R.id.btnHome);
     }
 }
 
