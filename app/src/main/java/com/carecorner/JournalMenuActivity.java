@@ -17,7 +17,7 @@ import android.widget.Toast;
 
 public class JournalMenuActivity extends AppCompatActivity {
 
-    private Button btnHome;
+    private Button btnHome, btnCreate, btnDelete, btnEdit;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,10 +34,40 @@ public class JournalMenuActivity extends AppCompatActivity {
             }
         });
 
+        //button to click to create a new entry
+        btnCreate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+            //    Intent intent = new Intent(JournalMenuActivity.this, JournalEditorActivity.class);
+             //   startActivity(intent);
+            }
+        });
+
+        //button to click to delete a selected entry
+        btnDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+               //TODO: delete selected journal entry
+                //TODO: update screen to remove journal from checkbox
+               // Toast.makeText(JournalMenuActivity.this, "Your entry has been deleted!", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        //button to click to edit a selected entry
+        btnEdit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //    Intent intent = new Intent(JournalMenuActivity.this, JournalEditorActivity.class);
+                //   startActivity(intent);
+            }
+        });
 
     }
     private void initViews() {
         btnHome = findViewById(R.id.btnHome);
+        btnCreate = findViewById(R.id.btnCreate);
+        btnDelete = findViewById(R.id.btnDelete);
+        btnEdit = findViewById(R.id.btnEdit);
     }
 }
 
