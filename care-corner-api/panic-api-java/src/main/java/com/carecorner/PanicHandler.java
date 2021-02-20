@@ -1,4 +1,4 @@
-package com.serverless;
+package com.carecorner;
 
 import java.util.Collections;
 import java.util.Map;
@@ -9,7 +9,7 @@ import org.apache.logging.log4j.Logger;
 import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.RequestHandler;
 
-public class Handler implements RequestHandler<Map<String, Object>, ApiGatewayResponse> {
+public class PanicHandler implements RequestHandler<Map<String, Object>, ApiGatewayResponse> {
 
 	private static final Logger LOG = LogManager.getLogger(Handler.class);
 

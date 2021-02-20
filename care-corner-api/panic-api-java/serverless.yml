@@ -1,11 +1,5 @@
 # Welcome to Serverless!
 #
-# This file is the main config file for your service.
-# It's very minimal at this point and uses default values.
-# You can always add more config options for more control.
-# We've included some commented out config examples here.
-# Just uncomment any of them to get that config option.
-#
 # For full config options, check the docs:
 #    docs.serverless.com
 #
@@ -51,11 +45,17 @@ provider:
 
 # you can add packaging information here
 package:
-  artifact: target/hello-dev.jar
+  artifact: 'target/${self:service}-${self:provider.stage}.jar'
 
 functions:
-  hello:
-    handler: com.serverless.Handler
+  panic:
+    handler: com.carecorner.PanicHandler
+    events:
+      - http:
+        path: /panic
+        method: post
+
+
 #    The following are a few example events you can configure
 #    NOTE: Please make sure to change your handler code to work with those events
 #    Check the event documentation for details
