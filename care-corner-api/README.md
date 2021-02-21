@@ -61,13 +61,29 @@ Install packages:
     yarn
 
 Issue with java serverless, one time thing:
-${NPM_DIR}/node_modules/serverless/lib/plugins/aws/invokeLocal/java and run mvn package
+https://github.com/serverless/serverless/issues/5030
 
-## Running
+.volta/tools/image/packages/serverless/lib/node_modules/serverless/lib/plugins/aws/invokeLocal/runtimeWrappers/java
+
+or ${NPM_DIR}/node_modules/serverless/lib/plugins/aws/invokeLocal/runtimeWrappers/java
+
+and run mvn package
+
+## Building
 
     mvn clean install
 
-    npx sls invoke local --function panic
+## Running
+
+
+    sls invoke local --function panic
+
+To log your requests verbossely to troubleshoot, add the l switch:
+
+    export SLS_DEBUG=*
+    sls invoke local -f panic -l
+
+    sls logs -f panic
 
 
 ## Deploying
