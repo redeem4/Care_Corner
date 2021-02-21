@@ -18,11 +18,12 @@ public class PanicHandler implements RequestHandler<Map<String, Object>, ApiGate
 	
 	@Override
 	public ApiGatewayResponse handleRequest(Map<String, Object> input, Context context) {
-		logger.info("Panic Handler received: {}", input);
+		logger.debug("Panic Handler received: {}", input);
 		
 		try {
-			// obtain the boody from input
-			JsonNode body = new ObjectMapper().readTree((String) input.get("body"));
+			// obtain the body from input
+			//JsonNode body = new ObjectMapper().readTree((String)input.get("body"));
+			logger.debug(input.get("name"));
 
 		} catch (Exception exception) {
 			logger.error("Error in panic: " + exception);
