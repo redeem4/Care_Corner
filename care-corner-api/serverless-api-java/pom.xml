@@ -2,10 +2,10 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>com.carecorner</groupId>
-  <artifactId>panic-api</artifactId>
+  <artifactId>care-corner-api-java</artifactId>
   <packaging>jar</packaging>
   <version>dev</version>
-  <name>panic-api</name>
+  <name>care-corner-api-java</name>
 
   <properties>
     <maven.compiler.source>1.8</maven.compiler.source>

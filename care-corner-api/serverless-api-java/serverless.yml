@@ -16,8 +16,9 @@ frameworkVersion: '2'
 
 provider:
   name: aws
-  runtime: java8
+  runtime: java11
   lambdaHashingVersion: 20201221
+
 
 # you can overwrite defaults here
 #  stage: dev
@@ -55,20 +56,20 @@ functions:
           path: /panic
           method: post
 
-plugins: 
-  - serverless-localstack
+#plugins: 
+#  - serverless-localstack
 
-custom:
-  localstack:
-    stages:
-      - local
-    host: http://localhost
-    edgePort: 4566
-    autostart: true
-    lambda: 
-      mountCode: True
-    docker: 
-      sudo: False
+#custom:
+#  localstack:
+#    stages:
+#      - local
+#    host: http://localhost
+#    edgePort: 4566
+#    autostart: true
+#    lambda: 
+#      mountCode: True
+#    docker: 
+#      sudo: False
 
 #    The following are a few example events you can configure
 #    NOTE: Please make sure to change your handler code to work with those events
