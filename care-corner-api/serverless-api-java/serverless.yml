@@ -5,7 +5,7 @@
 #
 # Happy Coding!
 
-service: panic-api-java
+service: care-corner-api-java
 # app and org for use with dashboard.serverless.com
 #app: your-app-name
 #org: your-org-name
@@ -52,9 +52,23 @@ functions:
     handler: com.carecorner.PanicHandler
     events:
       - http:
-        path: /panic
-        method: post
+          path: /panic
+          method: post
 
+plugins: 
+  - serverless-localstack
+
+custom:
+  localstack:
+    stages:
+      - local
+    host: http://localhost
+    edgePort: 4566
+    autostart: true
+    lambda: 
+      mountCode: True
+    docker: 
+      sudo: False
 
 #    The following are a few example events you can configure
 #    NOTE: Please make sure to change your handler code to work with those events

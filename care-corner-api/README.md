@@ -44,8 +44,8 @@ https://volta.sh/
 
   volta install node
   volta install npm
-  volta install yarn
   volta install serverless
+  volta install yarn
 
 Install java SDK, not JRE, I recoommend sdkman: https://sdkman.io/
 Install maven, wink sdkman
@@ -55,11 +55,19 @@ Install maven, wink sdkman
   Tip: sls is short for serverless.
 
 
+Install packages:
+    cd serverless-api-java
+
+    yarn
+
+Issue with java serverless, one time thing:
+${NPM_DIR}/node_modules/serverless/lib/plugins/aws/invokeLocal/java and run mvn package
 
 ## Running
 
     mvn clean install
 
+    npx sls invoke local --function panic
 
 
 ## Deploying
