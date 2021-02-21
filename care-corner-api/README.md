@@ -1,92 +1,89 @@
 # Care Corner API
 
-
 ## Setting Up
 
-### AWS SAM
+ Requirements: 
+  - Node
+  - Npm
+  - Yarn
+  - Serverless
+  - Java 11 SDK
+  - Maven
 
-The AWS Serverless Application Model (AWS SAM) is an open-source framework
-that you can use to build serverless applications on AWS.
+### Node/Npm/Yarn/Serverless
 
-Install the AWS SAM CLI:
+Install Volta to help with cross-platform support:
 
-    https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/serverless-sam-cli-install.html
+    https://docs.volta.sh/guide/getting-started
 
+Install node, npm, serverless, and yarn:
 
+    volta install node
+    volta install npm
+    volta install yarn
+    volta install serverless
 
+### Java/Maven
 
-Install Serverless:
+Install the Java 11 SDK, not the JRE.
+I recommend managing in a cross-platform fashion via Sdkman: 
+  
+    https://sdkman.io/ 
 
-Install Node and npm:
+Install Java, Maven:
 
-
-
-https://www.serverless.com/blog/how-to-create-a-rest-api-in-java-using-dynamodb-and-serverless
-
-
- https://www.serverless.com/blog/how-to-create-a-rest-api-in-java-using-dynamodb-and-serverless
-
-
- https://github.com/localstack/localstack
-
-
-
-### Creating new Serverless projects
-
-
-Java: https://www.serverless.com/blog/how-to-create-a-rest-api-in-java-using-dynamodb-and-serverless
-
-Python: https://www.serverless.com/framework/docs/providers/aws/examples/hello-world/python/
-
-https://volta.sh/
-
-  https://docs.volta.sh/guide/getting-started
-
-  volta install node
-  volta install npm
-  volta install serverless
-  volta install yarn
-
-Install java SDK, not JRE, I recoommend sdkman: https://sdkman.io/
-Install maven, wink sdkman
-
-  Now, node, npm, yarn, and serverless should be available in any project.
-
-  Tip: sls is short for serverless.
+    sdk install java
+    sdk install maven
 
 
-Install packages:
+Install node packages:
+
     cd serverless-api-java
-
     yarn
-
-Issue with java serverless, one time thing:
-https://github.com/serverless/serverless/issues/5030
-
-.volta/tools/image/packages/serverless/lib/node_modules/serverless/lib/plugins/aws/invokeLocal/runtimeWrappers/java
-
-or ${NPM_DIR}/node_modules/serverless/lib/plugins/aws/invokeLocal/runtimeWrappers/java
-
-and run mvn package
 
 ## Building
 
+    cd serverless-api-java
     mvn clean install
 
 ## Running
 
-
+    cd serverless-api-java
     sls invoke local --function panic
 
-To log your requests verbossely to troubleshoot, add the l switch:
+ Tip: `sls` is an alisas provided for `serverless`. 
+
+ To run with test data, use the `d` or `p` switch:
+
+      sls invoke local -f panic -p data/panic.json
+
+To log your requests verbosely to troubleshoot, add the 'l' switch:
 
     export SLS_DEBUG=*
     sls invoke local -f panic -l
 
     sls logs -f panic
 
+Note: There is a potential issue with the Java invoker depending on how
+your specific machine is setup.
+
+If your command line hangs with this message, 
+"Serverless: Building Java bridge, first invocation might take a bit longer." 
+Do the following:
+
+  cd .volta/tools/image/packages/serverless/lib/node_modules/serverless/lib/plugins/aws/invokeLocal/runtimeWrappers/java
+  mvn package
+
+See the respective Github Issues:
+
+  - https://github.com/serverless/serverless/issues/5030
+  - https://github.com/serverless/serverless/issues/8859
 
 ## Deploying
+
+Serverless is able to deploy to AWS easily. 
+
+WIP, will require AWS account access and a bit of prior provisioning. 
 
     sls deploy
 
