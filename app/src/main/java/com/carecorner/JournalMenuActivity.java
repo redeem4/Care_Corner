@@ -14,10 +14,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
+import androidx.recyclerview.widget.RecyclerView;
 
 public class JournalMenuActivity extends AppCompatActivity {
 
-    private Button btnHome, btnCreate, btnDelete, btnEdit;
+    private Button btnHome, btnCreate, btnDelete, btnEdit, btnView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,7 +34,14 @@ public class JournalMenuActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
+        //button to view list
+        btnView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(JournalMenuActivity.this, JournalRecyclerMain.class);
+                startActivity(intent);
+            }
+        });
         //button to click to create a new entry
         btnCreate.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -68,6 +76,7 @@ public class JournalMenuActivity extends AppCompatActivity {
         btnCreate = findViewById(R.id.btnCreate);
         btnDelete = findViewById(R.id.btnDelete);
         btnEdit = findViewById(R.id.btnEdit);
+        btnView = findViewById(R.id.btnView);
     }
 }
 

@@ -4,7 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#81BBEA"
     tools:context=".JournalMenuActivity">
+
 
     <TextView
         android:id="@+id/my_journal"
@@ -13,6 +15,7 @@
         android:layout_marginTop="36dp"
         android:layout_marginEnd="32dp"
         android:layout_marginRight="32dp"
+        android:fontFamily="@font/playfair_display_bold"
         android:text="@string/my_journal"
         android:textAppearance="@style/TextAppearance.AppCompat.Display2"
         app:layout_constraintEnd_toEndOf="parent"
@@ -29,7 +32,11 @@
         android:layout_marginTop="37dp"
         android:layout_marginEnd="209dp"
         android:layout_marginRight="209dp"
+        android:background="@android:color/white"
+        android:fontFamily="@font/lato"
         android:text="@string/return_home"
+        android:textColor="@android:color/black"
+        app:backgroundTint="#FCFDFF"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/my_journal" />
@@ -43,6 +50,7 @@
         android:layout_marginTop="36dp"
         android:layout_marginEnd="30dp"
         android:layout_marginRight="30dp"
+        android:fontFamily="@font/lato"
         android:text="@string/new_entry"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
@@ -58,6 +66,7 @@
         android:layout_marginEnd="28dp"
         android:layout_marginRight="28dp"
         android:layout_marginBottom="36dp"
+        android:fontFamily="@font/lato"
         android:text="@string/delete_entry"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -73,11 +82,25 @@
         android:layout_marginEnd="50dp"
         android:layout_marginRight="50dp"
         android:layout_marginBottom="13dp"
+        android:fontFamily="@font/lato"
         android:text="@string/edit_entry"
         app:layout_constraintBottom_toTopOf="@+id/btnDelete"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
+    <Button
+        android:id="@+id/btnView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="136dp"
+        android:layout_marginLeft="136dp"
+        android:layout_marginBottom="340dp"
+        android:fontFamily="@font/lato"
+        android:text="@string/view_recycler"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+
 

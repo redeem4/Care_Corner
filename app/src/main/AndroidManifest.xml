@@ -26,6 +26,11 @@
         <activity android:name=".FakePhoneCallMenuActivity" />
         <activity android:name=".CallingActivity" />
         <activity android:name=".JournalMenuActivity" />
+        <activity android:name=".JournalRecyclerMain" />
+
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
     </application>
 
 </manifest>
