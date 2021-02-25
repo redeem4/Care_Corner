@@ -2,7 +2,7 @@
 
 ## Setting Up
 
- Requirements: 
+ Requirements:
   - Node
   - Npm
   - Yarn
@@ -26,9 +26,9 @@ Install node, npm, serverless, and yarn:
 ### Java/Maven
 
 Install the Java 11 SDK, not the JRE.
-I recommend managing in a cross-platform fashion via Sdkman: 
-  
-    https://sdkman.io/ 
+I recommend managing in a cross-platform fashion via Sdkman:
+
+    https://sdkman.io/
 
 Install Java, Maven:
 
@@ -51,7 +51,7 @@ Install node packages:
     cd serverless-api-java
     sls invoke local --function panic
 
- Tip: `sls` is an alisas provided for `serverless`. 
+ Tip: `sls` is an alisas provided for `serverless`.
 
  To run with test data, use the `d` or `p` switch:
 
@@ -67,8 +67,8 @@ To log your requests verbosely to troubleshoot, add the 'l' switch:
 Note: There is a potential issue with the Java invoker depending on how
 your specific machine is setup.
 
-If your command line hangs with this message, 
-"Serverless: Building Java bridge, first invocation might take a bit longer." 
+If your command line hangs with this message,
+"Serverless: Building Java bridge, first invocation might take a bit longer."
 Do the following:
 
   cd .volta/tools/image/packages/serverless/lib/node_modules/serverless/lib/plugins/aws/invokeLocal/runtimeWrappers/java
@@ -79,11 +79,33 @@ See the respective Github Issues:
   - https://github.com/serverless/serverless/issues/5030
   - https://github.com/serverless/serverless/issues/8859
 
+## Localstack
+
+### Invoking API Gateway
+
+While API Gateway endpoints on AWS use a custom DNS name to identify the API ID
+(e.g., https://nmafetnwf6.execute-api.us-east-1.amazonaws.com/prod/my/path),
+LocalStack uses the special URL path indicator .../_user_request_/... to indicate
+the execution of a REST API method.
+
+The URL pattern for API Gateway executions is
+http://localhost:4566/restapis/<apiId>/<stage>/_user_request_/<methodPath>.
+The example URL above would map to the following localhost URL:
+
+$ curl http://localhost:4566/restapis/nmafetnwf6/prod/_user_request_/my/path
+
 ## Deploying
 
-Serverless is able to deploy to AWS easily. 
+### Localstack
 
-WIP, will require AWS account access and a bit of prior provisioning. 
+    serverless deploy --stage local
+
+
+### Production
+
+Serverless is able to deploy to AWS easily.
+
+WIP, will require AWS account access and a bit of prior provisioning.
 
     sls deploy
 
