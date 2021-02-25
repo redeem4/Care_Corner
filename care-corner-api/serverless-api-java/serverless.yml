@@ -44,7 +44,6 @@ provider:
 #  environment:
 #    variable1: value1
 
-# you can add packaging information here
 package:
   artifact: 'target/${self:service}-${self:provider.stage}.jar'
 
