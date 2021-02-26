@@ -51,7 +51,10 @@ public class CallingActivity extends AppCompatActivity {
         });
     }
 
-    //Function to setup Call Screen based upon User Information
+    /**
+     * Sets up Call Screen based upon User Input gathered from the Fake Phone Call Menu Activity
+     * @param savedInstanceState This variable carries the saved User Input from the previous Activity.
+     */
     private void setCallerInfo(Bundle savedInstanceState) {
         if (savedInstanceState == null) {
             Bundle extras = getIntent().getExtras();
@@ -70,6 +73,9 @@ public class CallingActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Connects and initializes every element in the layout to a variable.
+     */
     private void initViews() {
         caller_id_text = findViewById(R.id.caller_id_text);
         phone_number_text = findViewById(R.id.phone_number_text);

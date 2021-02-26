@@ -68,6 +68,9 @@ public class FakePhoneCallMenuActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * Sets up Spinner Button Functionality and its associated elements.
+     */
     private void spinnerSetup() {
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.spinnerWaitTime, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -82,34 +85,22 @@ public class FakePhoneCallMenuActivity extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 String wait = waitTime.getItemAtPosition(position).toString();
                 if(wait.equals("Now"))
-                {
                     timeToStart = 0;
-                }
 
                 if(wait.equals("15 seconds"))
-                {
                     timeToStart = 15000;
-                }
 
                 if(wait.equals("1 minute"))
-                {
                     timeToStart = 60000;
-                }
 
                 if(wait.equals("30 minutes"))
-                {
                     timeToStart = 1800000;
-                }
 
                 if(wait.equals("1 hour"))
-                {
                     timeToStart = 3600000;
-                }
 
                 if(wait.equals("3 hours"))
-                {
                     timeToStart = 1080000;
-                }
             }
 
             @Override
@@ -124,19 +115,13 @@ public class FakePhoneCallMenuActivity extends AppCompatActivity {
                 String voiceSelect = voiceSelector.getItemAtPosition(position).toString();
                 //TODO: Replace below lines with correct audio file information when available.
                 if(voiceSelect.equals("malevoice.mp3"))
-                {
                     voice = "raw/malevoice.mp3";
-                }
 
                 if(voiceSelect.equals("femalevoice.mp3"))
-                {
                     voice = "raw/femalevoice.mp3";
-                }
 
                 if(voiceSelect.equals("femalevoice2.mp3"))
-                {
                     voice = "raw/femalevoice2.mp3";
-                }
             }
 
             @Override
@@ -146,6 +131,9 @@ public class FakePhoneCallMenuActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * Saves the data that was entered into the Fake Phone Call Menu for future use.
+     */
     private void saveSetupData() {
         //Below Code Segment retrieves fake phone call setup data from SharedPreferences
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
@@ -157,6 +145,9 @@ public class FakePhoneCallMenuActivity extends AppCompatActivity {
         phoneEntryBox.setText("" + phone1);
     }
 
+    /**
+     * Connects and initializes every element in the layout to a variable.
+     */
     private void initViews() {
         btnCall = findViewById(R.id.btnCall);
         btnRecordings = findViewById(R.id.btnRecordings);

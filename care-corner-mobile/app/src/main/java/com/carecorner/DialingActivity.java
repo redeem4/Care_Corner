@@ -66,13 +66,10 @@ public class DialingActivity extends AppCompatActivity {
         });
     }
 
-    private void initViews() {
-        caller_id_text = findViewById(R.id.caller_id_text_2);
-        phone_number_text = findViewById(R.id.phone_number_text_2);
-        btnRejectCall = findViewById(R.id.btnRejectCall2);
-        elapsedTimeCounter = findViewById(R.id.elapsedTime);
-    }
-
+    /**
+     * Sets up Dialing Screen based upon User Input initially gathered from the Fake Phone Call Menu Activity
+     * @param savedInstanceState This variable carries the saved User Input from the previous Activity.
+     */
     //Function to setup Call Screen based upon User Information
     private void setCallerInfo(Bundle savedInstanceState) {
         if (savedInstanceState == null) {
@@ -90,5 +87,15 @@ public class DialingActivity extends AppCompatActivity {
             getNameValue = (String) savedInstanceState.getSerializable("callerName");
             getPhoneValue = (String) savedInstanceState.getSerializable("callerPhoneNum");
         }
+    }
+
+    /**
+     * Connects and initializes every element in the layout to a variable.
+     */
+    private void initViews() {
+        caller_id_text = findViewById(R.id.caller_id_text_2);
+        phone_number_text = findViewById(R.id.phone_number_text_2);
+        btnRejectCall = findViewById(R.id.btnRejectCall2);
+        elapsedTimeCounter = findViewById(R.id.elapsedTime);
     }
 }
