@@ -52,7 +52,7 @@ functions:
     handler: com.carecorner.PanicHandler
     events:
       - http:
-          path: /panic
+          path: /api/panic
           method: post
 
 plugins:
