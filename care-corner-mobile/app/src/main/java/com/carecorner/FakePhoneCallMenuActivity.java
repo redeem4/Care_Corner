@@ -105,7 +105,7 @@ public class FakePhoneCallMenuActivity extends AppCompatActivity {
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-                //Auto-generated method stub
+                timeToStart = 0;
             }
         });
 
@@ -126,7 +126,7 @@ public class FakePhoneCallMenuActivity extends AppCompatActivity {
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-                //Auto-generated method stub
+                voice = "raw/malevoice.mp3";
             }
         });
     }
