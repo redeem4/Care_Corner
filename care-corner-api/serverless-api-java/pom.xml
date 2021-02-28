@@ -2,10 +2,10 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>com.carecorner</groupId>
-  <artifactId>care-corner-api-java</artifactId>
+  <artifactId>care-corner-api</artifactId>
   <packaging>jar</packaging>
   <version>dev</version>
-  <name>care-corner-api-java</name>
+  <name>care-corner-api</name>
 
   <properties>
     <maven.compiler.source>1.8</maven.compiler.source>
