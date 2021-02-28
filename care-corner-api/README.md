@@ -41,6 +41,21 @@ Install node packages:
     cd serverless-api-java
     yarn
 
+
+### Aws Cli
+
+The AWS CLI is used to access localstack as well as AWS proper.
+
+
+Install AWS:
+
+AWSLocal makes accessing localstack easier, not required:
+
+
+    aws configure --profile localstack
+
+    foobar / foobar
+
 ### Localstack
 
 
@@ -70,8 +85,12 @@ Docker is needed to run localstack in an isolated way:
 
     docker-compose up -d
 
-  Note that on MacOS you may have to run TMPDIR=/private$TMPDIR docker-compose up
+  _Note_: The `-d` runs the docker process in the background. You can view the docker
+  logs on the command line or in the docker dashboard. If you drop the `-d` you
+  can view the logs as it runs, but will need to use another terminal to execute
+  other things.
 
+  _Note_: on MacOS you may have to run TMPDIR=/private$TMPDIR docker-compose up
 
   The first time you run localstack, you need to do a deploy:
 
