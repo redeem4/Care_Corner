@@ -41,12 +41,42 @@ Install node packages:
     cd serverless-api-java
     yarn
 
+### Localstack
+
+
+#### Docker
+
+Docker is needed to run localstack in an isolated way:
+
+  https://docs.docker.com/get-docker/
+
 ## Building
 
     cd serverless-api-java
     mvn clean install
 
+
+    Create a local S3 for deployment:
+
+        awslocal s3 mb s3://care-corner-api
+
+    You can view the bucket here:
+
+        http://localhost:4572/care-corner-api
+
 ## Running
+
+  Start up localstack:
+
+    docker-compose up -d
+
+  Note that on MacOS you may have to run TMPDIR=/private$TMPDIR docker-compose up
+
+
+  The first time you run localstack, you need to do a deploy:
+
+      serverless deploy --stage local
+
 
     cd serverless-api-java
     sls invoke local --function panic
