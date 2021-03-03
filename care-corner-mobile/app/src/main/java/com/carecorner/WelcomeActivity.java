@@ -9,7 +9,7 @@ import android.widget.Button;
 
 public class WelcomeActivity extends AppCompatActivity {
 
-    private Button btnLogin, btnResources, btnRegister, BtnForgotUsername, BtnForgotPassword;
+    private Button btnLogin, btnResources;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,35 +32,10 @@ public class WelcomeActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-        btnRegister.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(WelcomeActivity.this, RegisterActivity.class);
-                startActivity(intent);
-            }
-        });
-        BtnForgotUsername.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(WelcomeActivity.this, ForgotUsernameActivity.class);
-                startActivity(intent);
-            }
-        });
-        BtnForgotPassword.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(WelcomeActivity.this, ForgotPasswordActivity.class);
-                startActivity(intent);
-            }
-        });
-
     }
 
     private void initViews() {
         btnLogin = findViewById(R.id.btnLoginMenu);
         btnResources = findViewById(R.id.btnResources);
-        btnRegister = findViewById(R.id.btnRegister);
-        BtnForgotUsername = findViewById(R.id.btnForgotUsername);
-        BtnForgotPassword = findViewById(R.id.btnForgotPassword);
     }
 }
