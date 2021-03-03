@@ -13,7 +13,7 @@ import android.widget.Toast;
 
 public class LoginActivity extends AppCompatActivity {
 
-    Button btnLogin;
+    Button btnLogin, btnRegister, BtnForgotUsername, BtnForgotPassword;
     EditText usernameEntryBox, passwordEntryBox;
     int counter = 3;
 
@@ -21,11 +21,8 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login_activity);
-
+        initViews();
         Intent intent = new Intent(LoginActivity.this, MainMenuActivity.class);
-        btnLogin = findViewById(R.id.btnLogin);
-        usernameEntryBox = findViewById(R.id.usernameEntryBox);
-        passwordEntryBox = findViewById(R.id.passwordEntryBox);
         
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -47,5 +44,34 @@ public class LoginActivity extends AppCompatActivity {
                 }
             }
         });
+        btnRegister.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
+                startActivity(intent);
+            }
+        });
+        BtnForgotUsername.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(LoginActivity.this, ForgotUsernameActivity.class);
+                startActivity(intent);
+            }
+        });
+        BtnForgotPassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(LoginActivity.this, ForgotPasswordActivity.class);
+                startActivity(intent);
+            }
+        });
+    }
+    private void initViews() {
+        btnLogin = findViewById(R.id.btnLogin);
+        usernameEntryBox = findViewById(R.id.usernameEntryBox);
+        passwordEntryBox = findViewById(R.id.passwordEntryBox);
+        btnRegister = findViewById(R.id.btnRegister);
+        BtnForgotUsername = findViewById(R.id.btnForgotUsername);
+        BtnForgotPassword = findViewById(R.id.btnForgotPassword);
     }
 }

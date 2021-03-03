@@ -53,37 +53,4 @@ public class WelcomeActivityTest {
         ShadowIntent shadowIntent = shadowOf(startedIntent);
         assertEquals(ResourceActivity.class, shadowIntent.getIntentClass());
     }
-
-    @Test
-    public void registerButtonClickShouldStartNewActivity() throws Exception
-    {
-        ShadowActivity shadowActivity = shadowOf(activity);
-        Button button = (Button) shadowActivity.getContentView().findViewById(R.id.btnRegister);
-        button.callOnClick();
-        Intent startedIntent = shadowActivity.getNextStartedActivity();
-        ShadowIntent shadowIntent = shadowOf(startedIntent);
-        assertEquals(RegisterActivity.class, shadowIntent.getIntentClass());
-    }
-
-    @Test
-    public void forgotUsernameButtonClickShouldStartNewActivity() throws Exception
-    {
-        ShadowActivity shadowActivity = shadowOf(activity);
-        Button button = (Button) shadowActivity.getContentView().findViewById(R.id.btnForgotUsername);
-        button.callOnClick();
-        Intent startedIntent = shadowActivity.getNextStartedActivity();
-        ShadowIntent shadowIntent = shadowOf(startedIntent);
-        assertEquals(ForgotUsernameActivity.class, shadowIntent.getIntentClass());
-    }
-
-    @Test
-    public void forgotPasswordButtonClickShouldStartNewActivity() throws Exception
-    {
-        ShadowActivity shadowActivity = shadowOf(activity);
-        Button button = (Button) shadowActivity.getContentView().findViewById(R.id.btnForgotPassword);
-        button.callOnClick();
-        Intent startedIntent = shadowActivity.getNextStartedActivity();
-        ShadowIntent shadowIntent = shadowOf(startedIntent);
-        assertEquals(ForgotPasswordActivity.class, shadowIntent.getIntentClass());
-    }
 }
