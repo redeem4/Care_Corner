@@ -71,13 +71,9 @@ Docker is needed to run localstack in an isolated way:
     mvn clean install
 
 
-    Create a local S3 for deployment:
-
-        awslocal s3 mb s3://care-corner-api
-
     You can view the bucket here:
 
-        http://localhost:4572/care-corner-api
+          awslocal s3api list-buckets
 
 ## Running
 
@@ -98,18 +94,18 @@ Docker is needed to run localstack in an isolated way:
 
 
     cd serverless-api-java
-    sls invoke local --function panic
+    sls invoke --function panic --stage local
 
  Tip: `sls` is an alisas provided for `serverless`.
 
  To run with test data, use the `d` or `p` switch:
 
-      sls invoke local -f panic -p data/panic.json
+      sls invoke -f panic -p data/panic.json --stage local
 
 To log your requests verbosely to troubleshoot, add the 'l' switch:
 
     export SLS_DEBUG=*
-    sls invoke local -f panic -l
+    sls local -f panic -l --stage local
 
     sls logs -f panic
 
