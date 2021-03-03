@@ -33,6 +33,7 @@ custom:
     host: http://localhost
     edgePort: 4566
     autostart: true
+    debug: true
     lambda:
       mountCode: True
     docker:
