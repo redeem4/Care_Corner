@@ -35,4 +35,15 @@ public class MainMenuActivity extends AppCompatActivity {
         btnResourcesMenu = findViewById(R.id.btnResourcesMenu);
         btnReportingAssistance = findViewById(R.id.btnReportingAssistance);
     }
+
+    /**
+     * Overrides the Back Button functionality to return to the login screen.
+     */
+    @Override
+    public void onBackPressed()
+    {
+        super.onBackPressed();
+        Intent intent = new Intent(MainMenuActivity.this, LoginActivity.class);
+        startActivity(intent);
+    }
 }

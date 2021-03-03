@@ -98,4 +98,15 @@ public class DialingActivity extends AppCompatActivity {
         btnRejectCall = findViewById(R.id.btnRejectCall2);
         elapsedTimeCounter = findViewById(R.id.elapsedTime);
     }
+
+    /**
+     * Overrides the Back Button functionality to return to the Fake Phone Call Menu.
+     */
+    @Override
+    public void onBackPressed()
+    {
+        super.onBackPressed();
+        Intent intent = new Intent(DialingActivity.this, FakePhoneCallMenuActivity.class);
+        startActivity(intent);
+    }
 }

@@ -158,4 +158,15 @@ public class FakePhoneCallMenuActivity extends AppCompatActivity {
         waitTime = findViewById(R.id.spinnerWaitTime);
         voiceSelector = findViewById(R.id.spinnerVoiceSelector);
     }
+
+    /**
+     * Overrides the Back Button functionality to return to the Main Menu.
+     */
+    @Override
+    public void onBackPressed()
+    {
+        super.onBackPressed();
+        Intent intent = new Intent(FakePhoneCallMenuActivity.this, MainMenuActivity.class);
+        startActivity(intent);
+    }
 }

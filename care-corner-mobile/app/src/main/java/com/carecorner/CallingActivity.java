@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.provider.Settings;
+import android.telecom.Call;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -23,7 +24,7 @@ public class CallingActivity extends AppCompatActivity {
         setContentView(R.layout.calling_activity);
 
         player  = MediaPlayer.create(this, R.raw.default_ringtone);
-        player.setLooping(false);
+        player.setLooping(true);
         player.start();
 
         initViews();
@@ -81,5 +82,18 @@ public class CallingActivity extends AppCompatActivity {
         phone_number_text = findViewById(R.id.phone_number_text);
         btnAcceptCall = findViewById(R.id.btnAcceptCall);
         btnRejectCall = findViewById(R.id.btnRejectCall);
+    }
+
+    /**
+     * Overrides the Back Button functionality to stop music player
+     * and return to the Fake Phone Call Menu.
+     */
+    @Override
+    public void onBackPressed()
+    {
+        super.onBackPressed();
+        player.stop();
+        Intent intent = new Intent(CallingActivity.this, FakePhoneCallMenuActivity.class);
+        startActivity(intent);
     }
 }
