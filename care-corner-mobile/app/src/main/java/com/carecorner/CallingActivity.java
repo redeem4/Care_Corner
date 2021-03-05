@@ -23,18 +23,15 @@ public class CallingActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.calling_activity);
 
-        player  = MediaPlayer.create(this, R.raw.default_ringtone);
-        player.setLooping(true);
-        player.start();
-
         initViews();
         setCallerInfo(savedInstanceState);
+        ringToneStart();
 
         btnAcceptCall.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //TODO: Add Start Audio/Video Recording Functions
-                player.stop();
+                ringToneStop();
                 Intent intent = new Intent(CallingActivity.this, DialingActivity.class);
                 intent.putExtra("callerName", getNameValue);
                 intent.putExtra("callerPhoneNum", getPhoneValue);
@@ -45,7 +42,7 @@ public class CallingActivity extends AppCompatActivity {
         btnRejectCall.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                player.stop();
+                ringToneStop();
                 Intent intent = new Intent(CallingActivity.this, FakePhoneCallMenuActivity.class);
                 startActivity(intent);
             }
@@ -82,6 +79,7 @@ public class CallingActivity extends AppCompatActivity {
         phone_number_text = findViewById(R.id.phone_number_text);
         btnAcceptCall = findViewById(R.id.btnAcceptCall);
         btnRejectCall = findViewById(R.id.btnRejectCall);
+        player  = MediaPlayer.create(CallingActivity.this, R.raw.default_ringtone);
     }
 
     /**
@@ -95,5 +93,28 @@ public class CallingActivity extends AppCompatActivity {
         player.stop();
         Intent intent = new Intent(CallingActivity.this, FakePhoneCallMenuActivity.class);
         startActivity(intent);
+    }
+
+    /**
+     * Starts the ringtone for the Calling Activity.
+     */
+    private void ringToneStart()
+    {
+        if(player!=null)
+        {
+            player.start();
+            player.setLooping(true);
+        }
+    }
+
+    /**
+     * Stops the ringtone for the Calling Activity.
+     */
+    private void ringToneStop() {
+        if(player != null)
+        {
+            player.stop();
+            player.release();
+        }
     }
 }
