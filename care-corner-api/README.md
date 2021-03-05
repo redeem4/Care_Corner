@@ -88,10 +88,29 @@ Docker is needed to run localstack in an isolated way:
 
   _Note_: on MacOS you may have to run TMPDIR=/private$TMPDIR docker-compose up
 
-  The first time you run localstack, you need to do a deploy:
+  The first time you run localstack, you need to do a deploy oof serverless:
 
       serverless deploy --stage local
 
+  To check that the deploy was successful:
+
+      serverless info --stage local
+
+  Once it's deployed on localstack, the URL to the endpoint is formed by
+  concatenating the endpoint returned and the function name with a slash in
+  between.
+
+  e.g.
+
+  endpoints: http://localhost:4566/restapis/nwpm11x7ci/local/_user_request_
+  functions: panic
+
+  resultt: http://localhost:4566/restapis/nwpm11x7ci/local/_user_request_/api/panic
+
+
+test:
+
+    curl -X POST http://localhost:4566/restapis/nwpm11x7ci/local/_user_request_/api/panic
 
     cd serverless-api-java
     sls invoke --function panic --stage local
