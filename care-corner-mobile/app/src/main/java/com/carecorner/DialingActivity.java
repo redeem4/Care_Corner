@@ -30,29 +30,7 @@ public class DialingActivity extends AppCompatActivity {
         btnRejectCall.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(DialingActivity.this);
-                builder.setTitle("Recording:")
-                        .setMessage("Would you like to save this recording?")
-                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                //TODO: Create working save recordings algorithm and place here.
-                                Intent intent = new Intent(DialingActivity.this, MainMenuActivity.class);
-                                startActivity(intent);
-                            }
-                        })
-                        .setNegativeButton("No", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                //TODO: Implement delete audio/video recording function and place here.
-                                //deleteLast();
-                                Intent intent = new Intent(DialingActivity.this, MainMenuActivity.class);
-                                startActivity(intent);
-                            }
-                        });
-
-                AlertDialog recordingAlert = builder.create();
-                recordingAlert.show();
+                showDialog();
             }
         });
 
@@ -95,7 +73,7 @@ public class DialingActivity extends AppCompatActivity {
     private void initViews() {
         caller_id_text = findViewById(R.id.caller_id_text_2);
         phone_number_text = findViewById(R.id.phone_number_text_2);
-        btnRejectCall = findViewById(R.id.btnRejectCall2);
+        btnRejectCall = findViewById(R.id.btnEndCall);
         elapsedTimeCounter = findViewById(R.id.elapsedTime);
     }
 
@@ -108,5 +86,36 @@ public class DialingActivity extends AppCompatActivity {
         super.onBackPressed();
         Intent intent = new Intent(DialingActivity.this, FakePhoneCallMenuActivity.class);
         startActivity(intent);
+    }
+
+    /**
+     * Creates and Displays Dialog box which asks the user if they would like to save the recording.
+     */
+    public AlertDialog showDialog()
+    {
+        AlertDialog.Builder builder = new AlertDialog.Builder(DialingActivity.this);
+        builder.setTitle("Recording:")
+            .setMessage("Would you like to save this recording?")
+            .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    //TODO: Create working save recordings algorithm and place here.
+                    Intent intent = new Intent(DialingActivity.this, MainMenuActivity.class);
+                    startActivity(intent);
+                }
+            })
+            .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    //TODO: Implement delete audio/video recording function and place here.
+                    //deleteLast();
+                    Intent intent = new Intent(DialingActivity.this, MainMenuActivity.class);
+                    startActivity(intent);
+                }
+            });
+        AlertDialog dialog = builder.create();
+        dialog.show();
+
+        return dialog;
     }
 }

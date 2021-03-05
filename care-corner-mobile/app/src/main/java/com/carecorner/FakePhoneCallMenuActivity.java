@@ -40,8 +40,17 @@ public class FakePhoneCallMenuActivity extends AppCompatActivity {
                     @Override
                     public void run() {
                         Intent intent = new Intent(FakePhoneCallMenuActivity.this, CallingActivity.class);
-                        intent.putExtra("callerName", nameEntryBox.getText().toString());
-                        intent.putExtra("callerPhoneNum", phoneEntryBox.getText().toString());
+
+                        if(nameEntryBox.getText().toString().equals(""))
+                            intent.putExtra("callerName", "Caller ID");
+                        else
+                            intent.putExtra("callerName", nameEntryBox.getText().toString());
+
+                        if(phoneEntryBox.getText().toString().equals(""))
+                            intent.putExtra("callerPhoneNum", "Mobile: Phone Number Placeholder");
+                        else
+                            intent.putExtra("callerPhoneNum", phoneEntryBox.getText().toString());
+
                         intent.putExtra("callerVoice", voice);
                         startActivity(intent);
                     }
