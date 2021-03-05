@@ -124,7 +124,9 @@ test:
 To log your requests verbosely to troubleshoot, add the 'l' switch:
 
     export SLS_DEBUG=*
-    sls local -f panic -l --stage local
+    sls invoke local -f panic -l
+
+    sls invoke -f panic -l --stage local
 
     sls logs -f panic
 

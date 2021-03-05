@@ -14,7 +14,7 @@ services:
       - DATA_DIR=${DATA_DIR- }
       - PORT_WEB_UI=${PORT_WEB_UI- }
       - LAMBDA_EXECUTOR=docker
-      - LAMBDA_REMOTE_DOCKER=false
+      - LAMBDA_REMOTE_DOCKER=true
       - DOCKER_HOST=unix:///var/run/docker.sock
       - AWS_ACCESS_KEY_ID=foobar
       - AWS_SECRET_ACCESS_KEY=foobar

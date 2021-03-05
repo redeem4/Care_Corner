@@ -34,7 +34,6 @@ custom:
     edgePort: 4566
     debug: true
     lambda:
-      # setting to true would improve performance, but fails with Java
       mountCode: False
     docker:
       sudo: False
