@@ -32,10 +32,10 @@ custom:
       - local
     host: http://localhost
     edgePort: 4566
-    autostart: true
     debug: true
     lambda:
-      mountCode: True
+      # setting to true would improve performance, but fails with Java
+      mountCode: False
     docker:
       sudo: False
 
