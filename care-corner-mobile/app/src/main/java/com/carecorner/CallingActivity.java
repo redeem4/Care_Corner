@@ -110,7 +110,8 @@ public class CallingActivity extends AppCompatActivity {
     /**
      * Stops the ringtone for the Calling Activity.
      */
-    private void ringToneStop() {
+    private void ringToneStop()
+    {
         if(player != null)
         {
             player.stop();
