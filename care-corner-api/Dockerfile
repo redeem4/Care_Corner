@@ -36,6 +36,12 @@ RUN curl -o- -L https://slss.io/install | VERSION=2.28.7 bash
 
 FROM builder 
 
+WORKDIR /usr/src/app
+COPY package.json yarn.lock /usr/src/app/
+
+RUN yarn
+
+COPY . /usr/src/app
 
 CMD [ "/bin/bash" ]
 
