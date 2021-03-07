@@ -65,6 +65,9 @@ Docker is needed to run localstack in an isolated way:
 
   https://docs.docker.com/get-docker/
 
+
+  docker run -ti care-corner /bin/bash
+
 ## Building
 
     cd serverless-api-java
