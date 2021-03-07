@@ -1,22 +1,36 @@
-FROM node:10
+FROM node:current-buster as builder
 
-RUN apk update
-RUN apk add --no-cache bash \
-    apk add --no-cache openssl \
-    apk add --no-cache curl \
-    apk add --no-cache git
+ARG DEBIAN_FRONTEND=noninteractive
+RUN apt-get update && \
+    apt-get install -y \
+    zip \
+    unzip && \
+    rm -rf /var/lib/apt/lists/*
 
-RUN addgroup -S care -g 1000 \
- && adduser -D care -G care -h /home/care -u 1000
+ARG USER_UID="2000"
+ARG USER_GID="2000"
+ARG USER_NAME="care"
+RUN groupadd -g $USER_GID care && \
+    useradd -m -g $USER_GID -u $USER_UID $USER_NAME
 
-USER care
-RUN touch ~/.bash_profile
-#RUN curl -sSLf https://get.volta.sh | bash
+USER $USER_UID:$USER_GID
 
-#RUN volta install node
-#RUN volta install npm
-#RUN volta install yarn
-#RUN volta install serverless
+# sdkman; java & maven
+ARG JAVA_VERSION="11.0.10.j9-adpt"
+ARG MAVEN_VERSION="3.6.3"
+RUN curl -o- -L https://get.sdkman.io | bash
+RUN bash -c "source $HOME/.sdkman/bin/sdkman-init.sh && \
+    yes | sdk install java $JAVA_VERSION && \
+    yes | sdk install maven $MAVEN_VERSION && \
+    rm -rf $HOME/.sdkman/archives/* && \
+    rm -rf $HOME/.sdkman/tmp/*"
+
+# serverless framework
+RUN curl -o- -L https://slss.io/install | VERSION=2.28.7 bash
+
+FROM builder 
+
+
 
 CMD [ "/bin/bash" ]
 
