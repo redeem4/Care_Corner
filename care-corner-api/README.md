@@ -8,12 +8,14 @@
 
 ### Docker
 
-Docker is needed to run localstack in an isolated way:
+Docker is used to run localstack and the serverless app in a cross-platform way:
 
   https://docs.docker.com/get-docker/
 
+Head over to your command line:
 
-  docker run -ti care-corner /bin/bash
+    docker-compose build
+
 
 ## Running
 
@@ -28,8 +30,15 @@ Docker is needed to run localstack in an isolated way:
 
   _Note_: on MacOS you may have to run TMPDIR=/private$TMPDIR docker-compose up
 
-  The first time you run localstack, you need to do a deploy oof serverless:
 
+  Now connect to the care-corner-api docker image:
+
+      docker run -it care-corner_api /bin/bash
+
+
+  The first thing is to deploy:
+
+      cd serverless-api
       serverless deploy --stage local
 
   To check that the deploy was successful:
