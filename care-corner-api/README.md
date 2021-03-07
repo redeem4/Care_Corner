@@ -3,63 +3,10 @@
 ## Setting Up
 
  Requirements:
-  - Node
-  - Npm
-  - Yarn
-  - Serverless
-  - Java 11 SDK
-  - Maven
-
-### Node/Npm/Yarn/Serverless
-
-Install Volta to help with cross-platform support:
-
-    https://docs.volta.sh/guide/getting-started
-
-Install node, npm, serverless, and yarn:
-
-    volta install node
-    volta install npm
-    volta install yarn
-    volta install serverless
-
-### Java/Maven
-
-Install the Java 11 SDK, not the JRE.
-I recommend managing in a cross-platform fashion via Sdkman:
-
-    https://sdkman.io/
-
-Install Java, Maven:
-
-    sdk install java
-    sdk install maven
+  - Docker
 
 
-Install node packages:
-
-    cd serverless-api-java
-    yarn
-
-
-### Aws Cli
-
-The AWS CLI is used to access localstack as well as AWS proper.
-
-
-Install AWS:
-
-AWSLocal makes accessing localstack easier, not required:
-
-
-    aws configure --profile localstack
-
-    foobar / foobar
-
-### Localstack
-
-
-#### Docker
+### Docker
 
 Docker is needed to run localstack in an isolated way:
 
@@ -67,16 +14,6 @@ Docker is needed to run localstack in an isolated way:
 
 
   docker run -ti care-corner /bin/bash
-
-## Building
-
-    cd serverless-api-java
-    mvn clean install
-
-
-    You can view the bucket here:
-
-          awslocal s3api list-buckets
 
 ## Running
 
@@ -162,6 +99,10 @@ http://localhost:4566/restapis/<apiId>/<stage>/_user_request_/<methodPath>.
 The example URL above would map to the following localhost URL:
 
 $ curl http://localhost:4566/restapis/nmafetnwf6/prod/_user_request_/my/path
+
+## Localstack
+
+awslocal s3api list-buckets
 
 ## Deploying
 
