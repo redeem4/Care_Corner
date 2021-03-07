@@ -1,15 +1,13 @@
-version: '3.5'
-
+version: '3.9'
 services:
   api:
     build: .
-    image: care-corner
-    container_name: care-corner-api
-    environment:
-      AWS_ACCESS_KEY_ID: 'foobarbaz'
-      AWS_SECRET_ACCESS_KEY: 'foobarbaz'
+    container_name: care-corner
     depends_on:
       - localstack
+    tty: true
+    entrypoint:
+      - /bin/bash
 
   localstack:
     image: localstack/localstack:0.12.7
