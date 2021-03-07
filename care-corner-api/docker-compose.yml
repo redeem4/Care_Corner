@@ -1,11 +1,22 @@
 version: '3.5'
 
 services:
+  api:
+    build: .
+    image: care-corner
+    container_name: care-corner-api
+    environment:
+      AWS_ACCESS_KEY_ID: 'foobarbaz'
+      AWS_SECRET_ACCESS_KEY: 'foobarbaz'
+    depends_on:
+      - localstack
+
   localstack:
     image: localstack/localstack:0.12.7
     ports:
       - "4566-4599:4566-4599"
       - "8080:8080"
+    container_name: care-corner-localstack
     environment:
       - SERVICES= apigateway, lambda, s3, cloudformation, sts, iam, sns
       - DEFAULT_REGION=us-east-1
