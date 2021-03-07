@@ -43,7 +43,8 @@
     <string name="delete_entry">Delete Selected Entry</string>
     <string name="edit_entry">Edit Selected Entry</string>
     <string name="view_recycler">View Entries</string>
-   <!-- <color name="lightblue">#94CCEo</color> -->
+    <string name="element_text" />
+    <!-- <color name="lightblue">#94CCEo</color> -->
 
 
 
