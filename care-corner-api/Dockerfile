@@ -9,6 +9,14 @@ RUN apt-get update && \
     unzip && \
     rm -rf /var/lib/apt/lists/*
 
+ARG USER_UID="2000"
+ARG USER_GID="2000"
+ARG USER_NAME="care"
+RUN groupadd -g $USER_GID care && \
+    useradd -m -g $USER_GID -u $USER_UID $USER_NAME
+
+USER $USER_UID:$USER_GID
+
 # awscli and awslocal
 RUN pip install awscli-local[ver1]
 
@@ -23,11 +31,18 @@ RUN bash -c "source $HOME/.sdkman/bin/sdkman-init.sh && \
     rm -rf $HOME/.sdkman/tmp/*"
 
 # serverless framework
-RUN curl -o- -L https://slss.io/install | VERSION=2.29.0 bash
+RUN curl -o- -L https://slss.io/install | VERSION=2.28.7 bash
+
 
 FROM builder 
 
-WORKDIR $HOME/care-corner-api
+WORKDIR /usr/src/app
+COPY package.json yarn.lock /usr/src/app/
+
+RUN yarn
+
+COPY . /usr/src/app
+
 CMD [ "/bin/bash" ]
 
 
