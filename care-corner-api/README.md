@@ -2,73 +2,88 @@
 
 ## Setting Up
 
- Requirements: 
-  - Node
-  - Npm
-  - Yarn
-  - Serverless
-  - Java 11 SDK
-  - Maven
-
-### Node/Npm/Yarn/Serverless
-
-Install Volta to help with cross-platform support:
-
-    https://docs.volta.sh/guide/getting-started
-
-Install node, npm, serverless, and yarn:
-
-    volta install node
-    volta install npm
-    volta install yarn
-    volta install serverless
-
-### Java/Maven
-
-Install the Java 11 SDK, not the JRE.
-I recommend managing in a cross-platform fashion via Sdkman: 
-  
-    https://sdkman.io/ 
-
-Install Java, Maven:
-
-    sdk install java
-    sdk install maven
+ Requirements:
+  - Docker
 
 
-Install node packages:
+### Docker
 
-    cd serverless-api-java
-    yarn
+Docker is used to run localstack and the serverless app in a cross-platform way:
 
-## Building
+  https://docs.docker.com/get-docker/
 
-    cd serverless-api-java
-    mvn clean install
+Head over to your command line:
+
+    docker-compose build
+
 
 ## Running
 
-    cd serverless-api-java
-    sls invoke local --function panic
+  Start up localstack:
 
- Tip: `sls` is an alisas provided for `serverless`. 
+    docker-compose up -d
+
+  _Note_: The `-d` runs the docker process in the background. You can view the docker
+  logs on the command line or in the docker dashboard. If you drop the `-d` you
+  can view the logs as it runs, but will need to use another terminal to execute
+  other things.
+
+  _Note_: on MacOS you may have to run TMPDIR=/private$TMPDIR docker-compose up
+
+
+  Now connect to the care-corner-api docker image:
+
+      docker run -it care-corner_api /bin/bash
+
+
+  The first thing is to deploy:
+
+      cd serverless-api
+      serverless deploy --stage local
+
+  To check that the deploy was successful:
+
+      serverless info --stage local
+
+  Once it's deployed on localstack, the URL to the endpoint is formed by
+  concatenating the endpoint returned and the function name with a slash in
+  between.
+
+  e.g.
+
+  endpoints: http://localhost:4566/restapis/nwpm11x7ci/local/_user_request_
+  functions: panic
+
+  resultt: http://localhost:4566/restapis/nwpm11x7ci/local/_user_request_/api/panic
+
+
+test:
+
+    curl -X POST http://localhost:4566/restapis/nwpm11x7ci/local/_user_request_/api/panic
+
+    cd serverless-api-java
+    sls invoke --function panic --stage local
+
+ Tip: `sls` is an alisas provided for `serverless`.
 
  To run with test data, use the `d` or `p` switch:
 
-      sls invoke local -f panic -p data/panic.json
+      sls invoke -f panic -p data/panic.json --stage local
 
 To log your requests verbosely to troubleshoot, add the 'l' switch:
 
     export SLS_DEBUG=*
     sls invoke local -f panic -l
 
+    sls invoke -f panic -l --stage local
+
     sls logs -f panic
 
 Note: There is a potential issue with the Java invoker depending on how
 your specific machine is setup.
 
-If your command line hangs with this message, 
-"Serverless: Building Java bridge, first invocation might take a bit longer." 
+If your command line hangs with this message,
+"Serverless: Building Java bridge, first invocation might take a bit longer."
 Do the following:
 
   cd .volta/tools/image/packages/serverless/lib/node_modules/serverless/lib/plugins/aws/invokeLocal/runtimeWrappers/java
@@ -79,11 +94,37 @@ See the respective Github Issues:
   - https://github.com/serverless/serverless/issues/5030
   - https://github.com/serverless/serverless/issues/8859
 
+## Localstack
+
+### Invoking API Gateway
+
+While API Gateway endpoints on AWS use a custom DNS name to identify the API ID
+(e.g., https://nmafetnwf6.execute-api.us-east-1.amazonaws.com/prod/my/path),
+LocalStack uses the special URL path indicator .../_user_request_/... to indicate
+the execution of a REST API method.
+
+The URL pattern for API Gateway executions is
+http://localhost:4566/restapis/<apiId>/<stage>/_user_request_/<methodPath>.
+The example URL above would map to the following localhost URL:
+
+$ curl http://localhost:4566/restapis/nmafetnwf6/prod/_user_request_/my/path
+
+## Localstack
+
+awslocal s3api list-buckets
+
 ## Deploying
 
-Serverless is able to deploy to AWS easily. 
+### Localstack
 
-WIP, will require AWS account access and a bit of prior provisioning. 
+    serverless deploy --stage local
+
+
+### Production
+
+Serverless is able to deploy to AWS easily.
+
+WIP, will require AWS account access and a bit of prior provisioning.
 
     sls deploy
 
