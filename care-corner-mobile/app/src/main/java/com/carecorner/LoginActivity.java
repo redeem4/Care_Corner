@@ -74,4 +74,15 @@ public class LoginActivity extends AppCompatActivity {
         BtnForgotUsername = findViewById(R.id.btnForgotUsername);
         BtnForgotPassword = findViewById(R.id.btnForgotPassword);
     }
+
+    /**
+     * Overrides the Back Button functionality to return to the login screen.
+     */
+    @Override
+    public void onBackPressed()
+    {
+        super.onBackPressed();
+        Intent intent = new Intent(LoginActivity.this, WelcomeActivity.class);
+        startActivity(intent);
+    }
 }

@@ -38,4 +38,15 @@ public class WelcomeActivity extends AppCompatActivity {
         btnLogin = findViewById(R.id.btnLoginMenu);
         btnResources = findViewById(R.id.btnResources);
     }
+
+    /**
+     * Overrides the Back Button functionality to return to the login screen.
+     */
+    @Override
+    public void onBackPressed()
+    {
+        super.onBackPressed();
+        Intent intent = new Intent(WelcomeActivity.this, WelcomeActivity.class);
+        startActivity(intent);
+    }
 }
