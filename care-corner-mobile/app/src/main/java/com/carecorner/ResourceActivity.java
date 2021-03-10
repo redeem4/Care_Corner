@@ -14,7 +14,7 @@ public class ResourceActivity extends AppCompatActivity {
     }
 
     /**
-     * Overrides the Back Button functionality to return to the login screen.
+     * Overrides the Back Button functionality to return to the welcome screen.
      */
     @Override
     public void onBackPressed()

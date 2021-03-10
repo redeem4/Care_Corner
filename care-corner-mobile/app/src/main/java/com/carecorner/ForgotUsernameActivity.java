@@ -20,7 +20,7 @@ public class ForgotUsernameActivity extends AppCompatActivity {
     public void onBackPressed()
     {
         super.onBackPressed();
-        Intent intent = new Intent(ForgotUsernameActivity.this, WelcomeActivity.class);
+        Intent intent = new Intent(ForgotUsernameActivity.this, LoginActivity.class);
         startActivity(intent);
     }
 }
