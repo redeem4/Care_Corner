@@ -1,11 +1,16 @@
 package com.carecorner;
 
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.lifecycle.ViewModel;
 import androidx.recyclerview.widget.RecyclerView;
+import android.widget.AdapterView.OnItemClickListener;
 import java.util.List;
 
 /**********************************
@@ -16,9 +21,10 @@ import java.util.List;
  * Availability: https://stackoverflow.com/questions/40584424/simple-android-recyclerview-example
  **********************************/
 
-public class MyRecyclerViewAdapter<ItemClickListener> extends RecyclerView.Adapter<MyRecyclerViewAdapter.ViewHolder> {
+public class MyRecyclerViewAdapter<ItemClickListener> extends RecyclerView.Adapter<MyRecyclerViewAdapter.ViewHolder> implements OnItemClickListener {
     private List<String> data;
-    private ItemClickListener itemClickListener;
+    private OnItemClickListener OnItemClickListener;
+    public int index;
 
     public MyRecyclerViewAdapter(JournalRecyclerMain journalRecyclerMain, List<String> data){
         this.data = data;
@@ -32,39 +38,64 @@ public class MyRecyclerViewAdapter<ItemClickListener> extends RecyclerView.Adapt
     //binds data to textview in each row
     @Override
     public void onBindViewHolder(MyRecyclerViewAdapter.ViewHolder holder, int position) {
-        holder.textView.setText(this.data.get(position));
+        String item = data.get(position);
+        //holder.textView.setText(this.data.get(position));
+        holder.textView.setText(item);
+        holder.itemView.setTag(position);
+
     }
     //total number of rows
     @Override
     public int getItemCount() {
         return this.data.size();
     }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+    }
+
     //stores and recycles views as they are scrolled off screen
     public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+        public static int index;
         private TextView textView;
        // private Button btnDelete;
-        public ViewHolder(View view) {
-            super(view);
-            view.setOnClickListener(this);
-            this.textView = view.findViewById(R.id.textview);
+        public ViewHolder(View itemView) {
+            super(itemView);
+            itemView.setOnClickListener(this);
+            this.textView = itemView.findViewById(R.id.textview);
+            this.index = getLayoutPosition();
+
          //   btnDelete = (Button) view.findViewById(R.id.btnDelete);
+           // getLayoutPosition();
         }
+
         @Override
         public void onClick(View view) {
             Toast.makeText(view.getContext(), "position : " + getLayoutPosition() + " text : " + this.textView.getText(), Toast.LENGTH_SHORT).show();
+            //index = getLayoutPosition();
+            //if (OnItemClickListener != null) {
+                //new Handler().postDelayed(new Runnable() {
+                    //@Override
+                   // public void run() {
+                        //OnItemClickListener.onItemClick(view.getTag());
+                    //}
+               // }, 0);
+            //}
+        //}
         }
     }
     //get data at click position
     int getItem(int id) {
-        return data.get(id);
+        return Integer.parseInt(data.get(id));
     }
 
     //allows click events to be caught
-    void setClickListener(ItemClickListener itemClickListener) {
-        this.itemClickListener = itemClickListener;
+    public void setOnItemClickListener(OnItemClickListener OnItemClickListener) {
+        this.OnItemClickListener = OnItemClickListener;
     }
     //parent activity will implement this method to respond to click events
-    public interface ItemClickListner {
+    public interface OnItemClickListener {
         void onItemClick(View view, int position);
     }
 }
