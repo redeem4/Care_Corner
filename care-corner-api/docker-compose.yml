@@ -9,6 +9,8 @@ services:
     restart: always
     networks:
       - docker_network
+    volumes:
+      - "./serverless-api/:/care-corner-api"
 
   localstack:
     image: localstack/localstack:0.12.7
