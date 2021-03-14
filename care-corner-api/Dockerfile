@@ -25,6 +25,9 @@ RUN bash -c "source $HOME/.sdkman/bin/sdkman-init.sh && \
 # serverless framework
 RUN curl -o- -L https://slss.io/install | VERSION=2.29.0 bash
 
+FROM builder 
+
+WORKDIR $HOME/care-corner-api
 CMD [ "/bin/bash" ]
 
 
