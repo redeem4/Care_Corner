@@ -27,7 +27,7 @@
         <activity android:name=".CallingActivity" />
         <activity android:name=".JournalMenuActivity" />
         <activity android:name=".JournalRecyclerMain" />
-
+        <activity android:name=".JournalEditorActivity" />
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />

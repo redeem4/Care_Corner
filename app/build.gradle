@@ -40,6 +40,4 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
     implementation 'com.android.support:appcompat-v7:30.0.3'
     implementation 'com.android.support:recyclerview-v7:30.0.3'
-    testCompile "org.robolectric:robolectric:3:3:2"
-
 }

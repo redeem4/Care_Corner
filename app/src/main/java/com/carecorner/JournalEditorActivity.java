@@ -38,7 +38,14 @@ public class JournalEditorActivity extends AppCompatActivity {
         btnSave = findViewById(R.id.btnSave);
         btnExit = findViewById(R.id.btnExit);
         textEntryBox = findViewById(R.id.textEntryBox);
-        text = getIntent().getExtras().getString("text");
+
+        try {
+            //text = getIntent().getExtras().getString("text");
+            text = getIntent().getStringExtra("text");
+        }
+        catch(NullPointerException e) {
+            text = " ";
+        }
         //Puts the editable text into the text entry box
         textEntryBox.setText(text, TextView.BufferType.EDITABLE);
 
@@ -63,30 +70,17 @@ public class JournalEditorActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //Check if saved
-                if(hasBeenSaved) {
+                if (hasBeenSaved) {
                     //Exit back to Journal Activity and return text
+                    Toast.makeText(JournalEditorActivity.this,
+                            "Exiting", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(JournalEditorActivity.this, JournalRecyclerMain.class);
                     intent.putExtra("text", text);
-                    startActivity(intent);
-                }
-                else {
-                    //Remind user to save, if user wants to exit without saving simply press exit again.
-                    Toast.makeText(JournalEditorActivity.this,
-                            "Entry has not been saved, to exit without saving press Exit again", Toast.LENGTH_SHORT).show();
-                    //Allows user to just press exit again
-                    hasBeenSaved = true;
+                    setResult(RESULT_OK, intent);
+                    finish();
                 }
             }
         });
-
-        textEntryBox.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v){
-                //Assumes click leads to an edit, not always true, but safe rather than sorry
-                hasBeenSaved = false;
-            }
-        });
-
     }
 }
 

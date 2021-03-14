@@ -20,7 +20,7 @@ public class JournalMenuActivity extends AppCompatActivity {
         btnHome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(JournalMenuActivity.this, MainMenuActivity.class);
+                Intent intent = new Intent(JournalMenuActivity.this, JournalEditorActivity.class);
                 startActivity(intent);
             }
         });

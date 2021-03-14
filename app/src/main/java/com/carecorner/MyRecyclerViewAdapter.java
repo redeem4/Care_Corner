@@ -1,101 +1,93 @@
 package com.carecorner;
 
-import android.os.Handler;
+import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import androidx.lifecycle.ViewModel;
 import androidx.recyclerview.widget.RecyclerView;
-import android.widget.AdapterView.OnItemClickListener;
+
 import java.util.List;
 
-/**********************************
- * This code has been adapted from:
- * Title: RecyclerView simple adapter
- * Author: Jin Lim
- * Date: 2019
- * Availability: https://stackoverflow.com/questions/40584424/simple-android-recyclerview-example
- **********************************/
+public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAdapter.ViewHolder> {
 
-public class MyRecyclerViewAdapter<ItemClickListener> extends RecyclerView.Adapter<MyRecyclerViewAdapter.ViewHolder> implements OnItemClickListener {
-    private List<String> data;
-    private OnItemClickListener OnItemClickListener;
-    public int index;
+    private List<Journal> mData;
+    private ItemClickListener mOnBtnClickListener;
+    private LayoutInflater mInflater;
+    private ItemClickListener mClickListener;
 
-    public MyRecyclerViewAdapter(JournalRecyclerMain journalRecyclerMain, List<String> data){
-        this.data = data;
+    // data is passed into the constructor
+    MyRecyclerViewAdapter(Context context, List<Journal> data, ItemClickListener mOnBtnClickListener) {
+        this.mInflater = LayoutInflater.from(context);
+        this.mData = data;
+        this.mOnBtnClickListener = mOnBtnClickListener;
     }
+
     //inflates row layout when needed from xml
     @Override
     public MyRecyclerViewAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View rowItem = LayoutInflater.from(parent.getContext()).inflate(R.layout.recyclerview_items_view, parent, false);
-        return new ViewHolder(rowItem);
+        return new ViewHolder(rowItem, mOnBtnClickListener);
     }
-    //binds data to textview in each row
-    @Override
-    public void onBindViewHolder(MyRecyclerViewAdapter.ViewHolder holder, int position) {
-        String item = data.get(position);
-        //holder.textView.setText(this.data.get(position));
-        holder.textView.setText(item);
-        holder.itemView.setTag(position);
 
+    // binds the data to the TextView in each row
+    @Override
+    public void onBindViewHolder(ViewHolder holder, int position) {
+        Journal myJournal = mData.get(position);
+        holder.myTextView.setText(myJournal.getName());
     }
-    //total number of rows
+
+    // total number of rows
     @Override
     public int getItemCount() {
-        return this.data.size();
+        return mData.size();
     }
 
-    @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+    // stores and recycles views as they are scrolled off screen
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+        TextView myTextView;
+        Button btnDelete;
+        ItemClickListener mOnBtnClickListener;
 
-    }
-
-    //stores and recycles views as they are scrolled off screen
-    public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        public static int index;
-        private TextView textView;
-       // private Button btnDelete;
-        public ViewHolder(View itemView) {
+        ViewHolder(View itemView, final ItemClickListener mOnBtnClickListener) {
             super(itemView);
+            myTextView = itemView.findViewById(R.id.textView1);
+            btnDelete = itemView.findViewById(R.id.btnDelete2);
             itemView.setOnClickListener(this);
-            this.textView = itemView.findViewById(R.id.textview);
-            this.index = getLayoutPosition();
 
-         //   btnDelete = (Button) view.findViewById(R.id.btnDelete);
-           // getLayoutPosition();
+            btnDelete.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int position = getAdapterPosition();
+                    if(position != RecyclerView.NO_POSITION)
+                        mOnBtnClickListener.onDeleteBtnClick(position);
+                    //Need to remove physcially
+                }
+            });
         }
 
         @Override
         public void onClick(View view) {
-            Toast.makeText(view.getContext(), "position : " + getLayoutPosition() + " text : " + this.textView.getText(), Toast.LENGTH_SHORT).show();
-            //index = getLayoutPosition();
-            //if (OnItemClickListener != null) {
-                //new Handler().postDelayed(new Runnable() {
-                    //@Override
-                   // public void run() {
-                        //OnItemClickListener.onItemClick(view.getTag());
-                    //}
-               // }, 0);
-            //}
-        //}
+            if (mClickListener != null) mClickListener.onItemClick(view, getAdapterPosition());
         }
     }
-    //get data at click position
-    int getItem(int id) {
-        return Integer.parseInt(data.get(id));
+
+    // convenience method for getting data at click position
+    Journal getItem(int id) {
+        return mData.get(id);
     }
 
-    //allows click events to be caught
-    public void setOnItemClickListener(OnItemClickListener OnItemClickListener) {
-        this.OnItemClickListener = OnItemClickListener;
+    // allows clicks events to be caught
+    void setClickListener(ItemClickListener itemClickListener) {
+        this.mClickListener = itemClickListener;
     }
-    //parent activity will implement this method to respond to click events
-    public interface OnItemClickListener {
+
+    // parent activity will implement this method to respond to click events
+    public interface ItemClickListener {
         void onItemClick(View view, int position);
+        void onDeleteBtnClick(int position);
     }
 }
