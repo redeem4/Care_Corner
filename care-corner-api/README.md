@@ -143,6 +143,7 @@ From your host computer, use `localhost` instead `localstack`:
 
     curl -X POST http://localhost:4566/restapis/nwpm11x7ci/local/_user_request_/api/panic
 
+_Note_: Your local repository is mounted in the Docker container, so you can edit the code in your host operating system with whatever editor you'd like, and it will be updated in the container. You then build and execute within the Docker container. 
 
 ## Summary
 
