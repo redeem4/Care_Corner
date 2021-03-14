@@ -9,6 +9,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.CareCorner">
+
         <activity android:name=".DialingActivity"></activity>
         <activity android:name=".WelcomeActivity">
             <intent-filter>
@@ -28,6 +29,7 @@
         <activity android:name=".JournalMenuActivity" />
         <activity android:name=".JournalRecyclerMain" />
         <activity android:name=".JournalEditorActivity" />
+        <activity android:name=".JournalReader" />
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
