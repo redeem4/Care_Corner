@@ -40,7 +40,7 @@ public class JournalReader extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 text= textBox.getText().toString();
-                Toast.makeText(JournalReader.this, "Sending to editor", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(JournalReader.this, "Sending to editor", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(JournalReader.this, JournalEditorActivity.class);
                 intent.putExtra("text", text);
                 setResult(RESULT_OK, intent);
