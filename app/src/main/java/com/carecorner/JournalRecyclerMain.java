@@ -48,10 +48,11 @@ public class JournalRecyclerMain extends AppCompatActivity implements MyRecycler
      */
     @Override
     public void onItemClick(View view, int position) {
-         Intent intent = new Intent(JournalRecyclerMain.this, JournalReader.class);
-         intent.putExtra("journalName", adapter.getItem(position).getName());
-         intent.putExtra("text", adapter.getItem(position).getText());
-         startActivity(intent);
+        saveArrayList(data, "journals");
+        Intent intent = new Intent(JournalRecyclerMain.this, JournalReader.class);
+        intent.putExtra("journalName", adapter.getItem(position).getName());
+        intent.putExtra("text", adapter.getItem(position).getText());
+        startActivity(intent);
     }
 
     /**
@@ -89,7 +90,7 @@ public class JournalRecyclerMain extends AppCompatActivity implements MyRecycler
 
         if(journalName.length() >=  14)
         {
-           journalName = journalName.substring(0, 11) + "...";
+           journalName = journalName.substring(0, 13) + "...";
         }
 
         Journal temp = new Journal(journalName, journalEntry);

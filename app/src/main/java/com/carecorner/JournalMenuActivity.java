@@ -10,6 +10,7 @@ import android.widget.Button;
 public class JournalMenuActivity extends AppCompatActivity {
 
     private Button btnHome, btnView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -20,10 +21,11 @@ public class JournalMenuActivity extends AppCompatActivity {
         btnHome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(JournalMenuActivity.this, JournalEditorActivity.class);
+                Intent intent = new Intent(JournalMenuActivity.this, MainMenuActivity.class);
                 startActivity(intent);
             }
         });
+
         //button to view list and open journal
         btnView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -33,9 +35,24 @@ public class JournalMenuActivity extends AppCompatActivity {
             }
         });
     }
+
+    /**
+     * Connects and initializes every element in the layout to a variable.
+     */
     private void initViews() {
         btnHome = findViewById(R.id.btnHome);
         btnView = findViewById(R.id.btnView);
+    }
+
+    /**
+     * Overrides the Back Button functionality to return to the Journal Main Menu.
+     */
+    @Override
+    public void onBackPressed()
+    {
+        super.onBackPressed();
+        Intent intent = new Intent(JournalMenuActivity.this, MainMenuActivity.class);
+        startActivity(intent);
     }
 }
 
