@@ -2,17 +2,20 @@ version: '3.9'
 services:
   api:
     build: .
-    container_name: care-corner
+    container_name: care-corner-api
     depends_on:
       - localstack
     tty: true
-    entrypoint:
-      - /bin/bash
+    restart: always
+    networks:
+      - docker_network
+    volumes:
+      - "./serverless-api/:/care-corner-api"
 
   localstack:
     image: localstack/localstack:0.12.7
     ports:
-      - "4566-4599:4566-4599"
+      - "4566:4566"
       - "8080:8080"
     container_name: care-corner-localstack
     environment:
@@ -27,6 +30,13 @@ services:
       - DOCKER_HOST=unix:///var/run/docker.sock
       - AWS_ACCESS_KEY_ID=foobar
       - AWS_SECRET_ACCESS_KEY=foobar
+      - HOSTNAME=localstack
     volumes:
       - "${TMPDIR:-/tmp/localstack}:/tmp/localstack"
       - "/var/run/docker.sock:/var/run/docker.sock"
+    networks:
+      - docker_network
+
+networks:
+  docker_network:
+    driver: bridge
