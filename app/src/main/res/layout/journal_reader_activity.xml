@@ -9,17 +9,21 @@
 
     <TextView
         android:id="@+id/textBox"
-        android:layout_width="369dp"
-        android:layout_height="559dp"
+        android:layout_width="382dp"
+        android:layout_height="480dp"
         android:layout_marginStart="25dp"
         android:layout_marginLeft="25dp"
-        android:layout_marginTop="104dp"
+        android:layout_marginTop="184dp"
         android:layout_marginEnd="25dp"
         android:layout_marginRight="25dp"
         android:hint="@string/journal_reader"
         android:importantForAutofill="no"
+        android:overScrollMode="always"
+        android:scrollbarStyle="insideInset"
+        android:scrollbars="vertical"
         android:singleLine="false"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.428"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -27,13 +31,24 @@
         android:id="@+id/btnEdit"
         android:layout_width="114dp"
         android:layout_height="70dp"
-        android:layout_marginStart="148dp"
-        android:layout_marginLeft="148dp"
+        android:layout_marginStart="268dp"
+        android:layout_marginLeft="268dp"
         android:layout_marginBottom="644dp"
         android:text="@string/edit_my_entry"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textBox"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintVertical_bias="0.887" />
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="101dp"
+        android:layout_height="46dp"
+        android:layout_marginStart="152dp"
+        android:layout_marginLeft="152dp"
+        android:layout_marginTop="100dp"
+        android:text="@string/title"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
