@@ -46,6 +46,7 @@ public class JournalReader extends AppCompatActivity {
         btnEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                journalName=title.getText().toString();
                 text= textBox.getText().toString();
 //                Toast.makeText(JournalReader.this, "Sending to editor", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(JournalReader.this, JournalEditorActivity.class);
