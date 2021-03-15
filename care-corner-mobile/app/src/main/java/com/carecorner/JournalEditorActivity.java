@@ -19,10 +19,12 @@ public class JournalEditorActivity extends AppCompatActivity {
     Button btnSave, btnExit;
     //Editable text entry box
     EditText textEntryBox;
+    EditText titleBox;
     //Check to save before exiting, set to true in case user does not edit.
     boolean hasBeenSaved = true;
     //Convert file passed in from JournalActivity to a string
     String text = "";
+    String title = "";
     //Bundle extras = getIntent().getExtras();
 
     //text = (String) savedInstanceState.getSerializable("text"); // extras.getString("text");
@@ -38,12 +40,20 @@ public class JournalEditorActivity extends AppCompatActivity {
         btnSave = findViewById(R.id.btnSave);
         btnExit = findViewById(R.id.btnExit);
         textEntryBox = findViewById(R.id.textEntryBox);
-        text = getIntent().getExtras().getString("text");
+        titleBox = findViewById(R.id.titleBox);
+
+        try {
+            //text = getIntent().getExtras().getString("text");
+            text = getIntent().getStringExtra("text");
+            title = getIntent().getStringExtra("title");
+        }
+        catch(NullPointerException e) {
+            text = " ";
+            title = " ";
+        }
         //Puts the editable text into the text entry box
         textEntryBox.setText(text, TextView.BufferType.EDITABLE);
-
-        //Separate variables needed in case user does not save.
-        String outText = " ";
+        titleBox.setText(text, TextView.BufferType.EDITABLE);
 
         //Save button
         btnSave.setOnClickListener(new View.OnClickListener() {
@@ -51,6 +61,7 @@ public class JournalEditorActivity extends AppCompatActivity {
             public void onClick(View v) {
                 //Retrieves the text from the text box
                 text = textEntryBox.getText().toString();
+                title = titleBox.getText().toString();
                 //Confirms to user save has been made
                 Toast.makeText(JournalEditorActivity.this, "Entry saved", Toast.LENGTH_SHORT).show();
                 //Marks entry saved
@@ -65,9 +76,14 @@ public class JournalEditorActivity extends AppCompatActivity {
                 //Check if saved
                 if(hasBeenSaved) {
                     //Exit back to Journal Activity and return text
-                    Intent intent = new Intent(JournalEditorActivity.this, JournalActivity.class);
+                    Toast.makeText(JournalEditorActivity.this,
+                            "Exiting", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(JournalEditorActivity.this, JournalRecyclerMain.class);
                     intent.putExtra("text", text);
-                    startActivity(intent);
+                    intent.putExtra("title", title);
+                    setResult(RESULT_OK, intent);
+                    finish();
+                    //startActivity(intent);
                 }
                 else {
                     //Remind user to save, if user wants to exit without saving simply press exit again.
@@ -86,6 +102,13 @@ public class JournalEditorActivity extends AppCompatActivity {
                 hasBeenSaved = false;
             }
         });
-
     }
+    @Override
+    public void onBackPressed()
+    {
+        super.onBackPressed();
+        Intent intent = new Intent(JournalEditorActivity.this, JournalRecyclerMain.class);
+        startActivity(intent);
+    }
+
 }
