@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
+import java.lang.reflect.Array;
 import java.lang.reflect.Type;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -52,6 +53,7 @@ public class JournalRecyclerMain extends AppCompatActivity implements MyRecycler
         Intent intent = new Intent(JournalRecyclerMain.this, JournalReader.class);
         intent.putExtra("journalName", adapter.getItem(position).getName());
         intent.putExtra("text", adapter.getItem(position).getText());
+        intent.putExtra("position", position);
         startActivity(intent);
     }
 
@@ -103,7 +105,9 @@ public class JournalRecyclerMain extends AppCompatActivity implements MyRecycler
      */
     private void setupRecyclerView() {
         data = getArrayList("journals");
+
         if(data.isEmpty())
+        //|| data.size() < 10
         {
             // Test data to populate the RecyclerView with if the saved Journal List is empty.
             // Mainly for demonstration purposes.
@@ -123,6 +127,51 @@ public class JournalRecyclerMain extends AppCompatActivity implements MyRecycler
         adapter = new MyRecyclerViewAdapter(this, data, this);
         adapter.setClickListener(this);
         recyclerView.setAdapter(adapter);
+        applyEdits();
+    }
+
+    /**
+     * This function handles all the logic for receiving data from intents and
+     * adding/updating the Journal Recycler View and the Journal ArrayList.
+     */
+    private void applyEdits() {
+        String journalTitle = getIntent().getStringExtra("title");
+        String journalText = getIntent().getStringExtra("text");
+        int positionOfOriginalEntry = getIntent().getIntExtra("position", -1);
+
+        if(journalTitle != "" && journalText != ""
+                && journalTitle != null && journalText != null)
+        {
+            if(!findJournalText(data, journalText)
+                    && !findJournalTitle(data, journalTitle))
+            {
+                System.out.println("Hits IF STATEMENT");
+                Journal temp = new Journal(journalTitle, journalText);
+                data.add(temp);
+                int insertIndex = data.size();
+                adapter.notifyItemInserted(insertIndex);
+                data.remove(positionOfOriginalEntry);
+                adapter.notifyItemRemoved(positionOfOriginalEntry);
+            }
+
+            if(findJournalText(data, journalText)
+                    && !findJournalTitle(data, journalTitle))
+            {
+                System.out.println("Hits IF STATEMENT");
+                int index = getIndexOfJournalText(data, journalText);
+                data.get(index).setName(journalTitle);
+                adapter.notifyDataSetChanged();
+            }
+
+            if(!findJournalText(data, journalText)
+                    && findJournalTitle(data, journalTitle))
+            {
+                System.out.println("Hits IF STATEMENT");
+                int index = getIndexOfJournalTitle(data, journalTitle);
+                data.get(index).setText(journalText);
+                adapter.notifyDataSetChanged();
+            }
+        }
     }
 
     /**
@@ -170,5 +219,69 @@ public class JournalRecyclerMain extends AppCompatActivity implements MyRecycler
         String json = prefs.getString(key, null);
         Type type = new TypeToken<ArrayList<Journal>>() {}.getType();
         return gson.fromJson(json, type);
+    }
+
+    /**
+     * This function checks to see if the Journal Title exists in the Journal list.
+     * @param  data The arrayList of Journal Objects
+     * @param title the title that is being searched for
+     */
+    boolean findJournalTitle(ArrayList<Journal> data, String title)
+    {
+        for(Journal j : data)
+        {
+            if (j.getName().equals(title)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * This function checks to see if the Journal Text exists in the Journal list.
+     * @param  data The arrayList of Journal Objects
+     * @param text the text that is being searched for
+     */
+    boolean findJournalText(ArrayList<Journal> data, String text)
+    {
+        for(Journal j : data)
+        {
+            if (j.getText().equals(text)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * This function returns the index of the Journal Title in the Journal ArrayList.
+     * @param  data The arrayList of Journal Objects
+     * @param title the title that is being searched for
+     */
+    int getIndexOfJournalTitle(ArrayList<Journal> data, String title)
+    {
+        for(Journal j : data)
+        {
+            if (j.getName().equals(title)) {
+                return data.indexOf(j);
+            }
+        }
+        return -1;
+    }
+
+    /**
+     * This function returns the index of the Journal Text in the Journal ArrayList.
+     * @param  data The arrayList of Journal Objects
+     * @param text the text that is being searched for
+     */
+    int getIndexOfJournalText(ArrayList<Journal> data, String text)
+    {
+        for(Journal j : data)
+        {
+            if (j.getText().equals(text)) {
+                return data.indexOf(j);
+            }
+        }
+        return -1;
     }
 }

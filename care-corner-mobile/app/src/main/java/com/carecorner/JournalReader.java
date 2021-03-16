@@ -18,6 +18,7 @@ public class JournalReader extends AppCompatActivity {
     //Convert file passed in from JournalActivity to a string
     String text = "";
     String journalName = "";
+    int position;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +32,7 @@ public class JournalReader extends AppCompatActivity {
         try {
             text = getIntent().getStringExtra("text");
             journalName = getIntent().getStringExtra("journalName");
+            position = getIntent().getIntExtra("position", -1);
         }
         catch(NullPointerException e) {
             text = " ";
@@ -51,6 +53,8 @@ public class JournalReader extends AppCompatActivity {
 //                Toast.makeText(JournalReader.this, "Sending to editor", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(JournalReader.this, JournalEditorActivity.class);
                 intent.putExtra("text", text);
+                intent.putExtra("title", journalName);
+                intent.putExtra("position", position);
                // setResult(RESULT_OK, intent);
                 startActivity(intent);
                 finish();

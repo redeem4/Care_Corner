@@ -25,6 +25,7 @@ public class JournalEditorActivity extends AppCompatActivity {
     //Convert file passed in from JournalActivity to a string
     String text = "";
     String title = "";
+    int position;
     //Bundle extras = getIntent().getExtras();
 
     //text = (String) savedInstanceState.getSerializable("text"); // extras.getString("text");
@@ -46,6 +47,7 @@ public class JournalEditorActivity extends AppCompatActivity {
             //text = getIntent().getExtras().getString("text");
             text = getIntent().getStringExtra("text");
             title = getIntent().getStringExtra("title");
+            position = getIntent().getIntExtra("position", -1);
         }
         catch(NullPointerException e) {
             text = " ";
@@ -53,7 +55,7 @@ public class JournalEditorActivity extends AppCompatActivity {
         }
         //Puts the editable text into the text entry box
         textEntryBox.setText(text, TextView.BufferType.EDITABLE);
-        titleBox.setText(text, TextView.BufferType.EDITABLE);
+        titleBox.setText(title, TextView.BufferType.EDITABLE);
 
         //Save button
         btnSave.setOnClickListener(new View.OnClickListener() {
@@ -81,9 +83,8 @@ public class JournalEditorActivity extends AppCompatActivity {
                     Intent intent = new Intent(JournalEditorActivity.this, JournalRecyclerMain.class);
                     intent.putExtra("text", text);
                     intent.putExtra("title", title);
-                    setResult(RESULT_OK, intent);
-                    finish();
-                    //startActivity(intent);
+                    intent.putExtra("position", position);
+                    startActivity(intent);
                 }
                 else {
                     //Remind user to save, if user wants to exit without saving simply press exit again.
