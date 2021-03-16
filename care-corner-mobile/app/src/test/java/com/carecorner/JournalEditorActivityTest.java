@@ -31,7 +31,7 @@ public class JournalEditorActivityTest {
         intent.putExtra("text", "My test journal entry");
         intent.putExtra("title", "My test title")
 
-        activity = Robolectric.buildActivity(DialingActivity.class, intent)
+        activity = Robolectric.buildActivity(JournalEditorActivity.class, intent)
                 .create()
                 .start()
                 .resume()
@@ -45,7 +45,7 @@ public class JournalEditorActivityTest {
         EditText textEntry = (EditText) shadowActivity.getContentView().findViewById(R.id.textEntryBox);
         EditText titleEntry = (EditText) shadowActivity.getContentView().findViewById(R.id.titleBox);
         assertEquals(textEntry.getText().toString(), "My test journal entry");
-        assertEquals(titleEntry.getText.toString(), "My test title");
+        assertEquals(titleEntry.getText().toString(), "My test title");
     }
 
     @Test
