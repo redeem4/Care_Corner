@@ -1,2 +1,2 @@
 include ':app'
-rootProject.name = "Care Corner"
+project(':app').projectDir = new File(rootDir, 'care-corner-mobile/app/')

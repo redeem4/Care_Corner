@@ -37,6 +37,18 @@
     <string name="speaker">Speaker</string>
     <string name="keypad">Keypad</string>
     <string name="mute">Mute</string>
+    <string name="my_journal">My Journal</string>
+    <string name="return_home">Return Home</string>
+    <string name="new_entry">New Entry</string>
+    <string name="delete_entry">Delete Selected Entry</string>
+    <string name="edit_entry">Edit Selected Entry</string>
+    <string name="view_recycler">View Entries</string>
+    <string name="element_text" />
+    <string name="edit_my_entry">Edit Entry</string>
+    <string name="journal_reader">Journal Reader</string>
+    <string name="title">Title</string>
+    <!-- <color name="lightblue">#94CCEo</color> -->
+
 
 
     <string-array name="spinnerWaitTime">
