@@ -22,6 +22,13 @@ functions:
       - http:
           path: /api/panic
           method: post
+  resource:
+    handler: com.carecorner.ResourceHandler
+    events:
+      - http:
+          path: /api/resources
+          method: get
+
 plugins:
   - serverless-localstack
 
