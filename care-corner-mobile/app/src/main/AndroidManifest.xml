@@ -25,6 +25,7 @@
         <activity android:name=".ResourceActivity" />
         <activity android:name=".FakePhoneCallMenuActivity" />
         <activity android:name=".CallingActivity" />
+        <service android:name="EmulatedVoiceService" />
     </application>
 
 </manifest>
