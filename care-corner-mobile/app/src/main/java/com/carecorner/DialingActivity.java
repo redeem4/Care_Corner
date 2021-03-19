@@ -136,7 +136,6 @@ public class DialingActivity extends AppCompatActivity {
         intent.putExtra("callerVoice", voice);
 
         startService(intent);
-        String test = "intent was" + voice;
     }
 
     /* this function is called when the fake voice needs to be stopped.
