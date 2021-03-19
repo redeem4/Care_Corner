@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".WelcomeActivity">
+
+    <TextView
+        android:id="@+id/CareCornerLogo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:text="@string/app_name"
+        android:textSize="60sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/btnLoginMenu"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:text="@string/login"
+        app:layout_constraintEnd_toEndOf="@+id/CareCornerLogo"
+        app:layout_constraintStart_toStartOf="@+id/CareCornerLogo"
+        app:layout_constraintTop_toBottomOf="@+id/CareCornerLogo" />
+
+    <Button
+        android:id="@+id/btnResources"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:text="@string/resources"
+        app:layout_constraintEnd_toEndOf="@+id/btnLoginMenu"
+        app:layout_constraintStart_toStartOf="@+id/btnLoginMenu"
+        app:layout_constraintTop_toBottomOf="@+id/btnLoginMenu" />
+</androidx.constraintlayout.widget.ConstraintLayout>
