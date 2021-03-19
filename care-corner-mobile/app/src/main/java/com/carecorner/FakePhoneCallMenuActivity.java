@@ -19,7 +19,8 @@ public class FakePhoneCallMenuActivity extends AppCompatActivity {
 
     private Button btnCall, btnRecordings, btnSettings, btnSet;
     private EditText nameEntryBox, phoneEntryBox;
-    private String name, phone, voice;
+    private String name, phone;
+    private int voice; //stores users fake call voice selection
     private Spinner waitTime, voiceSelector;
     private int timeToStart;
 
@@ -124,18 +125,24 @@ public class FakePhoneCallMenuActivity extends AppCompatActivity {
                 String voiceSelect = voiceSelector.getItemAtPosition(position).toString();
                 //TODO: Replace below lines with correct audio file information when available.
                 if(voiceSelect.equals("malevoice.mp3"))
-                    voice = "raw/malevoice.mp3";
+                {
+                    voice = 0;
+                }
 
                 if(voiceSelect.equals("femalevoice.mp3"))
-                    voice = "raw/femalevoice.mp3";
+                {
+                    voice = 1;
+                }
 
                 if(voiceSelect.equals("femalevoice2.mp3"))
-                    voice = "raw/femalevoice2.mp3";
+                {
+                    voice = 2;
+                }
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-                voice = "raw/malevoice.mp3";
+                voice = 0;
             }
         });
     }
