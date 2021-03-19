@@ -42,7 +42,7 @@
         app:layout_constraintTop_toBottomOf="@+id/caller_id_text_2" />
 
     <ImageButton
-        android:id="@+id/btnRejectCall2"
+        android:id="@+id/btnEndCall"
         android:layout_width="106dp"
         android:layout_height="79dp"
         android:background="@null"
@@ -55,7 +55,7 @@
     <TableLayout
         android:layout_width="307dp"
         android:layout_height="350dp"
-        app:layout_constraintBottom_toTopOf="@+id/btnRejectCall2"
+        app:layout_constraintBottom_toTopOf="@+id/btnEndCall"
         app:layout_constraintHorizontal_bias="0.512"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
