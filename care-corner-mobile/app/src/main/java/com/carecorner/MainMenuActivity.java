@@ -34,6 +34,13 @@ public class MainMenuActivity extends AppCompatActivity {
             }
         });
 
+        btnResourcesMenu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainMenuActivity.this, ResourceActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     private void initViews() {
