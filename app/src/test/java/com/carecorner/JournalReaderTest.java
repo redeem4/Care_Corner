@@ -52,7 +52,7 @@ public class JournalReaderTest {
     {
         ShadowActivity shadowActivity = shadowOf(activity);
         Button btnEdit = (Button) shadowActivity.getContentView().findViewById(R.id.btnEdit);
-        btnEdit.performLongClick();
+        btnEdit.performClick();
         assertEquals(ShadowToast.getTextOfLatestToast(), "Sending to editor");
     }
 
