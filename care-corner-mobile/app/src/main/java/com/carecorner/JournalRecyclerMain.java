@@ -15,7 +15,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
-import java.lang.reflect.Array;
 import java.lang.reflect.Type;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -90,9 +89,10 @@ public class JournalRecyclerMain extends AppCompatActivity implements MyRecycler
             journalName = formatter.format(date);
         }
 
-        if(journalName.length() >=  14)
+        int maxLength = 14;
+        if(journalName.length() >=  maxLength)
         {
-           journalName = journalName.substring(0, 13) + "...";
+           journalName = journalName.substring(0, maxLength - 1) + "...";
         }
 
         Journal temp = new Journal(journalName, journalEntry);
@@ -104,13 +104,13 @@ public class JournalRecyclerMain extends AppCompatActivity implements MyRecycler
      * This function sets up the RecyclerView.
      */
     private void setupRecyclerView() {
-        data = getArrayList("journals");
+        data = loadArrayList("journals");
 
-        if(data.isEmpty())
-        //|| data.size() < 10
+        if(data == null || data.isEmpty())
         {
             // Test data to populate the RecyclerView with if the saved Journal List is empty.
             // Mainly for demonstration purposes.
+            data = new ArrayList<Journal>();
             data.add(new Journal("test 3/13/2021", "This is a test 1"));
             data.add(new Journal("test 3/14/2021", "This is a test 2"));
             data.add(new Journal("test 3/15/2021", "This is a test 3"));
@@ -145,7 +145,6 @@ public class JournalRecyclerMain extends AppCompatActivity implements MyRecycler
             if(!findJournalText(data, journalText)
                     && !findJournalTitle(data, journalTitle))
             {
-                System.out.println("Hits IF STATEMENT");
                 Journal temp = new Journal(journalTitle, journalText);
                 data.add(temp);
                 int insertIndex = data.size();
@@ -157,7 +156,6 @@ public class JournalRecyclerMain extends AppCompatActivity implements MyRecycler
             if(findJournalText(data, journalText)
                     && !findJournalTitle(data, journalTitle))
             {
-                System.out.println("Hits IF STATEMENT");
                 int index = getIndexOfJournalText(data, journalText);
                 data.get(index).setName(journalTitle);
                 adapter.notifyDataSetChanged();
@@ -166,7 +164,6 @@ public class JournalRecyclerMain extends AppCompatActivity implements MyRecycler
             if(!findJournalText(data, journalText)
                     && findJournalTitle(data, journalTitle))
             {
-                System.out.println("Hits IF STATEMENT");
                 int index = getIndexOfJournalTitle(data, journalTitle);
                 data.get(index).setText(journalText);
                 adapter.notifyDataSetChanged();
@@ -213,7 +210,7 @@ public class JournalRecyclerMain extends AppCompatActivity implements MyRecycler
      * @param  key The unique key identifier that will be used to retrieve this specific set of Journal Entries later.
      * @return ArrayList of Journal Objects
      */
-    public ArrayList<Journal> getArrayList(String key){
+    public ArrayList<Journal> loadArrayList(String key){
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
         Gson gson = new Gson();
         String json = prefs.getString(key, null);
