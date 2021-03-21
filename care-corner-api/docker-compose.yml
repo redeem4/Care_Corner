@@ -5,18 +5,32 @@ services:
     container_name: care-corner-api
     depends_on:
       - localstack
+      - database
     tty: true
     restart: always
     networks:
       - docker_network
     volumes:
-      - "./serverless-api/:/care-corner-api"
+      - './serverless-api/:/care-corner-api'
+
+  database:
+    image: mysql:5.7
+    volumes:
+      - './mysql-data:/var/lib/mysql'
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: corner
+      MYSQL_DATABASE: care-corner
+      MYSQL_USER: care
+      MYSQL_PASSWORD: corner
+    ports:
+      - '3306:3306'
 
   localstack:
     image: localstack/localstack:0.12.7
     ports:
-      - "4566:4566"
-      - "8080:8080"
+      - '4566:4566'
+      - '8080:8080'
     container_name: care-corner-localstack
     environment:
       - SERVICES= apigateway, lambda, s3, cloudformation, sts, iam, sns
@@ -33,7 +47,7 @@ services:
       - HOSTNAME=localstack
     volumes:
       - "${TMPDIR:-/tmp/localstack}:/tmp/localstack"
-      - "/var/run/docker.sock:/var/run/docker.sock"
+      - '/var/run/docker.sock:/var/run/docker.sock'
     networks:
       - docker_network
 
