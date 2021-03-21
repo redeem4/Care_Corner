@@ -23,7 +23,6 @@ import java.util.ArrayList;
 @Config(sdk = {Build.VERSION_CODES.O_MR1})
 public class JournalRecyclerMainTest {
     private JournalRecyclerMain activity;
-    private Intent intent;
     private ArrayList<Journal> journalData = new ArrayList<Journal>();
 
     @Before
