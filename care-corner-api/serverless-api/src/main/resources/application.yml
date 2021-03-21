@@ -1,5 +1,5 @@
 datasource:
   driverClassName: com.mysql.jdbc.Driver
-  url: jdbc:mysql://10.5.0.6:3306/care-corner
+  url: jdbc:mysql://database:3306/care-corner
   username: care
   password: corner
