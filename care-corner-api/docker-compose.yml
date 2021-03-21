@@ -9,29 +9,34 @@ services:
     tty: true
     restart: always
     networks:
-      - docker_network
+      docker_network:
+        ipv4_address: 10.5.0.5
     volumes:
       - './serverless-api/:/care-corner-api'
 
   database:
     image: mysql:5.7
-    volumes:
-      - './mysql-data:/var/lib/mysql'
+    container_name: care-corner-database
+    ports:
+      - '3306:3306'
     restart: always
     environment:
       MYSQL_ROOT_PASSWORD: corner
       MYSQL_DATABASE: care-corner
       MYSQL_USER: care
       MYSQL_PASSWORD: corner
-    ports:
-      - '3306:3306'
+    volumes:
+      - './mysql-data:/var/lib/mysql'
+    networks:
+      docker_network:
+        ipv4_address: 10.5.0.6
 
   localstack:
     image: localstack/localstack:0.12.7
+    container_name: care-corner-localstack
     ports:
       - '4566:4566'
       - '8080:8080'
-    container_name: care-corner-localstack
     environment:
       - SERVICES= apigateway, lambda, s3, cloudformation, sts, iam, sns
       - DEFAULT_REGION=us-east-1
@@ -49,8 +54,13 @@ services:
       - "${TMPDIR:-/tmp/localstack}:/tmp/localstack"
       - '/var/run/docker.sock:/var/run/docker.sock'
     networks:
-      - docker_network
+      docker_network:
+        ipv4_address: 10.5.0.7
 
 networks:
   docker_network:
     driver: bridge
+    ipam:
+      config:
+        - subnet: 10.5.0.0/16
+          gateway: 10.5.0.1

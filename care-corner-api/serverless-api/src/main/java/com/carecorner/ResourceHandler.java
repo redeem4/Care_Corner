@@ -1,5 +1,9 @@
 package com.carecorner;
 
+import com.carecorner.dao.DefaultResourceDao;
+import com.carecorner.dao.ResourceDao;
+import com.carecorner.pojo.Resource;
+
 import java.util.Collections;
 import java.util.Map;
 
@@ -16,6 +20,7 @@ import com.amazonaws.services.lambda.runtime.RequestHandler;
 
 public class ResourceHandler implements RequestHandler<Map<String, Object>, ApiGatewayResponse> {
 
+  private final ResourceDao resourceDao = DefaultResourceDao.INSTANCE;
 	private final Logger logger = LogManager.getLogger(this.getClass());
 
 	@Override
@@ -36,6 +41,8 @@ public class ResourceHandler implements RequestHandler<Map<String, Object>, ApiG
 
       // print json
       System.out.println(json);
+
+      System.out.println(resourceDao.findAll());
 
 		} catch (Exception exception) {
 			logger.error("Error in resource: " + exception);

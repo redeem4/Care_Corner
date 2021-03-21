@@ -3,7 +3,7 @@
 The Care Corner API development environment consists of two main pieces:
 
 - [Localstack](https://github.com/localstack/localstack)
-- [Serverless Framework](http://www.serverless.com)  
+- [Serverless Framework](http://www.serverless.com)
 
 ## Setting Up
 
@@ -12,8 +12,8 @@ The Care Corner API development environment consists of two main pieces:
 
 ### Docker
 
-Docker is used to run [Localstack](https://github.com/localstack/localstack) and the [Serverless Framework](http://www.serverless.com) in a cross-platform way: 
- 
+Docker is used to run [Localstack](https://github.com/localstack/localstack) and the [Serverless Framework](http://www.serverless.com) in a cross-platform way:
+
 To install Docker:
 
   https://docs.docker.com/get-docker/
@@ -32,6 +32,9 @@ logs on the command line or in the docker dashboard. If you drop the `-d`, you c
 
 _Note_: on MacOS you may have to prefix with `TMPDIR=/private$TMPDIR docker-compose up`
 
+This will fire up three containers, localstack, the care corner api, and a mysql
+database.
+
 Now connect to the care-corner-api docker container:
 
       docker exec -it care-corner-api /bin/bash
@@ -40,11 +43,11 @@ Your command prompt should look similar to:
 
       root@9977a41a461c:/care-corner-api#
 
-You are now connected to the docker container that contains the care-corner-api development environment. 
+You are now connected to the docker container that contains the care-corner-api development environment.
 
 ## Developing
 
-When you first build the container or anytime the javascript dependencies change, you should bundle the deps: 
+When you first build the container or anytime the javascript dependencies change, you should bundle the deps:
 
       yarn
 
@@ -61,15 +64,15 @@ Tip: `sls` is an alisas provided for the `serverless` command.
 
 To run with test data, use the `d` or `p` switch:
 
-      sls invoke local -f panic -p data/panic.json 
+      sls invoke local -f panic -p data/panic.json
 
 You should see the following output:
 
     2021-03-14 21:47:49  DEBUG PanicHandler:26 - FooBarBaz
 
-The `data/panic.json` is a json file used as input, this can mimic data the API will receive from the mobile app. 
+The `data/panic.json` is a json file used as input, this can mimic data the API will receive from the mobile app.
 
-The first time you invoke the function, you'll see this message, and it will take a while to build all the dependencies: 
+The first time you invoke the function, you'll see this message, and it will take a while to build all the dependencies:
 
     ""Serverless: Building Java bridge, first invocation might take a bit longer.""
 
@@ -79,7 +82,7 @@ To log your invocations verbosely to troubleshoot, add the 'l' switch:
     sls invoke local -f panic -l
     sls logs -f panic
 
-## Localstack 
+## Localstack
 
 Once you are running the containers via `docker compose up`, you can test that Localstack is running by browsing to: `http://localhost:4566/health'.
 
@@ -88,7 +91,7 @@ Your browser should display:
     {"services": {"cloudformation": "running", "cloudwatch": "running", "iam": "running", "sts": "running", "lambda": "running", "logs": "running", "s3": "running", "sns": "running", "apigateway": "running"}}
 
 To deploy the lambda handlers to Localstack, to emulate AWS, deploy with the `local` stage:
- 
+
       sls deploy --stage local
 
 To check that the deployment was successful:
@@ -126,7 +129,7 @@ the execution of a REST API method.
 The URL pattern for API Gateway executions is
 http://localhost:4566/restapis/<apiId>/<stage>/_user_request_/<methodPath>.
 
-Referencing the output from the `sls info` example above, it would map to: 
+Referencing the output from the `sls info` example above, it would map to:
 
     endpoints: http://localhost:4566/restapis/xvik4x63dv/local/_user_request_
     functions: panic
@@ -135,15 +138,15 @@ Referencing the output from the `sls info` example above, it would map to:
 Note: From within docker, you access Localstack via the `localstack` name, while
 on your host (or via the mobile application) you reference via `localhost`.
 
-When accessing within the care-corner-api container: 
+When accessing within the care-corner-api container:
 
     curl -X POST http://localstack:4566/restapis/nwpm11x7ci/local/_user_request_/api/panic
 
-From your host computer, use `localhost` instead `localstack`: 
+From your host computer, use `localhost` instead `localstack`:
 
     curl -X POST http://localhost:4566/restapis/nwpm11x7ci/local/_user_request_/api/panic
 
-_Note_: Your local repository is mounted in the Docker container, so you can edit the code in your host operating system with whatever editor you'd like, and it will be updated in the container. You then build and execute within the Docker container. 
+_Note_: Your local repository is mounted in the Docker container, so you can edit the code in your host operating system with whatever editor you'd like, and it will be updated in the container. You then build and execute within the Docker container.
 
 ## Summary
 
@@ -153,7 +156,7 @@ Building the docker containers, this is only needed when the Dockerfile changes:
 
       docker-compose build
 
-Running the docker containers: 
+Running the docker containers:
 
       docker-componse up
 
@@ -183,7 +186,7 @@ Invoking with full logging, to troubleshoot issues:
 
  ### Localstack
 
-To ensure localstack is running correctly, browse to: 
+To ensure localstack is running correctly, browse to:
 
     http://localhost:4566/health
 
@@ -193,11 +196,11 @@ To deploy lambda handlers to Localstack:
 
 To check the deployment information:
 
-    sls info --stage local 
+    sls info --stage local
 
 To test that a lambda handler is deployed:
 
-    curl -X POST http://localstack:4566/restapis/nwpm11x7ci/local/_user_request_/api/panic 
+    curl -X POST http://localstack:4566/restapis/nwpm11x7ci/local/_user_request_/api/panic
 
 ### AWS CLI
 
