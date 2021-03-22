@@ -82,7 +82,6 @@ public class DialingActivityTest {
         /*  when DialingActivity is created, this test that the
             EmulatedVoiceService is also created. */
         Intent intent = Shadows.shadowOf(activity2).peekNextStartedService();
-        ShadowMediaPlayer.CreateListener.
         assertEquals(EmulatedVoiceService.class.getCanonicalName(),intent.getComponent().getClassName());
     }
 }

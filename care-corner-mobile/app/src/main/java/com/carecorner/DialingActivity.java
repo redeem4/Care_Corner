@@ -32,7 +32,7 @@ public class DialingActivity extends AppCompatActivity {
         btnRejectCall.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //stopVoice();
+                stopVoice();
                 showDialog();
             }
         });
