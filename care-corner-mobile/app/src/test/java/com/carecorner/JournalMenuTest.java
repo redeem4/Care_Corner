@@ -39,7 +39,7 @@ public class JournalMenuTest {
         btnHome.performClick();
         Intent startedIntent = shadowActivity.getNextStartedActivity();
         ShadowIntent shadowIntent = shadowOf(startedIntent);
-        assertEquals(JournalMenuActivity.class, shadowIntent.getIntentClass());
+        assertEquals(MainMenuActivity.class, shadowIntent.getIntentClass());
     }
 
     @Test
@@ -50,7 +50,7 @@ public class JournalMenuTest {
         btnView.performClick();
         Intent startedIntent = shadowActivity.getNextStartedActivity();
         ShadowIntent shadowIntent = shadowOf(startedIntent);
-        assertEquals(JournalMenuActivity.class, shadowIntent.getIntentClass());
+        assertEquals(JournalRecyclerMain.class, shadowIntent.getIntentClass());
     }
 
 
