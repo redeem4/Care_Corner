@@ -60,6 +60,11 @@ The following invokes the lambda handler that defines the panic function:
 
     sls invoke local --function panic
 
+Note: The first time you invoke a function the Java Bridge has to download
+and build. If this seems to be taking a long time, you'll see a message that says,
+"Building Java bridge, first invocation might take a bit longer",
+hit Ctrl-C and then run this script: `./scripts/build-java-bridge.sh`
+
 Tip: `sls` is an alisas provided for the `serverless` command.
 
 To run with test data, use the `d` or `p` switch:
