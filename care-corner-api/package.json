@@ -15,6 +15,6 @@
     "yarn": "1.22.10"
   },
   "devDependencies": {
-    "serverless-localstack": "^0.4.28"
+    "serverless-localstack": "^0.4.29"
   }
 }
