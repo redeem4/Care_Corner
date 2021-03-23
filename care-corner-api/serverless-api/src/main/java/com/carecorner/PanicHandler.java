@@ -15,11 +15,11 @@ import com.amazonaws.services.lambda.runtime.RequestHandler;
 public class PanicHandler implements RequestHandler<Map<String, Object>, ApiGatewayResponse> {
 
 	private final Logger logger = LogManager.getLogger(this.getClass());
-	
+
 	@Override
 	public ApiGatewayResponse handleRequest(Map<String, Object> input, Context context) {
 		logger.debug("Panic Handler received: {}", input);
-		
+
 		try {
 			// obtain the body from input
 			//JsonNode body = new ObjectMapper().readTree((String)input.get("body"));
