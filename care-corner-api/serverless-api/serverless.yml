@@ -3,6 +3,7 @@
 
 service: care-corner-api
 frameworkVersion: '2'
+#variablesResolutionMode: 20210219
 
 provider:
   name: aws
@@ -33,7 +34,6 @@ plugins:
   - serverless-localstack
 
 custom:
-  bucket: care-corner-api
   localstack:
     stages:
       - local

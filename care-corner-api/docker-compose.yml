@@ -44,8 +44,8 @@ services:
       - DEBUG=1
       - DATA_DIR=${DATA_DIR- }
       - PORT_WEB_UI=${PORT_WEB_UI- }
-      - LAMBDA_EXECUTOR=docker
-      - LAMBDA_REMOTE_DOCKER=true
+      - LAMBDA_EXECUTOR=local
+      - LAMBDA_REMOTE_DOCKER=false
       - DOCKER_HOST=unix:///var/run/docker.sock
       - AWS_ACCESS_KEY_ID=foobar
       - AWS_SECRET_ACCESS_KEY=foobar
