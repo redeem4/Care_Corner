@@ -12,6 +12,12 @@ import androidx.annotation.Nullable;
 
 import java.net.URI;
 
+/**
+ *  This class is is a service that will output a fake phone call voice.
+ *  different voices can be selected.
+ *  the fake_call_voice_selection is passed to this class as an intent titled "callerVoice"
+ */
+
 public class EmulatedVoiceService extends Service {
     private MediaPlayer player;
 
@@ -21,14 +27,15 @@ public class EmulatedVoiceService extends Service {
         return null;
     }
 
+
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
 
-        //Set intent(voice selection) to voiceNumber variable
-        int voiceNumber = intent.getIntExtra("callerVoice", 0);
+        //Set the passed fake call voice selection to a local variable.
+        int fake_call_voice_selection = intent.getIntExtra("callerVoice", 0);
 
         //create different voices based on selection
-        switch(voiceNumber) {
+        switch(fake_call_voice_selection) {
             case 1:
                 player = MediaPlayer.create(this, R.raw.emulated_voice01);
 

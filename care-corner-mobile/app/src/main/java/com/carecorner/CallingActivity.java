@@ -5,8 +5,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
-import android.provider.Settings;
-import android.telecom.Call;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -16,7 +14,7 @@ public class CallingActivity extends AppCompatActivity {
     private TextView caller_id_text, phone_number_text;
     private ImageButton btnAcceptCall, btnRejectCall;
     private String getNameValue, getPhoneValue;
-    private int getVoiceValue; //stores users fake call voice selection
+    private int fake_call_voice_selection;
     private MediaPlayer player;
 
     @Override
@@ -36,7 +34,7 @@ public class CallingActivity extends AppCompatActivity {
                 Intent intent = new Intent(CallingActivity.this, DialingActivity.class);
                 intent.putExtra("callerName", getNameValue);
                 intent.putExtra("callerPhoneNum", getPhoneValue);
-                intent.putExtra("callerVoice", getVoiceValue);
+                intent.putExtra("callerVoice", fake_call_voice_selection);
                 startActivity(intent);
             }
         });
@@ -61,18 +59,18 @@ public class CallingActivity extends AppCompatActivity {
             if(extras == null) {
                 getNameValue= null;
                 getPhoneValue= null;
-                getVoiceValue= 0;
+                fake_call_voice_selection = 0;
             } else {
                 getNameValue = extras.getString("callerName");
                 getPhoneValue = extras.getString("callerPhoneNum");
-                getVoiceValue = extras.getInt("callerVoice");
+                fake_call_voice_selection = extras.getInt("callerVoice");
                 caller_id_text.setText(getNameValue);
                 phone_number_text.setText(getPhoneValue);
             }
         } else {
             getNameValue = (String) savedInstanceState.getSerializable("callerName");
             getPhoneValue = (String) savedInstanceState.getSerializable("callerPhoneNum");
-            getVoiceValue = (int) savedInstanceState.getSerializable("callerVoice");
+            fake_call_voice_selection = (int) savedInstanceState.getSerializable("callerVoice");
         }
     }
 

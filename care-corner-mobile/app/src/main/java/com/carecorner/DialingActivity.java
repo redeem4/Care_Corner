@@ -17,7 +17,7 @@ public class DialingActivity extends AppCompatActivity {
     private TextView caller_id_text, phone_number_text;
     private ImageButton btnRejectCall;
     private String getNameValue, getPhoneValue;
-    private int getVoiceValue; //stores users fake call voice selection
+    private int fake_call_voice_selection;
     public Chronometer elapsedTimeCounter;
 
     @Override
@@ -27,12 +27,12 @@ public class DialingActivity extends AppCompatActivity {
         initViews();
         elapsedTimeCounter.start();
         setCallerInfo(savedInstanceState);
-        startVoice(getVoiceValue);
+        start_fake_call_voice(fake_call_voice_selection);
 
         btnRejectCall.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                stopVoice();
+                stop_fake_call_voice();
                 showDialog();
             }
         });
@@ -41,7 +41,7 @@ public class DialingActivity extends AppCompatActivity {
             @Override
             public boolean onLongClick(View v) {
                 //TODO: Implement Panic Button Feature and place function call here.
-                stopVoice();
+                stop_fake_call_voice();
                 Toast.makeText(DialingActivity.this, "Panic Button Activated!", Toast.LENGTH_SHORT).show();
                 return true;
             }
@@ -59,18 +59,18 @@ public class DialingActivity extends AppCompatActivity {
             if(extras == null) {
                 getNameValue= null;
                 getPhoneValue= null;
-                getVoiceValue= 0;
+                fake_call_voice_selection = 0;
             } else {
                 getNameValue = extras.getString("callerName");
                 getPhoneValue = extras.getString("callerPhoneNum");
-                getVoiceValue = extras.getInt("callerVoice");
+                fake_call_voice_selection = extras.getInt("callerVoice");
                 caller_id_text.setText(getNameValue);
                 phone_number_text.setText(getPhoneValue);
             }
         } else {
             getNameValue = (String) savedInstanceState.getSerializable("callerName");
             getPhoneValue = (String) savedInstanceState.getSerializable("callerPhoneNum");
-            getVoiceValue = (int) savedInstanceState.getSerializable("callerVoice");
+            fake_call_voice_selection = (int) savedInstanceState.getSerializable("callerVoice");
         }
     }
 
@@ -125,22 +125,27 @@ public class DialingActivity extends AppCompatActivity {
 
         return dialog;
     }
-    /*  this function is called when the fake voice is ready to be started
-     *  @param voice - this maps to the different voice recording
-     *                 0 = Male
-     *                 1 = Female
+
+
+    /**
+     *  this function is called to start the fake call voice
+     *  @param fake_voice_selection     this maps to the different voice recording
+     *                                  0 = Male
+     *                                  1 = Female
      */
-    public void startVoice(int voice){
+    public void start_fake_call_voice(int fake_voice_selection){
 
         Intent intent = new Intent(this, EmulatedVoiceService.class);
-        intent.putExtra("callerVoice", voice);
 
+        //passing the fake_voice_call as a parameter to the EmulatedVoiceService
+        intent.putExtra("callerVoice", fake_voice_selection);
         startService(intent);
     }
 
-    /* this function is called when the fake voice needs to be stopped.
+    /**
+     * this function is called when the fake voice needs to be stopped.
      */
-    public void stopVoice(){
+    public void stop_fake_call_voice(){
         Intent intent = new Intent(this, EmulatedVoiceService.class);
         stopService(intent);
     }
