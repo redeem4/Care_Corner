@@ -30,4 +30,23 @@ public class Journal {
     public void setText(String text) {
         this.text = text;
     }
+
+    @Override
+    public boolean equals(Object obj)
+    {
+        if (this == obj)
+            return true;
+
+        if (obj == null || this.getClass() != obj.getClass())
+            return false;
+
+        Journal j1 = (Journal) obj;
+
+        return this.name.equals(j1.name) && this.text.equals(j1.text);
+    }
+
+    @Override
+    public String toString() {
+        return "Title:" + " " + name + "/n" + "Text:" + " " + text + "/n";
+    }
 }

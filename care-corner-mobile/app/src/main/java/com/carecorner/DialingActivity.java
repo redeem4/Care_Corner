@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.Chronometer;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class DialingActivity extends AppCompatActivity {
 
@@ -30,40 +31,24 @@ public class DialingActivity extends AppCompatActivity {
         btnRejectCall.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(DialingActivity.this);
-                builder.setTitle("Recording:")
-                        .setMessage("Would you like to save this recording?")
-                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                //TODO: Create working save recordings algorithm and place here.
-                                Intent intent = new Intent(DialingActivity.this, MainMenuActivity.class);
-                                startActivity(intent);
-                            }
-                        })
-                        .setNegativeButton("No", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                //TODO: Implement delete audio/video recording function and place here.
-                                //deleteLast();
-                                Intent intent = new Intent(DialingActivity.this, MainMenuActivity.class);
-                                startActivity(intent);
-                            }
-                        });
+                showDialog();
+            }
+        });
 
-                AlertDialog recordingAlert = builder.create();
-                recordingAlert.show();
+        btnRejectCall.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                //TODO: Implement Panic Button Feature and place function call here.
+                Toast.makeText(DialingActivity.this, "Panic Button Activated!", Toast.LENGTH_SHORT).show();
+                return true;
             }
         });
     }
 
-    private void initViews() {
-        caller_id_text = findViewById(R.id.caller_id_text_2);
-        phone_number_text = findViewById(R.id.phone_number_text_2);
-        btnRejectCall = findViewById(R.id.btnRejectCall2);
-        elapsedTimeCounter = findViewById(R.id.elapsedTime);
-    }
-
+    /**
+     * Sets up Dialing Screen based upon User Input initially gathered from the Fake Phone Call Menu Activity
+     * @param savedInstanceState This variable carries the saved User Input from the previous Activity.
+     */
     //Function to setup Call Screen based upon User Information
     private void setCallerInfo(Bundle savedInstanceState) {
         if (savedInstanceState == null) {
@@ -81,5 +66,57 @@ public class DialingActivity extends AppCompatActivity {
             getNameValue = (String) savedInstanceState.getSerializable("callerName");
             getPhoneValue = (String) savedInstanceState.getSerializable("callerPhoneNum");
         }
+    }
+
+    /**
+     * Connects and initializes every element in the layout to a variable.
+     */
+    private void initViews() {
+        caller_id_text = findViewById(R.id.caller_id_text_2);
+        phone_number_text = findViewById(R.id.phone_number_text_2);
+        btnRejectCall = findViewById(R.id.btnEndCall);
+        elapsedTimeCounter = findViewById(R.id.elapsedTime);
+    }
+
+    /**
+     * Overrides the Back Button functionality to return to the Fake Phone Call Menu.
+     */
+    @Override
+    public void onBackPressed()
+    {
+        super.onBackPressed();
+        Intent intent = new Intent(DialingActivity.this, FakePhoneCallMenuActivity.class);
+        startActivity(intent);
+    }
+
+    /**
+     * Creates and Displays Dialog box which asks the user if they would like to save the recording.
+     */
+    public AlertDialog showDialog()
+    {
+        AlertDialog.Builder builder = new AlertDialog.Builder(DialingActivity.this);
+        builder.setTitle("Recording:")
+            .setMessage("Would you like to save this recording?")
+            .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    //TODO: Create working save recordings algorithm and place here.
+                    Intent intent = new Intent(DialingActivity.this, MainMenuActivity.class);
+                    startActivity(intent);
+                }
+            })
+            .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    //TODO: Implement delete audio/video recording function and place here.
+                    //deleteLast();
+                    Intent intent = new Intent(DialingActivity.this, MainMenuActivity.class);
+                    startActivity(intent);
+                }
+            });
+        AlertDialog dialog = builder.create();
+        dialog.show();
+
+        return dialog;
     }
 }

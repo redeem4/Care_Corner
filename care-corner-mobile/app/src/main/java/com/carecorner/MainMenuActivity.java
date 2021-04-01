@@ -34,6 +34,13 @@ public class MainMenuActivity extends AppCompatActivity {
             }
         });
 
+        btnResourcesMenu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainMenuActivity.this, ResourceActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     private void initViews() {
@@ -43,5 +50,16 @@ public class MainMenuActivity extends AppCompatActivity {
         btnJournal = findViewById(R.id.btnJournal);
         btnResourcesMenu = findViewById(R.id.btnResourcesMenu);
         btnReportingAssistance = findViewById(R.id.btnReportingAssistance);
+    }
+
+    /**
+     * Overrides the Back Button functionality to return to the login screen.
+     */
+    @Override
+    public void onBackPressed()
+    {
+        super.onBackPressed();
+        Intent intent = new Intent(MainMenuActivity.this, LoginActivity.class);
+        startActivity(intent);
     }
 }
