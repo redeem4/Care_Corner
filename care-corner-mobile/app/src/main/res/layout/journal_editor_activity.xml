@@ -55,6 +55,7 @@
         android:inputType="text"
         android:password="false"
         android:singleLine="false"
+        android:gravity="top|left"
         app:layout_constraintBottom_toTopOf="@+id/btnSave"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
