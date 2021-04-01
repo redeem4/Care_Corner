@@ -14,7 +14,7 @@ public class ReportingReader extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.nameoflayoutfile);
+        setContentView(R.layout.reporting_reader_activity);
         title = findViewById(R.id.title);
 
 

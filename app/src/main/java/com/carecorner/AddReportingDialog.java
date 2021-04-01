@@ -20,7 +20,7 @@ public class AddReportingDialog extends AppCompatDialogFragment {
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         LayoutInflater inflater = getActivity().getLayoutInflater();
-        View view = inflater.inflate(R.layout.nameoflayout, null);
+        View view = inflater.inflate(R.layout.reporting_add_dialog, null);
         builder.setView(view)
                 .setTitle("Add Resources Entry")
                 .setNegativeButton("cancel", new DialogInterface.OnClickListener() {
