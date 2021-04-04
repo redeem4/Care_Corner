@@ -10,6 +10,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.androidnetworking.AndroidNetworking;
+import com.androidnetworking.error.ANError;
+import com.androidnetworking.interfaces.StringRequestListener;
+import com.carecorner.util.NetworkConnection;
+
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -27,22 +32,38 @@ public class LoginActivity extends AppCompatActivity {
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //TODO: Create proper and secure login functionality that checks login information against database entries.
-                //Currently, no password is needed for debugging reasons.
-                if(usernameEntryBox.getText().toString().equals("") &&
-                        passwordEntryBox.getText().toString().equals("")) {
-                    startActivity(intent);
-                }
-                else {
-                    Toast.makeText(LoginActivity.this, "Wrong Credentials", Toast.LENGTH_SHORT).show();
-                    counter--;
+                boolean networkActive = NetworkConnection.
+                        hasActiveInternetConnection(getApplicationContext());
 
-                    if (counter == 0) {
-                        btnLogin.setEnabled(false);
-                        btnLogin.setBackgroundColor(Color.GRAY);
+                if (networkActive) {
+                    AndroidNetworking.get("http://localhost:4566/api/users")
+                            .build()
+                            .getAsString(new StringRequestListener() {
+                                @Override
+                                public void onResponse(String response) {
+                                }
+
+                                @Override
+                                public void onError(ANError anError) {
+                                }
+                            });
+                } else {
+                    if(usernameEntryBox.getText().toString().equals("") &&
+                            passwordEntryBox.getText().toString().equals("")) {
+                        startActivity(intent);
+                    }
+                    else {
+                        Toast.makeText(LoginActivity.this, "Wrong Credentials", Toast.LENGTH_SHORT).show();
+                        counter--;
+
+                        if (counter == 0) {
+                            btnLogin.setEnabled(false);
+                            btnLogin.setBackgroundColor(Color.GRAY);
+                        }
                     }
                 }
             }
+
         });
         btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
