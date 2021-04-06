@@ -44,4 +44,12 @@ dependencies {
     testImplementation 'org.robolectric:robolectric:4.4'
     testImplementation 'org.hamcrest:hamcrest:2.2'
     implementation 'com.google.code.gson:gson:2.8.6'
+
+    //Material Design Component
+    implementation 'com.google.android.material:material:1.4.0-alpha02'
+
+    //JetPack Navigation
+    def nav_version = "2.3.4"
+    implementation "androidx.navigation:navigation-fragment:$nav_version"
+    implementation "androidx.navigation:navigation-ui:$nav_version"
 }
