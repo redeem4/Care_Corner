@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/audioListFragment2">
+    <fragment
+        android:id="@+id/audioListFragment2"
+        android:name="com.carecorner.AudioListFragment"
+        android:label="fragment_audio_list"
+        tools:layout="@layout/fragment_audio_list" />
+    <fragment
+        android:id="@+id/recordFragment"
+        android:name="com.carecorner.RecordFragment"
+        android:label="fragment_record"
+        tools:layout="@layout/fragment_record" />
+</navigation>
