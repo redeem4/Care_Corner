@@ -8,14 +8,16 @@ import android.widget.TextView;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+
+import static org.junit.Assert.assertEquals;
+import static org.robolectric.Shadows.shadowOf;
+
 import org.robolectric.Robolectric;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
 import org.robolectric.shadows.ShadowActivity;
+import org.robolectric.shadows.ShadowIntent;
 import org.robolectric.shadows.ShadowToast;
-
-import static org.junit.Assert.assertEquals;
-import static org.robolectric.Shadows.shadowOf;
 
 @RunWith(RobolectricTestRunner.class)
 @Config(sdk = {Build.VERSION_CODES.O_MR1})
@@ -28,7 +30,7 @@ public class JournalReaderTest {
     {
         intent = new Intent();
         intent.putExtra("text", "My test journal entry");
-        intent.putExtra("title", "My test title");
+        intent.putExtra("journalName", "My test title");
 
         activity = Robolectric.buildActivity(JournalReader.class, intent)
                 .create()
@@ -38,12 +40,18 @@ public class JournalReaderTest {
     }
 
     @Test
-    public void checkTextBox() throws Exception
+    public void checkJournalEntry() throws Exception
     {
         ShadowActivity shadowActivity = shadowOf(activity);
         TextView textEntry = (TextView) shadowActivity.getContentView().findViewById(R.id.textBox);
-        TextView titleEntry = (TextView) shadowActivity.getContentView().findViewById(R.id.title);
         assertEquals(textEntry.getText().toString(), "My test journal entry");
+    }
+
+    @Test
+    public void checkJournalEntryTitle() throws Exception
+    {
+        ShadowActivity shadowActivity = shadowOf(activity);
+        TextView titleEntry = (TextView) shadowActivity.getContentView().findViewById(R.id.title);
         assertEquals(titleEntry.getText().toString(), "My test title");
     }
 
@@ -58,6 +66,4 @@ public class JournalReaderTest {
         ShadowIntent shadowIntent = shadowOf(startedIntent);
         assertEquals(JournalEditorActivity.class, shadowIntent.getIntentClass());
     }
-
-
 }
