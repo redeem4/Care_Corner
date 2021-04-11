@@ -36,7 +36,10 @@ public class LoginActivity extends AppCompatActivity {
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AndroidNetworking.get("http://10.0.2.2:8888/health")
+                CareCornerApplication application = (CareCornerApplication)getApplicationContext();
+                AndroidNetworking.post(application.apiUlr + "/api/auth")
+                        .addBodyParameter("username", "test")
+                        .addBodyParameter("passsword", "test")
                         .build()
                         .getAsJSONObject(new JSONObjectRequestListener() {
                             @Override

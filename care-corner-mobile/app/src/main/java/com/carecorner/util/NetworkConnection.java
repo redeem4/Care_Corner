@@ -15,7 +15,7 @@ public class NetworkConnection {
         if (isNetworkAvailable(context)) {
             try {
                 HttpURLConnection connection = (HttpURLConnection)
-                        (new URL("http://localstack:4566/heatlh")
+                        (new URL("http://10.0.2.2:4566/heatlh")
                                 .openConnection());
                 connection.setConnectTimeout(1500);
                 connection.setRequestMethod("GET");
