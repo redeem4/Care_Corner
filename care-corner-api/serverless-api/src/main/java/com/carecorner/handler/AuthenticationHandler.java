@@ -7,6 +7,7 @@ import com.carecorner.dao.UserDao;
 import com.carecorner.pojo.User;
 
 import java.util.Collections;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.logging.log4j.LogManager;
@@ -28,43 +29,36 @@ public class AuthenticationHandler implements RequestHandler<Map<String, Object>
 	public ApiGatewayResponse handleRequest(Map<String, Object> input, Context context) {
 		logger.debug("Authentication Handler received: {}", input);
 
-    Map<String, Object> json;
+    	Map<String, Object> json;
+		int statusCode = 401;
+		try {
+			JsonNode body = new ObjectMapper().readTree((String) input.get("body"));
 
-    try {
-      JsonNode body = new ObjectMapper().readTree((String) input.get("body"));
-      System.out.println(body.toString());
+			ObjectMapper mapper = new ObjectMapper();
+			String username = body.get("username").asText();
+			String password = body.get("password").asText();
 
-      ObjectMapper mapper = new ObjectMapper();
-      ObjectNode resource = mapper.createObjectNode();
-      String username = body.get("username").asText();
-      String password = body.get("password").asText();
-      resource.put("name", body.get("username").asText());
-      resource.put("phone", body.get("password").asText());
-      System.out.println(username);
-      System.out.println(password);
-
-      json = mapper.convertValue(resource, new TypeReference<Map<String, Object>>(){});
-
-	  System.out.println(userDao.findAll());
-
-      // print json
-      System.out.println(json);
+			List<User> users = userDao.findByUsername(username);
+			User user = users.get(0);
+			/*if (user.getPasssword() == password) {
+				// authenticated
+				statusCode = 200;
+			}*/
 		} catch (Exception exception) {
 			exception.printStackTrace();
 
 			// send the error response back
 			Response responseBody = new Response("Error in resource: ", input);
 			return ApiGatewayResponse.builder()
-					.setStatusCode(500)
+					.setStatusCode(statusCode)
 					.setObjectBody(responseBody)
 					.setHeaders(Collections.singletonMap("X-Powered-By", "Care Corner"))
 					.build();
-
 		}
 
 		Response responseBody = new Response("data:", input);
 		return ApiGatewayResponse.builder()
-				.setStatusCode(200)
+				.setStatusCode(statusCode)
 				.setObjectBody(responseBody)
 				.setHeaders(Collections.singletonMap("X-Powered-By", "Care Corner"))
 				.build();
