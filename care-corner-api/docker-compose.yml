@@ -6,7 +6,6 @@ services:
     depends_on:
       - localstack
       - database
-      - proxy
     tty: true
     restart: always
     networks:
@@ -32,25 +31,13 @@ services:
       docker_network:
         ipv4_address: 10.5.0.6
 
-  proxy:
-    build: ./proxy/.
-    container_name: care-corner-proxy
-    restart: always
-    ports:
-      - '8888:8888'
-    networks:
-      docker_network:
-        ipv4_address: 10.5.0.8
-
-
   localstack:
     image: localstack/localstack:0.12.9.1
     container_name: care-corner-localstack
     restart: always
-    depends_on:
-      - proxy
     ports:
       - '8080:8080'
+      - '4566:4566'
     environment:
       - SERVICES= apigateway, lambda, s3, cloudformation, sts, iam, sns
       - DEFAULT_REGION=us-east-1
