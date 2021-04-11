@@ -22,8 +22,7 @@ import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.RequestHandler;
 
 public class ResourceHandler implements RequestHandler<Map<String, Object>, ApiGatewayResponse> {
-
-  private final ResourceDao resourceDao = DefaultResourceDao.INSTANCE;
+  	private final ResourceDao resourceDao = DefaultResourceDao.INSTANCE;
 	private final Logger logger = LogManager.getLogger(this.getClass());
 
 	@Override

@@ -3,6 +3,9 @@ package com.carecorner.handler;
 import com.carecorner.gateway.ApiGatewayResponse;
 import com.carecorner.gateway.Response;
 
+import com.carecorner.dao.UserDao;
+import com.carecorner.pojo.User;
+
 import java.util.Collections;
 import java.util.Map;
 
@@ -18,6 +21,7 @@ import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.RequestHandler;
 
 public class AuthenticationHandler implements RequestHandler<Map<String, Object>, ApiGatewayResponse> {
+	private final UserDao userDao = UserDao.INSTANCE;
 	private final Logger logger = LogManager.getLogger(this.getClass());
 
 	@Override
@@ -33,7 +37,7 @@ public class AuthenticationHandler implements RequestHandler<Map<String, Object>
       ObjectMapper mapper = new ObjectMapper();
       ObjectNode resource = mapper.createObjectNode();
       String username = body.get("username").asText();
-      String password = body.get("passwoord").asText();
+      String password = body.get("password").asText();
       resource.put("name", body.get("username").asText());
       resource.put("phone", body.get("password").asText());
       System.out.println(username);
@@ -41,10 +45,12 @@ public class AuthenticationHandler implements RequestHandler<Map<String, Object>
 
       json = mapper.convertValue(resource, new TypeReference<Map<String, Object>>(){});
 
+	  System.out.println(userDao.findAll());
+
       // print json
       System.out.println(json);
 		} catch (Exception exception) {
-			logger.error("Error in resource: " + exception);
+			exception.printStackTrace();
 
 			// send the error response back
 			Response responseBody = new Response("Error in resource: ", input);
