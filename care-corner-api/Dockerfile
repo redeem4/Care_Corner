@@ -19,6 +19,7 @@ RUN curl -o- -L https://get.sdkman.io | bash
 RUN bash -c "source $HOME/.sdkman/bin/sdkman-init.sh && \
     yes | sdk install java $JAVA_VERSION && \
     yes | sdk install maven $MAVEN_VERSION && \
+    yes | sdk install gradle && \ 
     rm -rf $HOME/.sdkman/archives/* && \
     rm -rf $HOME/.sdkman/tmp/*"
 
