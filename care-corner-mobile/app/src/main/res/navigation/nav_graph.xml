@@ -3,12 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/audioListFragment2">
-    <fragment
-        android:id="@+id/audioListFragment2"
-        android:name="com.carecorner.AudioListFragment"
-        android:label="fragment_audio_list"
-        tools:layout="@layout/fragment_audio_list" />
+    app:startDestination="@id/recordFragment">
 
     <fragment
         android:id="@+id/recordFragment"
@@ -19,4 +14,12 @@
             android:id="@+id/action_recordFragment_to_audioListFragment2"
             app:destination="@id/audioListFragment2" />
     </fragment>
+
+    <fragment
+        android:id="@+id/audioListFragment2"
+        android:name="com.carecorner.AudioListFragment"
+        android:label="fragment_audio_list"
+        tools:layout="@layout/fragment_audio_list" />
+
+
 </navigation>
