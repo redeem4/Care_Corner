@@ -13,8 +13,8 @@ RUN apt-get update && \
 RUN pip install awscli-local[ver1]
 
 # sdkman; java & maven
-ARG JAVA_VERSION="11.0.10.j9-adpt"
-ARG MAVEN_VERSION="3.6.3"
+ARG JAVA_VERSION="16.0.0.j9-adpt"
+ARG MAVEN_VERSION="3.8.1"
 RUN curl -o- -L https://get.sdkman.io | bash
 RUN bash -c "source $HOME/.sdkman/bin/sdkman-init.sh && \
     yes | sdk install java $JAVA_VERSION && \
