@@ -12,9 +12,12 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import org.json.JSONArray;
+import org.json.JSONObject;
+
 import com.androidnetworking.AndroidNetworking;
 import com.androidnetworking.error.ANError;
 import com.androidnetworking.interfaces.JSONArrayRequestListener;
+import com.androidnetworking.interfaces.JSONObjectRequestListener;
 import com.carecorner.util.NetworkConnection;
 
 
@@ -30,22 +33,21 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.login_activity);
         initViews();
         Intent intent = new Intent(LoginActivity.this, MainMenuActivity.class);
-        
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AndroidNetworking.get("http://localstack:4566/api/resources")
+                AndroidNetworking.get("http://10.0.2.2:8888/health")
                         .build()
-                        .getAsJSONArray(new JSONArrayRequestListener() {
+                        .getAsJSONObject(new JSONObjectRequestListener() {
                             @Override
-                            public void onResponse(JSONArray response) {
+                            public void onResponse(JSONObject response) {
                                 Log.d("NETWORK", "GooooOGooo");
-                                Log.e("Made it to resources", "Habbab");
+                                Log.e("Made it to resources", response.toString());
                             }
 
                             @Override
                             public void onError(ANError error) {
-                                Log.e("Made it", error.getErrorDetail());
+                                Log.e("Error: ",  error.getErrorDetail());
                             }
                         });
             }
