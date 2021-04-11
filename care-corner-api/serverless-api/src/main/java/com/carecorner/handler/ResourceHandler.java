@@ -1,4 +1,7 @@
-package com.carecorner;
+package com.carecorner.handler;
+
+import com.carecorner.gateway.ApiGatewayResponse;
+import com.carecorner.gateway.Response;
 
 import com.carecorner.dao.DefaultResourceDao;
 import com.carecorner.dao.ResourceDao;

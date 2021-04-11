@@ -1,4 +1,4 @@
-package com.carecorner;
+package com.carecorner.gateway;
 
 import java.nio.charset.StandardCharsets;
 import java.util.Base64;
