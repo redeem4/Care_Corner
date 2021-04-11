@@ -1,9 +1,13 @@
 package com.carecorner;
 
+import android.Manifest;
+import android.content.pm.PackageManager;
+import android.media.MediaRecorder;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -13,6 +17,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -27,6 +36,12 @@ public class RecordFragment extends Fragment implements View.OnClickListener {
     private ImageButton recordBtn;
 
     private boolean isRecording = false;
+
+    //audio recording
+    private String recordPermission = Manifest.permission.RECORD_AUDIO;
+    private int PERMISSION_CODE = 21;
+    private MediaRecorder mediaRecorder;
+    private String recordFile;
 
 
     public RecordFragment() {
@@ -63,18 +78,64 @@ public class RecordFragment extends Fragment implements View.OnClickListener {
             case R.id.record_button:
                 if(isRecording){
                     //stop recording
+                    stopRecording();
+
                     //swaps image upon button click
                     recordBtn.setImageDrawable(getResources().getDrawable(R.drawable.record_btn_stopped));
                     isRecording = false;
                 }else{
                     //start recording
-                    recordBtn.setImageDrawable(getResources().getDrawable(R.drawable.record_btn_recording));
-                    isRecording = true;
+                    if (checkPermissions()) {
+                        startRecording();
+                        recordBtn.setImageDrawable(getResources().getDrawable(R.drawable.record_btn_recording));
+                        isRecording = true;
+                    }
                 }
                 break;
 
 
 
         }
+    }
+
+    private void stopRecording() {
+        mediaRecorder.stop();
+        mediaRecorder.release();
+        mediaRecorder = null;
+    }
+
+    private void startRecording() {
+
+        String recordPath = getActivity().getExternalFilesDir("/").getAbsolutePath();
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy_MM_dd_hh_mm_ss", Locale.CANADA);
+        Date now = new Date();
+
+        recordFile = "Recording_" + formatter.format(now) + ".3gp";
+
+        mediaRecorder = new MediaRecorder();
+        mediaRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
+        mediaRecorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
+        mediaRecorder.setOutputFile(recordPath + "/" + recordFile);
+        mediaRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB);
+
+        try {
+            mediaRecorder.prepare();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        mediaRecorder.start();
+
+    }
+
+    //TODO move permission code to fake Phone Screen
+    private boolean checkPermissions() {
+        if(ActivityCompat.checkSelfPermission(getContext(), recordPermission) == PackageManager.PERMISSION_GRANTED){
+            return true;
+        }else{
+            ActivityCompat.requestPermissions(getActivity(), new String[]{recordPermission}, PERMISSION_CODE);
+            return false;
+        }
+
     }
 }
