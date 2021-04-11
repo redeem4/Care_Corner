@@ -23,8 +23,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="4"
-            android:paddingTop="16dp"
-            android:paddingBottom="16dp"
+            android:paddingTop="24dp"
+            android:paddingBottom="24dp"
             app:srcCompat="@drawable/hands" />
 
         <TextView
@@ -33,8 +33,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="3"
             android:fontFamily="@font/open_sans_light"
-            android:paddingTop="16dp"
-            android:paddingBottom="16dp"
+            android:paddingTop="24dp"
+            android:paddingBottom="24dp"
             android:text="Media Player"
             android:textColor="@android:color/white"
             android:textSize="16sp" />
@@ -45,9 +45,9 @@
             android:layout_height="wrap_content"
             android:layout_weight="3"
             android:fontFamily="@font/open_sans_light"
-            android:paddingTop="16dp"
+            android:paddingTop="24dp"
             android:paddingEnd="24dp"
-            android:paddingBottom="16dp"
+            android:paddingBottom="24dp"
             android:text="Not Playing"
             android:textAlignment="textEnd"
             android:textColor="@android:color/white"
@@ -71,8 +71,9 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout2" />
 
-    <ImageView
+    <ImageButton
         android:id="@+id/player_play_btn"
+        android:background="@color/design_default_color_primary"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
@@ -82,8 +83,9 @@
         app:layout_constraintTop_toBottomOf="@+id/textView3"
         app:srcCompat="@drawable/player_play_btn" />
 
-    <ImageView
+    <ImageButton
         android:id="@+id/imageView3"
+        android:background="@color/design_default_color_primary"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="16dp"
@@ -93,8 +95,9 @@
         app:layout_constraintTop_toTopOf="@+id/player_play_btn"
         app:srcCompat="@drawable/player_back_btn" />
 
-    <ImageView
+    <ImageButton
         android:id="@+id/imageView4"
+        android:background="@color/design_default_color_primary"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="16dp"

@@ -45,8 +45,9 @@
         android:layout_height="wrap_content" 
         />
     
-    <ImageView
+    <ImageButton
         android:id="@+id/record_button"
+        android:background="@color/white"
         app:layout_constraintTop_toBottomOf="@id/record_timer"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -56,8 +57,9 @@
         android:layout_height="wrap_content"
         />
 
-    <ImageView
+    <ImageButton
         android:id="@+id/record_list_btn"
+        android:background="@color/white"
         android:layout_width="80dp"
         android:layout_height="60dp"
         android:padding="16dp"
