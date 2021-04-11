@@ -57,14 +57,13 @@
         />
 
     <ImageView
-        android:id="@+id/record_list_button"
-        app:layout_constraintTop_toTopOf="@+id/record_button"
-        app:layout_constraintBottom_toBottomOf="@+id/record_button"
-        app:layout_constraintStart_toEndOf="@+id/record_button"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:id="@+id/record_list_btn"
+        android:layout_width="80dp"
+        android:layout_height="60dp"
         android:padding="16dp"
         android:src="@drawable/recorder_list_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        />
+        app:layout_constraintBottom_toBottomOf="@+id/record_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/record_button"
+        app:layout_constraintTop_toTopOf="@+id/record_button" />
 </androidx.constraintlayout.widget.ConstraintLayout>
