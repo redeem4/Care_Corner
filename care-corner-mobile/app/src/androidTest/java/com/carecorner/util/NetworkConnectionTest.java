@@ -11,7 +11,13 @@ public class NetworkConnectionTest {
     private Context context = ApplicationProvider.getApplicationContext();
 
     @Test
-    public void networkConnectionTest_Online_ReturnsTrue() {
+    public void networkAvailableTest_IsNetworkAvailable_ReturnsTrue() {
+        boolean networkAvailable = NetworkConnection.isNetworkAvailable(context);
+        assertThat(networkAvailable).isTrue();
+    }
+
+    @Test
+    public void internetConnectionTest_Online_ReturnsTrue() {
         boolean hasConnection = NetworkConnection.hasActiveInternetConnection(context);
         assertThat(hasConnection).isTrue();
     }

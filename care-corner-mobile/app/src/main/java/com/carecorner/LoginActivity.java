@@ -5,14 +5,16 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import org.json.JSONArray;
 import com.androidnetworking.AndroidNetworking;
 import com.androidnetworking.error.ANError;
-import com.androidnetworking.interfaces.StringRequestListener;
+import com.androidnetworking.interfaces.JSONArrayRequestListener;
 import com.carecorner.util.NetworkConnection;
 
 
@@ -32,38 +34,21 @@ public class LoginActivity extends AppCompatActivity {
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                boolean networkActive = NetworkConnection.
-                        hasActiveInternetConnection(getApplicationContext());
+                AndroidNetworking.get("http://localstack:4566/api/resources")
+                        .build()
+                        .getAsJSONArray(new JSONArrayRequestListener() {
+                            @Override
+                            public void onResponse(JSONArray response) {
+                                Log.d("NETWORK", "GooooOGooo");
+                                Log.e("Made it to resources", "Habbab");
+                            }
 
-                if (networkActive) {
-                    AndroidNetworking.get("http://localhost:4566/api/users")
-                            .build()
-                            .getAsString(new StringRequestListener() {
-                                @Override
-                                public void onResponse(String response) {
-                                }
-
-                                @Override
-                                public void onError(ANError anError) {
-                                }
-                            });
-                } else {
-                    if(usernameEntryBox.getText().toString().equals("") &&
-                            passwordEntryBox.getText().toString().equals("")) {
-                        startActivity(intent);
-                    }
-                    else {
-                        Toast.makeText(LoginActivity.this, "Wrong Credentials", Toast.LENGTH_SHORT).show();
-                        counter--;
-
-                        if (counter == 0) {
-                            btnLogin.setEnabled(false);
-                            btnLogin.setBackgroundColor(Color.GRAY);
-                        }
-                    }
-                }
+                            @Override
+                            public void onError(ANError error) {
+                                Log.e("Made it", error.getErrorDetail());
+                            }
+                        });
             }
-
         });
         btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
