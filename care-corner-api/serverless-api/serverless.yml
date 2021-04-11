@@ -17,14 +17,20 @@ package:
   artifact: 'target/${self:service}-${self:provider.stage}.jar'
 
 functions:
+  authentication:
+    handler: com.carecorner.handler.AuthenticationHandler
+    events:
+      - http:
+          path: /api/auth
+          method: post
   panic:
-    handler: com.carecorner.PanicHandler
+    handler: com.carecorner.handler.PanicHandler
     events:
       - http:
           path: /api/panic
           method: post
   resource:
-    handler: com.carecorner.ResourceHandler
+    handler: com.carecorner.handler.ResourceHandler
     events:
       - http:
           path: /api/resources
