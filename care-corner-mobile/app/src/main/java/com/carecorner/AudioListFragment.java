@@ -121,6 +121,27 @@ public class AudioListFragment extends Fragment implements AudioListAdapter.onIt
             }
         });
 
+        playerSeekbar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+                pauseAudio();
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+                if (fileToPlay != null){
+                    int progress = seekBar.getProgress();
+                    mediaPlayer.seekTo(progress);
+                    resumeAudio();
+                }
+
+            }
+        });
 
     }
 
@@ -144,6 +165,7 @@ public class AudioListFragment extends Fragment implements AudioListAdapter.onIt
         //change pause button to play button image
         playBtn.setImageDrawable(getActivity().getResources().getDrawable(R.drawable.player_play_btn, null));
         isPlaying = false;
+        seekbarHandler.removeCallbacks(updateSeekbar);
 
     }
 
@@ -152,6 +174,9 @@ public class AudioListFragment extends Fragment implements AudioListAdapter.onIt
         //change play button to pause button image
         playBtn.setImageDrawable(getActivity().getResources().getDrawable(R.drawable.player_pause_btn, null));
         isPlaying = true;
+
+        updateRunnable();
+        seekbarHandler.postDelayed(updateSeekbar, 0);
     }
 
     private void stopAudio() {
@@ -196,6 +221,13 @@ public class AudioListFragment extends Fragment implements AudioListAdapter.onIt
         playerSeekbar.setMax(mediaPlayer.getDuration());
 
         seekbarHandler = new Handler();
+        updateRunnable();
+
+        seekbarHandler.postDelayed(updateSeekbar, 0);
+
+    }
+
+    private void updateRunnable() {
         updateSeekbar = new Runnable() {
             @Override
             public void run() {
@@ -203,7 +235,12 @@ public class AudioListFragment extends Fragment implements AudioListAdapter.onIt
                 seekbarHandler.postDelayed(this, 500);
             }
         };
-        seekbarHandler.postDelayed(updateSeekbar, 0);
+    }
 
+    public void onStop(){
+        super.onStop();
+        if(isPlaying){
+            stopAudio();
+        }
     }
 }
