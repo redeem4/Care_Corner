@@ -34,16 +34,16 @@
         android:layout_marginTop="64dp"
         android:gravity="center_horizontal" />
 
-    <Chronometer
+    <TextView
         android:id="@+id/record_timer"
-        app:layout_constraintTop_toBottomOf="@+id/record_filename"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:fontFamily="@font/playfair_display"
-        android:textSize="64dp"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" 
-        />
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/playfair_display"
+        android:text="Start Text"
+        android:textSize="64dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/record_filename" />
     
     <ImageButton
         android:id="@+id/record_button"
