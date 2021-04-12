@@ -17,6 +17,7 @@ public class RecorderService extends Service {
     private final IBinder recorderBinder = new RecorderBinder();
     private MediaRecorder mediaRecorder;
     private String recordFile;
+    private String lastRecording;
 
     public RecorderService() {
     }
@@ -51,6 +52,7 @@ public class RecorderService extends Service {
         mediaRecorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
         mediaRecorder.setOutputFile(recordPath + "/" + recordFile);
         mediaRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB);
+        lastRecording = recordPath + "/" + recordFile;
 
         try {
             mediaRecorder.prepare();
@@ -68,4 +70,9 @@ public class RecorderService extends Service {
             return RecorderService.this;
         }
     }
+
+    public String getLastRecording(){
+        return lastRecording;
+    }
+
 }

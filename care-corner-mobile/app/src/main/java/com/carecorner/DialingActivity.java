@@ -22,6 +22,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 import com.carecorner.RecorderService.RecorderBinder;
 
+import java.io.File;
+
 public class DialingActivity extends AppCompatActivity {
 
     private TextView caller_id_text, phone_number_text;
@@ -40,6 +42,7 @@ public class DialingActivity extends AppCompatActivity {
     private boolean isRecording = false;
     private TextView timer;
     private MediaRecorder mediaRecorder;
+    private String lastRecording;
 
 
     @Override
@@ -47,8 +50,10 @@ public class DialingActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.dialing_activity);
         initViews();
+        //Rec_requirement
         Intent recorderIntent = new Intent(this, RecorderService.class);
         bindService(recorderIntent, recorderConnection, Context.BIND_AUTO_CREATE);
+
         elapsedTimeCounter.start();
         setCallerInfo(savedInstanceState);
         start_fake_call_voice(fake_call_voice_selection);
@@ -61,6 +66,8 @@ public class DialingActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 stop_fake_call_voice();
+
+                lastRecording = recorderService.getLastRecording();
                 stop_audio_recording();
                 showDialog();
             }
@@ -71,7 +78,8 @@ public class DialingActivity extends AppCompatActivity {
             public boolean onLongClick(View v) {
                 //TODO: Implement Panic Button Feature and place function call here.
                 stop_fake_call_voice();
-                start_audio_recording();
+                lastRecording = recorderService.getLastRecording();
+                stop_audio_recording();
                 Toast.makeText(DialingActivity.this, "Panic Button Activated!", Toast.LENGTH_SHORT).show();
                 return true;
             }
@@ -147,6 +155,8 @@ public class DialingActivity extends AppCompatActivity {
                 public void onClick(DialogInterface dialog, int which) {
                     //TODO: Implement delete audio/video recording function and place here.
                     //deleteLast();
+                    File fileToBeDeleted = new File(lastRecording);
+                    boolean deleted = fileToBeDeleted.delete();
                     Intent intent = new Intent(DialingActivity.this, MainMenuActivity.class);
                     startActivity(intent);
                 }
@@ -158,7 +168,7 @@ public class DialingActivity extends AppCompatActivity {
     }
 
 
-
+    //Rec_requirement
     private void start_audio_recording() {
         if (checkPermissions()) {
             //TODO create recorder Intent in onCreate
@@ -169,7 +179,7 @@ public class DialingActivity extends AppCompatActivity {
             isRecording = true;
         }
     }
-
+    //Rec_requirement
     private void stop_audio_recording() {
         recorderService.stopRecording();
         //stopRecording();
@@ -201,7 +211,7 @@ public class DialingActivity extends AppCompatActivity {
         stopService(intent);
     }
 
-    //TODO class responsible for binding to service
+    //Rec_requirement
     private ServiceConnection recorderConnection = new ServiceConnection() {
         @Override
         public void onServiceConnected(ComponentName name, IBinder service) {
