@@ -29,20 +29,26 @@ public class AuthenticationHandler implements RequestHandler<Map<String, Object>
 	public ApiGatewayResponse handleRequest(Map<String, Object> input, Context context) {
 		logger.debug("Authentication Handler received: {}", input);
 
-    	Map<String, Object> json;
 		int statusCode = 401;
 		try {
 			JsonNode body = new ObjectMapper().readTree((String) input.get("body"));
+			logger.debug("Params: {}", body);
 
-			ObjectMapper mapper = new ObjectMapper();
 			String username = body.get("username").asText();
 			String password = body.get("password").asText();
 
+			logger.debug("Username: {}", username);
+			logger.debug("Password: {}", password);
 			List<User> users = userDao.findByUsername(username);
-			User user = users.get(0);
-			if (user.getPassword() == password) {
-				// authenticated
-				statusCode = 200;
+			logger.debug("Userss: {}", users.toString());
+			if (users.size() > 0) {
+				User user = users.get(0);
+				logger.debug("User: {}", user);
+				logger.debug("Comp: {}", user.getPassword());
+				if (user.getPassword() == password) {
+					// authenticated
+					statusCode = 200;
+				}
 			}
 		} catch (Exception exception) {
 			exception.printStackTrace();

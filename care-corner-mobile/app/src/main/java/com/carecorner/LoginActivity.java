@@ -19,6 +19,8 @@ import com.androidnetworking.error.ANError;
 import com.androidnetworking.interfaces.JSONArrayRequestListener;
 import com.androidnetworking.interfaces.JSONObjectRequestListener;
 import com.carecorner.util.NetworkConnection;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
 
 
 public class LoginActivity extends AppCompatActivity {
@@ -37,9 +39,16 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 CareCornerApplication application = (CareCornerApplication)getApplicationContext();
+                JSONObject jo = new JSONObject();
+                try {
+                    jo.put("username", "alpha");
+                    jo.put("password", "passworda");
+                } catch(Exception error) {
+
+                }
                 AndroidNetworking.post(application.apiUlr + "/api/auth")
-                        .addBodyParameter("username", "test")
-                        .addBodyParameter("passsword", "test")
+                        .addHeaders("Content-Type", "application/json")
+                        .addJSONObjectBody(jo)
                         .build()
                         .getAsJSONObject(new JSONObjectRequestListener() {
                             @Override
@@ -51,6 +60,7 @@ public class LoginActivity extends AppCompatActivity {
                             @Override
                             public void onError(ANError error) {
                                 Log.e("Error: ",  error.getErrorDetail());
+                                Log.e("Resonse: ", error.getResponse().message());
                             }
                         });
             }

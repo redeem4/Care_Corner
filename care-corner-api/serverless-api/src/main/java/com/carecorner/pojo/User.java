@@ -3,8 +3,7 @@ package com.carecorner.pojo;
 import lombok.AllArgsConstructor;
 import lombok.Value;
 
-@Value
-@AllArgsConstructor(staticName = "of")
+@Value(staticConstructor = "of")
 public class User {
   Integer id;
   String username;
