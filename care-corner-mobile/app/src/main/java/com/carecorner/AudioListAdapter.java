@@ -15,6 +15,7 @@ import java.io.File;
 public class AudioListAdapter extends RecyclerView.Adapter<AudioListAdapter.AudioViewHolder> {
 
     private File[] allFiles;
+    private TimeAgo timeAgo;
     public AudioListAdapter(File[] allFiles){
         this.allFiles = allFiles;
     }
@@ -24,13 +25,14 @@ public class AudioListAdapter extends RecyclerView.Adapter<AudioListAdapter.Audi
     //inflates the view holder
     public AudioViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.single_list_item, parent, false);
+        timeAgo = new TimeAgo();
         return new AudioViewHolder((view));
     }
 
     @Override
     public void onBindViewHolder(@NonNull AudioViewHolder holder, int position) {
         holder.list_title.setText(allFiles[position].getName());
-        holder.list_date.setText(allFiles[position].lastModified() + "");
+        holder.list_date.setText(timeAgo.setTimeAgo(allFiles[position].lastModified()));
 
     }
 
