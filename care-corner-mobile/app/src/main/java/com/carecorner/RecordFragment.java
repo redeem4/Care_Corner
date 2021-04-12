@@ -48,6 +48,13 @@ public class RecordFragment extends Fragment implements View.OnClickListener {
     //is this service bound to a client?
     boolean isBound = false;
     private TextView timer;
+    //TODO audio recording
+    private String recordPermission = Manifest.permission.RECORD_AUDIO;
+    private int PERMISSION_CODE = 21;
+    private MediaRecorder mediaRecorder;
+    private String recordFile;
+    private boolean isRecording = false;
+
 
     public void showTime(View view) {
         String currentTime = recorderService.getCurrentTime();
@@ -60,13 +67,6 @@ public class RecordFragment extends Fragment implements View.OnClickListener {
     private ImageButton listBtn;
     private ImageButton recordBtn;
 
-    private boolean isRecording = false;
-
-    //TODO audio recording
-    private String recordPermission = Manifest.permission.RECORD_AUDIO;
-    private int PERMISSION_CODE = 21;
-    private MediaRecorder mediaRecorder;
-    private String recordFile;
 
 
     public RecordFragment() {
@@ -117,7 +117,8 @@ public class RecordFragment extends Fragment implements View.OnClickListener {
             case R.id.record_button:
                 if(isRecording){
                     //stop recording
-                    stopRecording();
+                    recorderService.stopRecording();
+                    //stopRecording();
 
                     //swaps image upon button click
                     recordBtn.setImageDrawable(getResources().getDrawable(R.drawable.record_btn_stopped));
@@ -126,7 +127,8 @@ public class RecordFragment extends Fragment implements View.OnClickListener {
                     //start recording
                     if (checkPermissions()) {
                         showTime(v);
-                        startRecording();
+                        recorderService.startRecording();
+                        //startRecording();
                         recordBtn.setImageDrawable(getResources().getDrawable(R.drawable.record_btn_recording));
                         isRecording = true;
                     }
