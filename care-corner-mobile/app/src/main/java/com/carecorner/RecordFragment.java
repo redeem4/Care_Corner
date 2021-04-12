@@ -1,6 +1,7 @@
 package com.carecorner;
 
 import android.Manifest;
+import android.app.AlertDialog;
 import android.content.pm.PackageManager;
 import android.media.MediaRecorder;
 import android.os.Bundle;
@@ -72,7 +73,13 @@ public class RecordFragment extends Fragment implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.record_list_btn:
-                navController.navigate(R.id.action_recordFragment_to_audioListFragment2);
+                if(isRecording){
+                    AlertDialog alertDialog = new AlertDialog.Builder(getContext()).create());
+                    alertDialog.setTitle("Audio Still Recording");
+                    isRecording = false;
+                } else {
+                    navController.navigate(R.id.action_recordFragment_to_audioListFragment2);
+                }
                 break;
 
             case R.id.record_button:
@@ -136,6 +143,16 @@ public class RecordFragment extends Fragment implements View.OnClickListener {
             ActivityCompat.requestPermissions(getActivity(), new String[]{recordPermission}, PERMISSION_CODE);
             return false;
         }
+
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        if(isRecording){
+            stopRecording();
+        }
+
 
     }
 }
