@@ -1,5 +1,7 @@
 package com.carecorner;
 
+import android.media.MediaPlayer;
+import android.media.MediaRecorder;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -9,6 +11,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,9 +19,10 @@ import android.view.ViewGroup;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 
 import java.io.File;
+import java.io.IOException;
 
 
-public class AudioListFragment extends Fragment {
+public class AudioListFragment extends Fragment implements AudioListAdapter.onItemListClick{
 
 
 
@@ -29,6 +33,11 @@ public class AudioListFragment extends Fragment {
     private File[] allFiles;
 
     private AudioListAdapter audioListAdapter;
+
+    private MediaPlayer mediaPlayer = null;
+    private boolean isPlaying = false;
+    private File fileToPlay;
+
 
     public AudioListFragment() {
         // Required empty public constructor
@@ -54,7 +63,7 @@ public class AudioListFragment extends Fragment {
         File directory = new File(path);
         allFiles = directory.listFiles();
 
-        audioListAdapter = new AudioListAdapter(allFiles);
+        audioListAdapter = new AudioListAdapter(allFiles, this);
 
         audioList.setHasFixedSize(true);
         audioList.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -80,4 +89,36 @@ public class AudioListFragment extends Fragment {
     }
 
 
+    @Override
+    public void onClickListener(File file, int position) {
+        if (isPlaying){
+            stopAudio();
+            playAudio(fileToPlay);
+        } else {
+            fileToPlay = file;
+            playAudio(fileToPlay);
+
+        }
+
+
+    }
+
+    private void stopAudio() {
+        isPlaying = false;
+    }
+
+    private void playAudio(File fileToPlay) {
+        MediaPlayer mediaPlayer = new MediaPlayer();
+
+        //setDataSource requires try/catch block
+        try {
+            mediaPlayer.setDataSource(fileToPlay.getAbsolutePath());
+            mediaPlayer.prepare();
+            mediaPlayer.start();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        isPlaying = true;
+    }
 }
