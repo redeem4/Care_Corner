@@ -7,7 +7,7 @@
     tools:context=".ArmedWalkStart">
 
     <Button
-        android:id="@+id/btnStart"
+        android:id="@+id/btnPanicStart"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="139dp"
@@ -16,18 +16,18 @@
         android:layout_marginEnd="165dp"
         android:layout_marginRight="165dp"
         android:layout_marginBottom="151dp"
-        android:text="@string/start_walk"
+        android:text="Start Panic"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ArmedWalkStart" />
+        app:layout_constraintTop_toBottomOf="@+id/PanicButton" />
 
     <TextView
-        android:id="@+id/ArmedWalkStart"
+        android:id="@+id/PanicButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:text="Armed Walk"
+        android:text="Panic Button"
         android:textAppearance="@style/TextAppearance.AppCompat.Display2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
