@@ -107,22 +107,51 @@ public class AudioListFragment extends Fragment implements AudioListAdapter.onIt
             }
         });
 
+        playBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (isPlaying){
+                    pauseAudio();
+                } else{
+                    if (fileToPlay != null){
+                        resumeAudio();
+                    }
+
+                }
+            }
+        });
+
 
     }
 
 
     @Override
     public void onClickListener(File file, int position) {
+        fileToPlay = file;
         if (isPlaying){
             stopAudio();
             playAudio(fileToPlay);
         } else {
-            fileToPlay = file;
             playAudio(fileToPlay);
 
         }
 
 
+    }
+
+    private void pauseAudio(){
+        mediaPlayer.pause();
+        //change pause button to play button image
+        playBtn.setImageDrawable(getActivity().getResources().getDrawable(R.drawable.player_play_btn, null));
+        isPlaying = false;
+
+    }
+
+    private void resumeAudio(){
+        mediaPlayer.start();
+        //change play button to pause button image
+        playBtn.setImageDrawable(getActivity().getResources().getDrawable(R.drawable.player_pause_btn, null));
+        isPlaying = true;
     }
 
     private void stopAudio() {
@@ -136,7 +165,7 @@ public class AudioListFragment extends Fragment implements AudioListAdapter.onIt
     }
 
     private void playAudio(File fileToPlay) {
-        MediaPlayer mediaPlayer = new MediaPlayer();
+        mediaPlayer = new MediaPlayer();
 
         bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
 
