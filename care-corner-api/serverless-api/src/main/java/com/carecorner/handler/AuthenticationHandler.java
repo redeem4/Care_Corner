@@ -40,10 +40,10 @@ public class AuthenticationHandler implements RequestHandler<Map<String, Object>
 
 			List<User> users = userDao.findByUsername(username);
 			User user = users.get(0);
-			/*if (user.getPasssword() == password) {
+			if (user.getPassword() == password) {
 				// authenticated
 				statusCode = 200;
-			}*/
+			}
 		} catch (Exception exception) {
 			exception.printStackTrace();
 

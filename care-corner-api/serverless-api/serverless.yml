@@ -10,12 +10,10 @@ provider:
   runtime: java11
   lambdaHashingVersion: 20201221
   region: us-east-1
-  environment:
-    variable1: value1
 
 package:
-  artifact: 'target/${self:service}-${self:provider.stage}.jar'
-
+  artifact: 'build/distributions/com.carecorner-${self:provider.stage}.zip'
+  
 functions:
   authentication:
     handler: com.carecorner.handler.AuthenticationHandler

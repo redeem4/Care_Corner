@@ -1,0 +1,40 @@
+plugins {
+    id 'java-library'
+    id 'com.github.johnrengelman.shadow' version '6.1.0'
+}
+
+repositories {
+    mavenCentral()
+}
+
+version = 'dev'
+java.sourceCompatibility = JavaVersion.VERSION_11
+
+dependencies {
+    implementation 'com.amazonaws:aws-lambda-java-core:1.2.1'
+    implementation 'com.amazonaws:aws-lambda-java-events:3.1.0'
+    implementation 'com.amazonaws:aws-lambda-java-log4j2:1.2.0'
+    runtimeOnly 'org.apache.logging.log4j:log4j-core:2.8.2'
+    implementation 'com.fasterxml.jackson.core:jackson-core:2.9.10'
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.9.10'
+    implementation 'com.fasterxml.jackson.core:jackson-annotations:2.9.10'
+    implementation 'mysql:mysql-connector-java:8.0.23'
+    implementation 'com.zaxxer:HikariCP:4.0.3'
+    implementation 'org.yaml:snakeyaml:1.28'
+    testImplementation 'junit:junit:4.13.2'
+    testImplementation 'org.dbunit:dbunit:2.7.0'
+    testImplementation 'com.h2database:h2:1.4.200'
+    compileOnly 'org.projectlombok:lombok:1.18.20'
+    annotationProcessor 'org.projectlombok:lombok:1.18.20'
+}
+
+task buildZip(type: Zip) {                                                                                      // Using the Zip API from gradle to build a zip file of all the dependencies                                //
+    archiveBaseName = "com.carecorner"
+    from compileJava
+    from processResources
+    into('lib') {
+        from configurations.runtimeClasspath
+    }
+}
+
+build.dependsOn buildZip
