@@ -2,16 +2,25 @@ package com.carecorner;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 
+import android.Manifest;
+import android.content.ComponentName;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.ServiceConnection;
+import android.content.pm.PackageManager;
+import android.media.MediaRecorder;
 import android.os.Bundle;
+import android.os.IBinder;
 import android.util.Log;
 import android.view.View;
 import android.widget.Chronometer;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
+import com.carecorner.RecorderService.RecorderBinder;
 
 public class DialingActivity extends AppCompatActivity {
 
@@ -21,19 +30,38 @@ public class DialingActivity extends AppCompatActivity {
     private int fake_call_voice_selection;
     public Chronometer elapsedTimeCounter;
 
+    //Media Recorder Variables
+    private String recordPermission = Manifest.permission.RECORD_AUDIO;
+    private int PERMISSION_CODE = 21;
+    private String recordFile;
+    private RecorderService recorderService;
+    //is this service bound to a client?
+    private boolean isBound = false;
+    private boolean isRecording = false;
+    private TextView timer;
+    private MediaRecorder mediaRecorder;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.dialing_activity);
         initViews();
+        Intent recorderIntent = new Intent(this, RecorderService.class);
+        bindService(recorderIntent, recorderConnection, Context.BIND_AUTO_CREATE);
         elapsedTimeCounter.start();
         setCallerInfo(savedInstanceState);
         start_fake_call_voice(fake_call_voice_selection);
+
+
+
+
 
         btnRejectCall.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 stop_fake_call_voice();
+                stop_audio_recording();
                 showDialog();
             }
         });
@@ -43,11 +71,13 @@ public class DialingActivity extends AppCompatActivity {
             public boolean onLongClick(View v) {
                 //TODO: Implement Panic Button Feature and place function call here.
                 stop_fake_call_voice();
+                start_audio_recording();
                 Toast.makeText(DialingActivity.this, "Panic Button Activated!", Toast.LENGTH_SHORT).show();
                 return true;
             }
         });
     }
+
 
     /**
      * Sets up Dialing Screen based upon User Input initially gathered from the Fake Phone Call Menu Activity
@@ -128,6 +158,26 @@ public class DialingActivity extends AppCompatActivity {
     }
 
 
+
+    private void start_audio_recording() {
+        if (checkPermissions()) {
+            //TODO create recorder Intent in onCreate
+
+            recorderService.startRecording();
+
+            //startRecording();
+            isRecording = true;
+        }
+    }
+
+    private void stop_audio_recording() {
+        recorderService.stopRecording();
+        //stopRecording();
+
+
+        isRecording = false;
+    }
+
     /**
      *  this function is called to start the fake call voice
      *  @param fake_voice_selection     this maps to the different voice recording
@@ -149,5 +199,32 @@ public class DialingActivity extends AppCompatActivity {
     public void stop_fake_call_voice(){
         Intent intent = new Intent(this, EmulatedVoiceService.class);
         stopService(intent);
+    }
+
+    //TODO class responsible for binding to service
+    private ServiceConnection recorderConnection = new ServiceConnection() {
+        @Override
+        public void onServiceConnected(ComponentName name, IBinder service) {
+            RecorderBinder binder = (RecorderBinder) service;
+            recorderService =  binder.getService();
+            start_audio_recording();
+            isBound = true;
+        }
+
+        @Override
+        public void onServiceDisconnected(ComponentName name) {
+            isBound = false;
+        }
+    };
+
+    //TODO move permission code to fake Phone Screen
+    private boolean checkPermissions() {
+        if(ActivityCompat.checkSelfPermission(this, recordPermission) == PackageManager.PERMISSION_GRANTED){
+            return true;
+        }else{
+            ActivityCompat.requestPermissions(this, new String[]{recordPermission}, PERMISSION_CODE);
+            return false;
+        }
+
     }
 }
