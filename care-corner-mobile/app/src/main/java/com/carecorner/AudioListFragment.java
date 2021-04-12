@@ -15,6 +15,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
+import android.widget.TextView;
 
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 
@@ -38,6 +40,11 @@ public class AudioListFragment extends Fragment implements AudioListAdapter.onIt
     private boolean isPlaying = false;
     private File fileToPlay;
 
+    //UI elements
+    private ImageButton playBtn;
+    private TextView playerHeader;
+    private TextView playerFilename;
+
 
     public AudioListFragment() {
         // Required empty public constructor
@@ -58,6 +65,10 @@ public class AudioListFragment extends Fragment implements AudioListAdapter.onIt
         bottomSheetBehavior = BottomSheetBehavior.from(playerSheet);
         audioList = view.findViewById(R.id.audio_list_view);
 
+        playBtn = view.findViewById(R.id.player_play_btn);
+        playerHeader = view.findViewById(R.id.player_header_title);
+        playerFilename = view.findViewById(R.id.player_filename);
+
         //setting path to audio files
         String path = getActivity().getExternalFilesDir("/").getAbsolutePath();
         File directory = new File(path);
@@ -68,6 +79,8 @@ public class AudioListFragment extends Fragment implements AudioListAdapter.onIt
         audioList.setHasFixedSize(true);
         audioList.setLayoutManager(new LinearLayoutManager(getContext()));
         audioList.setAdapter(audioListAdapter);
+
+
 
         //prevent media player from disappearing at bottom
         bottomSheetBehavior.addBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
@@ -104,11 +117,18 @@ public class AudioListFragment extends Fragment implements AudioListAdapter.onIt
     }
 
     private void stopAudio() {
+
+        //change pause button to play button image
+        playBtn.setImageDrawable(getActivity().getResources().getDrawable(R.drawable.player_play_btn, null));
+        playerHeader.setText("Stopped");
         isPlaying = false;
+
     }
 
     private void playAudio(File fileToPlay) {
         MediaPlayer mediaPlayer = new MediaPlayer();
+
+        bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
 
         //setDataSource requires try/catch block
         try {
@@ -119,6 +139,18 @@ public class AudioListFragment extends Fragment implements AudioListAdapter.onIt
             e.printStackTrace();
         }
 
+        //change play button to pause button image
+        playBtn.setImageDrawable(getActivity().getResources().getDrawable(R.drawable.player_pause_btn, null));
+        playerFilename.setText(fileToPlay.getName());
+        playerHeader.setText("Playing");
+
         isPlaying = true;
+        mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+            @Override
+            public void onCompletion(MediaPlayer mp) {
+                stopAudio();
+                playerHeader.setText("Finished");
+            }
+        });
     }
 }
