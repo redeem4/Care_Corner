@@ -2,6 +2,8 @@ package com.carecorner;
 
 import android.Manifest;
 import android.app.AlertDialog;
+import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.media.MediaRecorder;
 import android.os.Bundle;
@@ -16,13 +18,23 @@ import androidx.navigation.Navigation;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Chronometer;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
+
+//TODO move service Imports
+import android.os.IBinder;
+import android.content.ComponentName;
+import android.content.ServiceConnection;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.carecorner.RecorderService.RecorderBinder;
+
 
 /**
  * A simple {@link Fragment} subclass.
@@ -31,6 +43,18 @@ import java.util.Locale;
  */
 public class RecordFragment extends Fragment implements View.OnClickListener {
 
+    //TODO - service Variables
+    private RecorderService recorderService;
+    //is this service bound to a client?
+    boolean isBound = false;
+    private TextView timer;
+
+    public void showTime(View view) {
+        String currentTime = recorderService.getCurrentTime();
+        //String currentTime = "Testing";
+        timer.setText(currentTime);
+    }
+
     private NavController navController;
 
     private ImageButton listBtn;
@@ -38,7 +62,7 @@ public class RecordFragment extends Fragment implements View.OnClickListener {
 
     private boolean isRecording = false;
 
-    //audio recording
+    //TODO audio recording
     private String recordPermission = Manifest.permission.RECORD_AUDIO;
     private int PERMISSION_CODE = 21;
     private MediaRecorder mediaRecorder;
@@ -60,9 +84,17 @@ public class RecordFragment extends Fragment implements View.OnClickListener {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        //TODO create recorder Intent in onCreate
+        Intent recorderIntent = new Intent(getActivity(), RecorderService.class);
+        getActivity().bindService(recorderIntent, recorderConnection, Context.BIND_AUTO_CREATE);
+        timer = view.findViewById(R.id.record_timer);
+
         navController = Navigation.findNavController(view);
         listBtn = view.findViewById(R.id.record_list_btn);
         recordBtn = view.findViewById(R.id.record_button);
+
+
+
 
         listBtn.setOnClickListener(this);
         recordBtn.setOnClickListener(this);
@@ -74,7 +106,7 @@ public class RecordFragment extends Fragment implements View.OnClickListener {
         switch (v.getId()){
             case R.id.record_list_btn:
                 if(isRecording){
-                    AlertDialog alertDialog = new AlertDialog.Builder(getContext()).create());
+                    AlertDialog alertDialog = new AlertDialog.Builder(getContext()).create();
                     alertDialog.setTitle("Audio Still Recording");
                     isRecording = false;
                 } else {
@@ -93,6 +125,7 @@ public class RecordFragment extends Fragment implements View.OnClickListener {
                 }else{
                     //start recording
                     if (checkPermissions()) {
+                        showTime(v);
                         startRecording();
                         recordBtn.setImageDrawable(getResources().getDrawable(R.drawable.record_btn_recording));
                         isRecording = true;
@@ -155,4 +188,19 @@ public class RecordFragment extends Fragment implements View.OnClickListener {
 
 
     }
+
+    //TODO class responsible for binding to service
+    private ServiceConnection recorderConnection = new ServiceConnection() {
+        @Override
+        public void onServiceConnected(ComponentName name, IBinder service) {
+            RecorderBinder binder = (RecorderBinder) service;
+            recorderService =  binder.getService();
+            isBound = true;
+        }
+
+        @Override
+        public void onServiceDisconnected(ComponentName name) {
+            isBound = false;
+        }
+    };
 }
