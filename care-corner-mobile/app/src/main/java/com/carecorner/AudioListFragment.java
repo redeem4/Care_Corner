@@ -11,11 +11,13 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.SeekBar;
 import android.widget.TextView;
 
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
@@ -45,6 +47,10 @@ public class AudioListFragment extends Fragment implements AudioListAdapter.onIt
     private TextView playerHeader;
     private TextView playerFilename;
 
+    private SeekBar playerSeekbar;
+    private Handler seekbarHandler;
+    private Runnable updateSeekbar;
+
 
     public AudioListFragment() {
         // Required empty public constructor
@@ -68,6 +74,9 @@ public class AudioListFragment extends Fragment implements AudioListAdapter.onIt
         playBtn = view.findViewById(R.id.player_play_btn);
         playerHeader = view.findViewById(R.id.player_header_title);
         playerFilename = view.findViewById(R.id.player_filename);
+
+        playerSeekbar = view.findViewById(R.id.player_seekbar);
+
 
         //setting path to audio files
         String path = getActivity().getExternalFilesDir("/").getAbsolutePath();
@@ -122,6 +131,7 @@ public class AudioListFragment extends Fragment implements AudioListAdapter.onIt
         playBtn.setImageDrawable(getActivity().getResources().getDrawable(R.drawable.player_play_btn, null));
         playerHeader.setText("Stopped");
         isPlaying = false;
+        mediaPlayer.stop();
 
     }
 
@@ -152,5 +162,19 @@ public class AudioListFragment extends Fragment implements AudioListAdapter.onIt
                 playerHeader.setText("Finished");
             }
         });
+
+        //set sek bar length to file duration
+        playerSeekbar.setMax(mediaPlayer.getDuration());
+
+        seekbarHandler = new Handler();
+        updateSeekbar = new Runnable() {
+            @Override
+            public void run() {
+                playerSeekbar.setProgress(mediaPlayer.getCurrentPosition());
+                seekbarHandler.postDelayed(this, 500);
+            }
+        };
+        seekbarHandler.postDelayed(updateSeekbar, 0);
+
     }
 }

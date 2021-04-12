@@ -109,6 +109,7 @@
         app:srcCompat="@drawable/player_forward_btn" />
 
     <SeekBar
+        android:id="@+id/player_seekbar"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_margin="32dp"
