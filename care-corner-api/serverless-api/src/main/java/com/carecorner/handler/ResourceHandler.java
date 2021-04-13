@@ -1,4 +1,7 @@
-package com.carecorner;
+package com.carecorner.handler;
+
+import com.carecorner.gateway.ApiGatewayResponse;
+import com.carecorner.gateway.Response;
 
 import com.carecorner.dao.DefaultResourceDao;
 import com.carecorner.dao.ResourceDao;
@@ -19,8 +22,7 @@ import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.RequestHandler;
 
 public class ResourceHandler implements RequestHandler<Map<String, Object>, ApiGatewayResponse> {
-
-  private final ResourceDao resourceDao = DefaultResourceDao.INSTANCE;
+  	private final ResourceDao resourceDao = DefaultResourceDao.INSTANCE;
 	private final Logger logger = LogManager.getLogger(this.getClass());
 
 	@Override

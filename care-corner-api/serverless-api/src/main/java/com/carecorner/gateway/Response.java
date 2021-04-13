@@ -1,4 +1,4 @@
-package com.carecorner;
+package com.carecorner.gateway;
 
 import java.util.Map;
 

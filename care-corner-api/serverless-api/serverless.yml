@@ -10,21 +10,26 @@ provider:
   runtime: java11
   lambdaHashingVersion: 20201221
   region: us-east-1
-  environment:
-    variable1: value1
 
 package:
-  artifact: 'target/${self:service}-${self:provider.stage}.jar'
-
+ # artifact: 'build/distributions/com.carecorner-${self:provider.stage}.zip'
+ artifact: 'build/libs/care-corner-api-dev-all.jar'
+  
 functions:
+  authentication:
+    handler: com.carecorner.handler.AuthenticationHandler
+    events:
+      - http:
+          path: /api/auth
+          method: post
   panic:
-    handler: com.carecorner.PanicHandler
+    handler: com.carecorner.handler.PanicHandler
     events:
       - http:
           path: /api/panic
           method: post
   resource:
-    handler: com.carecorner.ResourceHandler
+    handler: com.carecorner.handler.ResourceHandler
     events:
       - http:
           path: /api/resources

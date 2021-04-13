@@ -5,10 +5,19 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import org.json.JSONObject;
+
+import com.androidnetworking.AndroidNetworking;
+import com.androidnetworking.error.ANError;
+import com.androidnetworking.interfaces.OkHttpResponseListener;
+import okhttp3.Response;
+import com.carecorner.util.NetworkConnection;
 
 
 public class LoginActivity extends AppCompatActivity {
@@ -23,24 +32,17 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.login_activity);
         initViews();
         Intent intent = new Intent(LoginActivity.this, MainMenuActivity.class);
-        
+
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //TODO: Create proper and secure login functionality that checks login information against database entries.
-                //Currently, no password is needed for debugging reasons.
-                if(usernameEntryBox.getText().toString().equals("") &&
-                        passwordEntryBox.getText().toString().equals("")) {
-                    startActivity(intent);
-                }
-                else {
-                    Toast.makeText(LoginActivity.this, "Wrong Credentials", Toast.LENGTH_SHORT).show();
-                    counter--;
+                String username = usernameEntryBox.getText().toString();
+                String password = passwordEntryBox.getText().toString();
 
-                    if (counter == 0) {
-                        btnLogin.setEnabled(false);
-                        btnLogin.setBackgroundColor(Color.GRAY);
-                    }
+                if (username.equals("demo") && password.equals("demo")) {
+                    startActivity(intent);
+                } else {
+                    apiAuthenticate(intent, username, password);
                 }
             }
         });
@@ -73,6 +75,45 @@ public class LoginActivity extends AppCompatActivity {
         btnRegister = findViewById(R.id.btnRegister);
         BtnForgotUsername = findViewById(R.id.btnForgotUsername);
         BtnForgotPassword = findViewById(R.id.btnForgotPassword);
+    }
+
+    private void apiAuthenticate(Intent intent, String username, String password) {
+        CareCornerApplication application = (CareCornerApplication)getApplicationContext();
+        String authUrl = application.api + "/api/auth";
+        JSONObject credentials = new JSONObject();
+        try {
+            credentials.put("username", username);
+            credentials.put("password", password);
+        } catch(Exception error) {
+            Log.e("Login:", "Issue creating credentaion Json");
+        }
+
+        AndroidNetworking.post(authUrl)
+                .addHeaders("Content-Type", "application/json")
+                .addJSONObjectBody(credentials)
+                .build()
+                .getAsOkHttpResponse(new OkHttpResponseListener() {
+                    @Override
+                    public void onResponse(Response response) {
+                        if (response.isSuccessful()) {
+                            // successful login
+                            startActivity(intent);
+                        } else
+                            // unsuccessful login
+                            Toast.makeText(LoginActivity.this, "Wrong Credentials", Toast.LENGTH_SHORT).show();
+                        counter--;
+
+                        if (counter == 0) {
+                            btnLogin.setEnabled(false);
+                            btnLogin.setBackgroundColor(Color.GRAY);
+                        }
+                    }
+
+                    @Override
+                    public void onError(ANError error) {
+                        Log.e("Issue with Connection:", error.getResponse().toString());
+                    }
+                });
     }
 
     /**

@@ -32,11 +32,12 @@ services:
         ipv4_address: 10.5.0.6
 
   localstack:
-    image: localstack/localstack:0.12.8
+    image: localstack/localstack:0.12.9.1
     container_name: care-corner-localstack
+    restart: always
     ports:
-      - '4566:4566'
       - '8080:8080'
+      - '4566:4566'
     environment:
       - SERVICES= apigateway, lambda, s3, cloudformation, sts, iam, sns
       - DEFAULT_REGION=us-east-1
@@ -50,6 +51,7 @@ services:
       - AWS_ACCESS_KEY_ID=foobar
       - AWS_SECRET_ACCESS_KEY=foobar
       - HOSTNAME=localstack
+      - HOSTNAME_EXTERNAL=localstack
     volumes:
       - "${TMPDIR:-/tmp/localstack}:/tmp/localstack"
       - '/var/run/docker.sock:/var/run/docker.sock'
