@@ -45,7 +45,7 @@ public class AuthenticationHandler implements RequestHandler<Map<String, Object>
 				User user = users.get(0);
 				logger.debug("User: {}", user);
 				logger.debug("Comp: {}", user.getPassword());
-				if (user.getPassword() == password) {
+				if (user.getPassword().equals(password)) {
 					// authenticated
 					statusCode = 200;
 				}
