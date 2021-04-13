@@ -1,0 +1,6 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<dataset>
+  <resources id="1" name="National Sexual Assault Hotline" phone="1-800-656-4673" category="hotline" />
+  <resources id="2" name="Assault Hotline" phone="1-800-555-5555" category="hotline" />
+  <resources id="3" name="National Hotline" phone="1-800-467-2323" category="hotline" />
+</dataset>

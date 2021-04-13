@@ -3,6 +3,7 @@
 
 service: care-corner-api
 frameworkVersion: '2'
+#variablesResolutionMode: 20210219
 
 provider:
   name: aws
@@ -22,11 +23,17 @@ functions:
       - http:
           path: /api/panic
           method: post
+  resource:
+    handler: com.carecorner.ResourceHandler
+    events:
+      - http:
+          path: /api/resources
+          method: get
+
 plugins:
   - serverless-localstack
 
 custom:
-  bucket: care-corner-api
   localstack:
     stages:
       - local
