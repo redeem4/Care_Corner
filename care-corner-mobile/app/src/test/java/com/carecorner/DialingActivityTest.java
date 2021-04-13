@@ -13,8 +13,10 @@ import static org.junit.Assert.assertEquals;
 import static org.robolectric.Shadows.shadowOf;
 import org.robolectric.Robolectric;
 import org.robolectric.RobolectricTestRunner;
+import org.robolectric.Shadows;
 import org.robolectric.annotation.Config;
 import org.robolectric.shadows.ShadowActivity;
+import org.robolectric.shadows.ShadowMediaPlayer;
 import org.robolectric.shadows.ShadowToast;
 
 @RunWith(RobolectricTestRunner.class)
@@ -71,5 +73,15 @@ public class DialingActivityTest {
         ImageButton btnEndCall = (ImageButton) shadowActivity.getContentView().findViewById(R.id.btnEndCall);
         btnEndCall.performLongClick();
         assertEquals(ShadowToast.getTextOfLatestToast(), "Panic Button Activated!");
+    }
+
+    @Test
+    public void emulatedVoiceServiceIsStarted(){
+
+        ShadowActivity shadowActivity = shadowOf(activity2);
+        /*  when DialingActivity is created, this test that the
+            EmulatedVoiceService is also created. */
+        Intent intent = Shadows.shadowOf(activity2).peekNextStartedService();
+        assertEquals(EmulatedVoiceService.class.getCanonicalName(),intent.getComponent().getClassName());
     }
 }
