@@ -10,7 +10,7 @@ public class ArmedWalkStop extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //setContentView(R.layout.armed_walk_stop);
+        setContentView(R.layout.armed_walk_stop);
     }
 
     /**

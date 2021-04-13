@@ -10,7 +10,7 @@ public class ArmedWalkStart extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //setContentView(R.layout.armed_walk_start);
+        setContentView(R.layout.armed_walk_start);
     }
 
     /**

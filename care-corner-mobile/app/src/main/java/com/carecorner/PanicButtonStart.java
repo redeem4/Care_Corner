@@ -10,7 +10,7 @@ public class PanicButtonStart extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //setContentView(R.layout.panic_button_start);
+        setContentView(R.layout.panic_button_start);
     }
 
     /**
