@@ -53,7 +53,7 @@ When you first build the container or anytime the javascript dependencies change
 
 When you first build the container or change any of the handler code, you build the Java with maven:
 
-      mvn clean install
+      gradle shadow
 
 When developing, you should use the lambda emulation feature of serverless.
 The following invokes the lambda handler that defines the panic function:
@@ -177,7 +177,7 @@ Packaging changes to the javascript dependencies:
 
 Compiling and building the Java lamba handlers:
 
-      mvn clean install
+      gradle shadow
 
 Invoking the a lambda handler using the emulation feature:
 

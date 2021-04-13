@@ -12,7 +12,8 @@ provider:
   region: us-east-1
 
 package:
-  artifact: 'build/distributions/com.carecorner-${self:provider.stage}.zip'
+ # artifact: 'build/distributions/com.carecorner-${self:provider.stage}.zip'
+ artifact: 'build/libs/care-corner-api-dev-all.jar'
   
 functions:
   authentication:
