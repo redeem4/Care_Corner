@@ -11,16 +11,13 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import org.json.JSONArray;
 import org.json.JSONObject;
 
 import com.androidnetworking.AndroidNetworking;
 import com.androidnetworking.error.ANError;
-import com.androidnetworking.interfaces.JSONArrayRequestListener;
-import com.androidnetworking.interfaces.JSONObjectRequestListener;
+import com.androidnetworking.interfaces.OkHttpResponseListener;
+import okhttp3.Response;
 import com.carecorner.util.NetworkConnection;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
 
 
 public class LoginActivity extends AppCompatActivity {
@@ -35,32 +32,45 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.login_activity);
         initViews();
         Intent intent = new Intent(LoginActivity.this, MainMenuActivity.class);
+        CareCornerApplication application = (CareCornerApplication)getApplicationContext();
+        String authUrl = application.api + "/api/auth";
+
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                CareCornerApplication application = (CareCornerApplication)getApplicationContext();
-                JSONObject jo = new JSONObject();
+                JSONObject credentials = new JSONObject();
                 try {
-                    jo.put("username", "alpha");
-                    jo.put("password", "passworda");
+                    String username = usernameEntryBox.getText().toString();
+                    String password = passwordEntryBox.getText().toString();
+                    credentials.put("username", username);
+                    credentials.put("password", password);
                 } catch(Exception error) {
-
+                    Log.e("Login:", "Issue creating credentaion Json");
                 }
-                AndroidNetworking.post(application.apiUlr + "/api/auth")
+                AndroidNetworking.post(authUrl)
                         .addHeaders("Content-Type", "application/json")
-                        .addJSONObjectBody(jo)
+                        .addJSONObjectBody(credentials)
                         .build()
-                        .getAsJSONObject(new JSONObjectRequestListener() {
+                        .getAsOkHttpResponse(new OkHttpResponseListener() {
                             @Override
-                            public void onResponse(JSONObject response) {
-                                Log.d("NETWORK", "GooooOGooo");
-                                Log.e("Made it to resources", response.toString());
+                            public void onResponse(Response response) {
+                                if (response.isSuccessful()) {
+                                    // successful login
+                                    startActivity(intent);
+                                } else
+                                    // unsuccessful login
+                                    Toast.makeText(LoginActivity.this, "Wrong Credentials", Toast.LENGTH_SHORT).show();
+                                    counter--;
+
+                                    if (counter == 0) {
+                                        btnLogin.setEnabled(false);
+                                        btnLogin.setBackgroundColor(Color.GRAY);
+                                    }
                             }
 
                             @Override
                             public void onError(ANError error) {
-                                Log.e("Error: ",  error.getErrorDetail());
-                                Log.e("Resonse: ", error.getResponse().message());
+                                Log.e("Issue with Connection:", error.getResponse().toString());
                             }
                         });
             }
