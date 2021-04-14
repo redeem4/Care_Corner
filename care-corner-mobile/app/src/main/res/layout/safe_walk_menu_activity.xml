@@ -5,7 +5,7 @@
     android:id="@+id/safe_walk_header_text"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SafeWalKMenuActivity">
+    tools:context=".SafeWalkMenuActivity">
 
     <TextView
         android:id="@+id/safe_call_header_text"
@@ -37,7 +37,8 @@
         android:layout_marginTop="69dp"
         android:ems="10"
         android:inputType="textPostalAddress"
-        app:layout_constraintTop_toBottomOf="@+id/safe_call_header_text"
-        tools:layout_editor_absoluteX="100dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/safe_call_header_text" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

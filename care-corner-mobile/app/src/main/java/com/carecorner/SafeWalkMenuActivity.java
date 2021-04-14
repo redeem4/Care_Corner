@@ -20,7 +20,7 @@ public class SafeWalkMenuActivity extends AppCompatActivity {
     public void onBackPressed()
     {
         super.onBackPressed();
-        Intent intent = new Intent(SafeWalkMenuActivity.this, WelcomeActivity.class);
+        Intent intent = new Intent(SafeWalkMenuActivity.this, MainMenuActivity.class);
         startActivity(intent);
     }
 }

@@ -20,7 +20,7 @@ public class ResourceActivity extends AppCompatActivity {
     public void onBackPressed()
     {
         super.onBackPressed();
-        Intent intent = new Intent(ResourceActivity.this, WelcomeActivity.class);
+        Intent intent = new Intent(ResourceActivity.this, MainMenuActivity.class);
         startActivity(intent);
     }
 }
