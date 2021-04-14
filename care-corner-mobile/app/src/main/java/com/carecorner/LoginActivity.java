@@ -101,12 +101,12 @@ public class LoginActivity extends AppCompatActivity {
                         } else
                             // unsuccessful login
                             Toast.makeText(LoginActivity.this, "Wrong Credentials", Toast.LENGTH_SHORT).show();
-                        counter--;
+                            counter--;
 
-                        if (counter == 0) {
-                            btnLogin.setEnabled(false);
-                            btnLogin.setBackgroundColor(Color.GRAY);
-                        }
+                            if (counter == 0) {
+                                btnLogin.setEnabled(false);
+                                btnLogin.setBackgroundColor(Color.GRAY);
+                            }
                     }
 
                     @Override
