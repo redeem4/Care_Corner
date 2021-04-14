@@ -15,6 +15,7 @@ public class CareCornerApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        AndroidNetworking.initialize(getApplicationContext());
+        //AndroidNetworking.initialize(getApplicationContext());
+
     }
 }

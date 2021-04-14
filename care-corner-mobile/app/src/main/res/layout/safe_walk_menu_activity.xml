@@ -34,9 +34,10 @@
         android:id="@+id/editTextTextPostalAddress"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="69dp"
         android:ems="10"
         android:inputType="textPostalAddress"
-        tools:layout_editor_absoluteX="100dp"
-        tools:layout_editor_absoluteY="152dp" />
+        app:layout_constraintTop_toBottomOf="@+id/safe_call_header_text"
+        tools:layout_editor_absoluteX="100dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
