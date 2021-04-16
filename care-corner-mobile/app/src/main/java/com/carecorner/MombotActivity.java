@@ -15,16 +15,29 @@ public class MombotActivity extends AppCompatActivity {
     Button btnSubmit;
     EditText textEntry, textReply;
     String text = "";
-    btnSubmit = findViewById(R.id.btnSubmit);
-    textEntry = findViewById(R.id.MombotEntryBox);
-    textReply = findViewById(R.id.mombotResponseBox);
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.mombot);
-    }
+        btnSubmit = findViewById(R.id.btnSubmit);
+        textEntry = findViewById(R.id.MombotEntryBox);
+        textReply = findViewById(R.id.mombotResponseBox);
 
+        //Submit button
+        btnSubmit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                text = textEntry.getText().toString();
+                respond(text);
+            }
+        });
+    }
+    public void respond(String entry)
+    {
+
+    }
     /**
      * Overrides the Back Button functionality to return to the Main Menu screen.
      */
