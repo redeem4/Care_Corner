@@ -12,7 +12,13 @@ import android.widget.Toast;
 
 public class MombotActivity extends AppCompatActivity {
 
-    Button submit;
+    Button btnSubmit;
+    EditText textEntry, textReply;
+    String text = "";
+    btnSubmit = findViewById(R.id.btnSubmit);
+    textEntry = findViewById(R.id.MombotEntryBox);
+    textReply = findViewById(R.id.mombotResponseBox);
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
