@@ -16,14 +16,14 @@
         android:layout_marginEnd="81dp"
         android:layout_marginRight="81dp"
         android:layout_marginBottom="63dp"
-        android:editable="false"
-        android:hint="Mombot response"
+        android:hint="@string/mombot_response"
         android:inputType="text"
         android:gravity="top|left"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnSubmit" />
+        app:layout_constraintTop_toBottomOf="@+id/btnSubmit"
+        android:importantForAutofill="no" />
 
     <EditText
         android:id="@+id/MombotEntryBox"
@@ -35,7 +35,7 @@
         android:layout_marginEnd="81dp"
         android:layout_marginRight="81dp"
         android:layout_marginBottom="354dp"
-        android:hint="Entry for Mombot"
+        android:hint="@string/entry_for_mombot"
         android:inputType="text"
         android:gravity="top|left"
         app:layout_constraintBottom_toTopOf="@+id/btnSubmit"
@@ -43,7 +43,8 @@
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/Mombot"
-        app:layout_constraintVertical_bias="0.083" />
+        app:layout_constraintVertical_bias="0.083"
+        android:importantForAutofill="no" />
 
     <Button
         android:id="@+id/btnSubmit"
@@ -54,7 +55,7 @@
         android:layout_marginEnd="165dp"
         android:layout_marginRight="165dp"
         android:layout_marginBottom="316dp"
-        android:text="Submit"
+        android:text="@string/submit"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
@@ -65,7 +66,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:text="Mombot"
+        android:text="@string/mombot"
         android:textAppearance="@style/TextAppearance.AppCompat.Display2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
