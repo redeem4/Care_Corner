@@ -1,6 +1,5 @@
 package com.carecorner;
 
-import android.content.res.Resources;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -79,6 +78,7 @@ public class PanicFragment extends Fragment implements View.OnClickListener {
         activate_btn.setChecked(PANIC_DEACTIVATED);
         panic_status.setText(PANIC_STATUS_DEACTIVATED);
         panic_status2.setText(PANIC_STATUS_DEACTIVATED2);
+        panic_timer.setVisibility(View.GONE);
 
         //set click listeners
         activate_btn.setOnClickListener(this);
@@ -94,24 +94,30 @@ public class PanicFragment extends Fragment implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.activate_btn:
-
-
                 if(panic_activated){
-                    panic_activated = PANIC_DEACTIVATED;
-                    activate_btn.setChecked(PANIC_DEACTIVATED);
-                    panic_status.setText(PANIC_STATUS_DEACTIVATED);
-                    panic_status2.setText(PANIC_STATUS_DEACTIVATED2);
-                    panic_timer.stop();
-                }
-
-                else{
-                    panic_activated = PANIC_ACTIVATED;
-                    activate_btn.setChecked(PANIC_ACTIVATED);
-                    panic_status.setText(PANIC_STATUS_ACTIVATED);
-                    panic_status2.setText(PANIC_STATUS_ACTIVATED2);
-                    panic_timer.setBase(SystemClock.elapsedRealtime());
-                    panic_timer.start();
-                }
+                    deactivatePanicUI();}
+                else{activatePanicUI();}
+                break;
         }
+    }
+
+    private void activatePanicUI() {
+        panic_activated = PANIC_ACTIVATED;
+        activate_btn.setChecked(PANIC_ACTIVATED);
+        panic_status.setText(PANIC_STATUS_ACTIVATED);
+        panic_status2.setText(PANIC_STATUS_ACTIVATED2);
+        panic_timer.setBase(SystemClock.elapsedRealtime());
+        panic_timer.setVisibility(View.VISIBLE);
+        panic_timer.start();
+    }
+
+
+    private void deactivatePanicUI(){
+        panic_activated = PANIC_DEACTIVATED;
+        activate_btn.setChecked(PANIC_DEACTIVATED);
+        panic_status.setText(PANIC_STATUS_DEACTIVATED);
+        panic_status2.setText(PANIC_STATUS_DEACTIVATED2);
+        panic_timer.setVisibility(View.GONE);
+        panic_timer.stop();
     }
 }
