@@ -6,7 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".RecordingsActivity">
 
-
     <fragment
         android:id="@+id/fragment_container"
         android:name="androidx.navigation.fragment.NavHostFragment"

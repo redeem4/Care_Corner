@@ -25,7 +25,6 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior;
 public class PanicDeactiveFragment extends Fragment implements View.OnClickListener {
 
     private NavController panicNavController;
-    private Button mapBtn;
 
 
 
@@ -53,16 +52,11 @@ public class PanicDeactiveFragment extends Fragment implements View.OnClickListe
 
 
         panicNavController = Navigation.findNavController(view);
-        mapBtn = view.findViewById(R.id.panic_map_btn);
-        mapBtn.setOnClickListener(this);
+
     }
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.panic_map_btn:
-                panicNavController.navigate(R.id.action_panicDeactiveFragment_to_panicMapFragment);
-                break;
-        }
+
     }
 }

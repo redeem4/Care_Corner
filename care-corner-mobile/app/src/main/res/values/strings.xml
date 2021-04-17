@@ -65,5 +65,5 @@
         <item>femalevoice2.mp3</item>
     </string-array>
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="hello_blank_fragment">Panic Button is Deactivated</string>
 </resources>
