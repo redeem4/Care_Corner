@@ -9,9 +9,11 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
+import android.os.SystemClock;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Chronometer;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 
@@ -34,8 +36,14 @@ public class PanicFragment extends Fragment implements View.OnClickListener {
     private boolean panic_activated = false;
 
     private TextView panic_status;
-    private static final String PANIC_STATUS_ACTIVATED = "Panic Mode is currently activated";
-    private static final String PANIC_STATUS_DEACTIVATED = "Panic Mode is currently deactivated";
+    private static final String PANIC_STATUS_ACTIVATED = "Panic Mode is currently activated.";
+    private static final String PANIC_STATUS_DEACTIVATED = "Panic Mode is currently deactivated.";
+
+    private TextView panic_status2;
+    private static final String PANIC_STATUS_ACTIVATED2 = "To deactivate, hold down the button.";
+    private static final String PANIC_STATUS_DEACTIVATED2 = "To activate, hold down the button.";
+
+    private Chronometer panic_timer;
 
 
 
@@ -64,10 +72,13 @@ public class PanicFragment extends Fragment implements View.OnClickListener {
         activate_btn.setTextOn(ACTIVATED_TEXT);
 
         panic_status = view.findViewById(R.id.panic_status);
+        panic_status2 = view.findViewById(R.id.panic_status2);
+        panic_timer = view.findViewById(R.id.panic_timer);
 
         //set panic to deactivated state
         activate_btn.setChecked(PANIC_DEACTIVATED);
         panic_status.setText(PANIC_STATUS_DEACTIVATED);
+        panic_status2.setText(PANIC_STATUS_DEACTIVATED2);
 
         //set click listeners
         activate_btn.setOnClickListener(this);
@@ -89,12 +100,17 @@ public class PanicFragment extends Fragment implements View.OnClickListener {
                     panic_activated = PANIC_DEACTIVATED;
                     activate_btn.setChecked(PANIC_DEACTIVATED);
                     panic_status.setText(PANIC_STATUS_DEACTIVATED);
+                    panic_status2.setText(PANIC_STATUS_DEACTIVATED2);
+                    panic_timer.stop();
                 }
 
                 else{
                     panic_activated = PANIC_ACTIVATED;
                     activate_btn.setChecked(PANIC_ACTIVATED);
                     panic_status.setText(PANIC_STATUS_ACTIVATED);
+                    panic_status2.setText(PANIC_STATUS_ACTIVATED2);
+                    panic_timer.setBase(SystemClock.elapsedRealtime());
+                    panic_timer.start();
                 }
         }
     }
