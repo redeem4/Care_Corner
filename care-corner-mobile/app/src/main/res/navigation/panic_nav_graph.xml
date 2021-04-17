@@ -7,9 +7,9 @@
 
     <fragment
         android:id="@+id/panicDeactiveFragment"
-        android:name="com.carecorner.PanicDeactiveFragment"
+        android:name="com.carecorner.PanicFragment"
         android:label="fragment_panic_deactive"
-        tools:layout="@layout/fragment_panic_deactive" >
+        tools:layout="@layout/fragment_panic_mode" >
         <action
             android:id="@+id/action_panicDeactiveFragment_to_panicMapFragment"
             app:destination="@id/panicMapFragment"

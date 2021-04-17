@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".PanicDeactiveFragment">
+    tools:context=".PanicFragment">
 
 
 
@@ -37,7 +37,7 @@
         android:id="@+id/activate_btn"
         android:layout_width="116dp"
         android:layout_height="116dp"
-        android:background="@drawable/btn_blue_round"
+        android:background="@drawable/btn_blue_circle"
         android:textOff="Activate Panic Mode"
         android:textOn="Deactivate Panic Mode"
         app:layout_constraintBottom_toBottomOf="parent"

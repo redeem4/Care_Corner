@@ -1,11 +1,9 @@
 package com.carecorner;
 
-import android.app.AlertDialog;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -13,16 +11,13 @@ import androidx.navigation.Navigation;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-
-import com.google.android.material.bottomsheet.BottomSheetBehavior;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link PanicDeactiveFragment#newInstance} factory method to
+ * Use the {@link PanicFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class PanicDeactiveFragment extends Fragment implements View.OnClickListener {
+public class PanicFragment extends Fragment implements View.OnClickListener {
 
     private NavController panicNavController;
 
@@ -30,7 +25,7 @@ public class PanicDeactiveFragment extends Fragment implements View.OnClickListe
 
 
 
-    public PanicDeactiveFragment() {
+    public PanicFragment() {
         // Required empty public constructor
     }
 
@@ -41,7 +36,7 @@ public class PanicDeactiveFragment extends Fragment implements View.OnClickListe
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_panic_deactive, container, false);
+        return inflater.inflate(R.layout.fragment_panic_mode, container, false);
     }
 
     @Override
