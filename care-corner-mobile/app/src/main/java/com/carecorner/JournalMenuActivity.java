@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.content.Intent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 
 
 public class JournalMenuActivity extends AppCompatActivity {
@@ -34,6 +35,7 @@ public class JournalMenuActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
     }
 
     /**
@@ -42,6 +44,7 @@ public class JournalMenuActivity extends AppCompatActivity {
     private void initViews() {
         btnHome = findViewById(R.id.btnHome);
         btnView = findViewById(R.id.btnView);
+
     }
 
     /**

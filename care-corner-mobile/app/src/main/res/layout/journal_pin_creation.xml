@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <EditText
+        android:id="@+id/txtJournalUserName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="140dp"
+        android:ems="10"
+        android:hint="@string/UserName"
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.119"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:autofillHints="" />
+
+    <EditText
+        android:id="@+id/txtJournalPassword"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="44dp"
+        android:ems="10"
+        android:hint="@string/password"
+        android:inputType="textPassword"
+        app:layout_constraintEnd_toEndOf="@+id/txtJournalUserName"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/txtJournalUserName"
+        app:layout_constraintTop_toBottomOf="@+id/txtJournalUserName"
+        android:autofillHints="" />
+
+    <EditText
+        android:id="@+id/txtJournalPinBox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="44dp"
+        android:autofillHints=""
+        android:ems="10"
+        android:hint="numbers"
+        android:inputType="numberPassword"
+        app:layout_constraintEnd_toEndOf="@+id/txtJournalPassword"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/txtJournalPassword"
+        app:layout_constraintTop_toBottomOf="@+id/txtJournalPassword" />
+
+    <EditText
+        android:id="@+id/txtJournalPinConfirm"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="48dp"
+        android:autofillHints=""
+        android:ems="10"
+        android:hint="@string/confirm_pin"
+        android:inputType="numberPassword"
+        app:layout_constraintEnd_toEndOf="@+id/txtJournalPinBox"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/txtJournalPinBox"
+        app:layout_constraintTop_toBottomOf="@+id/txtJournalPinBox" />
+
+    <Button
+        android:id="@+id/btnPinCreation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="64dp"
+        android:text="@string/save"
+        app:layout_constraintEnd_toEndOf="@+id/txtJournalPinConfirm"
+        app:layout_constraintHorizontal_bias="0.459"
+        app:layout_constraintStart_toStartOf="@+id/txtJournalPinConfirm"
+        app:layout_constraintTop_toBottomOf="@+id/txtJournalPinConfirm" />
+</androidx.constraintlayout.widget.ConstraintLayout>

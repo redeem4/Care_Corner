@@ -47,6 +47,15 @@
     <string name="edit_my_entry">Edit Entry</string>
     <string name="journal_reader">Journal Reader</string>
     <string name="title">Title</string>
+    <string name="enter_pin" />
+    <string name="create_pin">Create Pin</string>
+    <string name="reset_pin">Reset Pin</string>
+    <string name="enter_numbers_only">Enter Numbers only</string>
+    <string name="user_name">User Name</string>
+
+    <string name="save">Save</string>
+    <string name="confirm_pin">Confirm Pin</string>
+    <string name="numbers">Numbers</string>
     <!-- <color name="lightblue">#94CCEo</color> -->
 
 
