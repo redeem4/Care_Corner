@@ -31,13 +31,58 @@
         app:layout_constraintTop_toBottomOf="@+id/safe_call_header_text" />
 
     <EditText
-        android:id="@+id/editTextTextPostalAddress"
+        android:id="@+id/destinationEntryBox"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="1dp"
+        android:layout_marginLeft="1dp"
         android:layout_marginTop="69dp"
         android:ems="10"
         android:inputType="textPostalAddress"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/textDestination"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/safe_call_header_text" />
+
+    <EditText
+        android:id="@+id/etaEntryBox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="23dp"
+        android:ems="10"
+        android:inputType="datetime|time"
+        app:layout_constraintStart_toEndOf="@+id/textETA"
+        app:layout_constraintTop_toBottomOf="@+id/destinationEntryBox" />
+
+    <ImageView
+        android:id="@+id/imageView5"
+        android:layout_width="68dp"
+        android:layout_height="71dp"
+        android:src="@drawable/start_walk_icon"
+        tools:layout_editor_absoluteX="24dp"
+        tools:layout_editor_absoluteY="6dp" />
+
+    <TextView
+        android:id="@+id/textDestination"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="29dp"
+        android:layout_marginLeft="29dp"
+        android:layout_marginTop="84dp"
+        android:text="Destination"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/safe_call_header_text" />
+
+    <TextView
+        android:id="@+id/textETA"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="67dp"
+        android:layout_marginLeft="67dp"
+        android:layout_marginTop="148dp"
+        android:text="ETA"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/safe_call_header_text" />
 
