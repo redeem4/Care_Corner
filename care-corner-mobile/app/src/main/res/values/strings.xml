@@ -47,6 +47,11 @@
     <string name="edit_my_entry">Edit Entry</string>
     <string name="journal_reader">Journal Reader</string>
     <string name="title">Title</string>
+    <string name="panic_btn_text">Deactivated</string>
+    <string name="panic_btn_deactivated">Activate</string>
+    <string name="panic_btn_activated">Deactivate</string>
+    <string name="panic_status_deactivated">Panic Mode is currently deactivated</string>
+    <string name="panic_status_activated">Panic Mode is currently deactivated</string>
     <!-- <color name="lightblue">#94CCEo</color> -->
 
 
@@ -64,6 +69,4 @@
         <item>femalevoice.mp3</item>
         <item>femalevoice2.mp3</item>
     </string-array>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Panic Button is Deactivated</string>
 </resources>
