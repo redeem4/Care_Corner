@@ -5,6 +5,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -13,6 +14,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+
+import com.google.android.material.bottomsheet.BottomSheetBehavior;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -23,6 +26,7 @@ public class PanicDeactiveFragment extends Fragment implements View.OnClickListe
 
     private NavController panicNavController;
     private Button mapBtn;
+
 
 
 
@@ -44,6 +48,10 @@ public class PanicDeactiveFragment extends Fragment implements View.OnClickListe
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+
+
+
         panicNavController = Navigation.findNavController(view);
         mapBtn = view.findViewById(R.id.panic_map_btn);
         mapBtn.setOnClickListener(this);
