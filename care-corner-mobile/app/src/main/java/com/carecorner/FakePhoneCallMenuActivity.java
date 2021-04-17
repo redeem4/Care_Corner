@@ -59,6 +59,18 @@ public class FakePhoneCallMenuActivity extends AppCompatActivity {
             }
         });
 
+
+        btnRecordings.setOnClickListener(new View.OnClickListener(){
+
+             @Override
+             public void onClick(View v) {
+                 Intent intent = new Intent(FakePhoneCallMenuActivity.this, RecordingsActivity.class);
+                 startActivity(intent);
+
+             }
+        });
+
+
         btnSet.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

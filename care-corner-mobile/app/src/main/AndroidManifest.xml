@@ -1,17 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.carecorner">
+
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
     <application
         android:name=".CareCornerApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+        android:networkSecurityConfig="@xml/network_security_config"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:networkSecurityConfig="@xml/network_security_config"
-        android:usesCleartextTraffic="true"
-        android:theme="@style/Theme.CareCorner">
-        <activity android:name=".DialingActivity"></activity>
+        android:theme="@style/Theme.CareCorner"
+        android:usesCleartextTraffic="true">
+        <activity android:name=".PanicActivity">
+            android:exported="true"
+            <intent-filter>
+                <action android:name="android.intent.action.PANIC" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+        </activity>
+
+        <service
+            android:name=".RecorderService"
+            android:enabled="true"
+            android:exported="true" />
+
+        <activity android:name=".RecordingsActivity">
+            android:exported="true"
+            <intent-filter>
+                <action android:name="android.intent.action.RECORDINGS" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".DialingActivity" />
         <activity android:name=".WelcomeActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -27,16 +55,18 @@
         <activity android:name=".ResourceActivity" />
         <activity android:name=".FakePhoneCallMenuActivity" />
         <activity android:name=".CallingActivity" />
-        <service android:name="EmulatedVoiceService" />
+
+        <service android:name=".EmulatedVoiceService" />
+
         <activity android:name=".JournalMenuActivity" />
         <activity android:name=".JournalRecyclerMain" />
         <activity android:name=".JournalEditorActivity" />
         <activity android:name=".JournalReader" />
         <activity android:name=".SafeWalkMenuActivity" />
+
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
     </application>
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
 </manifest>

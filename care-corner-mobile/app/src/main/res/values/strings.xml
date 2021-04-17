@@ -50,7 +50,6 @@
     <!-- <color name="lightblue">#94CCEo</color> -->
 
 
-
     <string-array name="spinnerWaitTime">
         <item>Now</item>
         <item>15 seconds</item>
@@ -65,4 +64,6 @@
         <item>femalevoice.mp3</item>
         <item>femalevoice2.mp3</item>
     </string-array>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Panic Button is Deactivated</string>
 </resources>

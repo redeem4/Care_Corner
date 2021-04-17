@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".FakePhoneCallMenuActivity">
 
+
     <TextView
         android:id="@+id/fake_call_header_text"
         android:layout_width="wrap_content"
