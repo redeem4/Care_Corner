@@ -33,6 +33,7 @@
         <activity android:name=".JournalEditorActivity" />
         <activity android:name=".JournalReader" />
         <activity android:name=".SafeWalkMenuActivity" />
+        <activity android:name=".MombotActivity" />
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
