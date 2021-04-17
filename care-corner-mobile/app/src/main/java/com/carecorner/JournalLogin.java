@@ -22,7 +22,7 @@ public class JournalLogin extends AppCompatActivity {
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(JournalLogin.this, MainMenuActivity.class);
+                Intent intent = new Intent(JournalLogin.this, JournalMenuActivity.class);
                 //TODO: Create proper and secure login functionality that checks login information against database entries
                 if (txtJournalPinBox.getText().equals("1111")) {
                     startActivity(intent);

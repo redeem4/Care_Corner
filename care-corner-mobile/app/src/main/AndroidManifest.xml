@@ -57,7 +57,7 @@
         <activity android:name=".CallingActivity" />
 
         <service android:name=".EmulatedVoiceService" />
-
+        <activity android:name=".JournalLogin"/>
         <activity android:name=".JournalMenuActivity" />
         <activity android:name=".JournalRecyclerMain" />
         <activity android:name=".JournalEditorActivity" />
