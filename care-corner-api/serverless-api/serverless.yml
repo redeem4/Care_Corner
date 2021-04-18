@@ -34,6 +34,12 @@ functions:
         - http:
             path: /api/journey
             method: put
+  journeyDestination:
+      handler: com.carecorner.handler.journey.DestinationHandler
+      events:
+        - http:
+          path: /api/journey/journey/destination
+          method: post
   panic:
     handler: com.carecorner.handler.PanicHandler
     events:
