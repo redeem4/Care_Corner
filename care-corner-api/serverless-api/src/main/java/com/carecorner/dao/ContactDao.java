@@ -24,7 +24,7 @@ public enum ContactDao {
       ResultSet rs = ps.executeQuery();
       while (rs.next()) {
           Contact contact = Contact.of(
-              rs.getInt("contact_id"),
+              rs.getString("contact_id"),
               rs.getInt("user_id"),
               rs.getString("name"),
               rs.getString("phone"));

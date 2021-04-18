@@ -51,7 +51,8 @@ public class JourneyHandler implements RequestHandler<Map<String, Object>, ApiGa
 			if (contacts.size() > 0) {
 				Contact contact = contacts.get(0);
 				logger.debug("Contact: {}", contact);
-				Messenger.sendSMS(contact.getPhone());
+				Messenger.sendSMS(contact.getPhone(), 
+					"User has begun their journey!");
 			}
 		} catch (Exception exception) {
 			exception.printStackTrace();
