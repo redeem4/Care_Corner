@@ -20,8 +20,6 @@
 --
 
 DROP TABLE IF EXISTS `audio`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `audio` (
   `audio_id` varchar(15) NOT NULL,
   `audio_path` varchar(100) NOT NULL,
@@ -29,8 +27,7 @@ CREATE TABLE `audio` (
   PRIMARY KEY (`audio_id`),
   UNIQUE KEY `audio_id_UNIQUE` (`audio_id`),
   UNIQUE KEY `audio_path_UNIQUE` (`audio_path`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
+);
 
 --
 -- Dumping data for table `audio`
@@ -47,8 +44,6 @@ UNLOCK TABLES;
 --
 
 DROP TABLE IF EXISTS `contact`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `contact` (
   `contact_id` varchar(15) NOT NULL,
   `user_id` varchar(15) NOT NULL,
@@ -58,8 +53,7 @@ CREATE TABLE `contact` (
   UNIQUE KEY `contact_id_UNIQUE` (`contact_id`),
   KEY `user_id` (`user_id`),
   CONSTRAINT `contact_user_id_fk` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
+);
 
 --
 -- Dumping data for table `contact`
@@ -93,7 +87,7 @@ CREATE TABLE `incident` (
   CONSTRAINT `incident_audio_id_fk` FOREIGN KEY (`audio_id`) REFERENCES `audio` (`audio_id`),
   CONSTRAINT `incident_journey_id_fk` FOREIGN KEY (`journey_id`) REFERENCES `journey` (`journey_id`),
   CONSTRAINT `incident_user_id_fk` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+);
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -111,8 +105,6 @@ UNLOCK TABLES;
 --
 
 DROP TABLE IF EXISTS `journey`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `journey` (
   `journey_id` varchar(15) NOT NULL,
   `journey_path` varchar(100) NOT NULL,
@@ -124,8 +116,7 @@ CREATE TABLE `journey` (
   PRIMARY KEY (`journey_id`),
   UNIQUE KEY `journey_id_UNIQUE` (`journey_id`),
   UNIQUE KEY `journey_path_UNIQUE` (`journey_path`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
+);
 
 --
 -- Dumping data for table `journey`
@@ -142,8 +133,6 @@ UNLOCK TABLES;
 --
 
 DROP TABLE IF EXISTS `resource`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `resource` (
   `resource_id` varchar(15) NOT NULL,
   `name` varchar(45) NOT NULL,
@@ -162,8 +151,7 @@ CREATE TABLE `resource` (
   `can_help_report` binary(1) DEFAULT NULL,
   PRIMARY KEY (`resource_id`),
   UNIQUE KEY `resource_id_UNIQUE` (`resource_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
+);
 
 --
 -- Dumping data for table `resource`
@@ -180,8 +168,6 @@ UNLOCK TABLES;
 --
 
 DROP TABLE IF EXISTS `resource_for`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `resource_for` (
   `user_id` varchar(15) NOT NULL,
   `resource_id` varchar(15) NOT NULL,
@@ -189,8 +175,7 @@ CREATE TABLE `resource_for` (
   KEY `resource_id` (`resource_id`),
   CONSTRAINT `r_for_resource_id_fk` FOREIGN KEY (`resource_id`) REFERENCES `resource` (`resource_id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `r_for_user_id_fk` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
+);
 
 --
 -- Dumping data for table `resource_for`
@@ -206,8 +191,6 @@ UNLOCK TABLES;
 --
 
 DROP TABLE IF EXISTS `school`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `school` (
   `id` varchar(15) NOT NULL,
   `name` varchar(60) NOT NULL,
@@ -215,8 +198,7 @@ CREATE TABLE `school` (
   `police_phone_2` varchar(10) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id_UNIQUE` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
+);
 
 --
 -- Dumping data for table `school`
@@ -233,8 +215,6 @@ UNLOCK TABLES;
 --
 
 DROP TABLE IF EXISTS `user`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `user` (
   `id` varchar(15) NOT NULL,
   `username` varchar(45) NOT NULL,
@@ -247,8 +227,7 @@ CREATE TABLE `user` (
   UNIQUE KEY `username_UNIQUE` (`username`),
   KEY `school_id` (`school_id`),
   CONSTRAINT `user_school_id_fk` FOREIGN KEY (`school_id`) REFERENCES `school` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
+);
 
 --
 -- Dumping data for table `user`
