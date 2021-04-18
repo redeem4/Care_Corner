@@ -41,23 +41,23 @@ public class MombotActivity extends AppCompatActivity {
         if(entry.isEmpty())
             reply = "It seems nothing was entered.";
         else if(entry.contains(" bar"))
-            reply = "At a bar you should: watch your drink being poured, " +
-                    "not leave your drink unattended, " +
-                    "and be aware of your surroundings. ";
+            reply = "At a bar you should: \\n watch your drink being poured, " +
+                    "\\n not leave your drink unattended, " +
+                    "\\n and be aware of your surroundings. ";
         else if(entry.contains(" house"))
-            reply = "At a house you should: let a friend know where you are going and who you are seeing " +
-                    " and keep your phone with you at all times.";
+            reply = "At a house you should: \n let a friend know where you are going and who you are seeing " +
+                    " \n and keep your phone with you at all times.";
         else if(entry.contains(" club"))
-            reply = "At a club you should: watch your drink being poured, " +
-                    "not leave your drink unattended, " +
-                    "and be aware of your surroundings.";
+            reply = "At a club you should: \n watch your drink being poured, " +
+                    "\n not leave your drink unattended, " +
+                    "\n and be aware of your surroundings.";
         else if(entry.contains(" restaurant"))
-            reply = "At a restaurant you should: meet at a public place, " +
-                    "not leave your drink unattended, " +
-                    "and tell someone you trust about your plans.";
+            reply = "At a restaurant you should: \n meet at a public place, " +
+                    "\n not leave your drink unattended, " +
+                    "\n and tell someone you trust about your plans.";
         else if(entry.contains(" movies"))
-            reply = "At the movies you should: meet at a public place " +
-                    "and tell someone you trust about your plans";
+            reply = "At the movies you should: \n meet at a public place " +
+                    "\n and tell someone you trust about your plans";
         else
             reply = "Sorry, I do not yet have a response for that.";
         return reply;
