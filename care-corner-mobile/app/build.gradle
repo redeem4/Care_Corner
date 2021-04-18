@@ -18,7 +18,7 @@ android {
 
     defaultConfig {
         applicationId "com.carecorner"
-        minSdkVersion 16
+        minSdkVersion 21
         targetSdkVersion 30
         versionCode 1
         versionName "1.0"
@@ -40,6 +40,7 @@ android {
 
 dependencies {
 
+
     implementation 'androidx.appcompat:appcompat:1.2.0'
     implementation 'com.google.android.material:material:1.2.1'
     implementation 'com.amitshekhar.android:android-networking:1.0.2'
@@ -55,6 +56,9 @@ dependencies {
     testImplementation 'org.robolectric:robolectric:4.4'
     testImplementation 'org.hamcrest:hamcrest:2.2'
     implementation 'com.google.code.gson:gson:2.8.6'
+
+    //added lib folder to support HERE API
+    implementation fileTree(dir: 'libs', include: ['*.aar', '*.jar'], exclude : ['*mock*.jar'])
 
     //Material Design Component
     implementation 'com.google.android.material:material:1.4.0-alpha02'
