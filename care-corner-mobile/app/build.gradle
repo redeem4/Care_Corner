@@ -60,6 +60,7 @@ dependencies {
     //added lib folder to support HERE API
     implementation fileTree(dir: 'libs', include: ['*.aar', '*.jar'], exclude : ['*mock*.jar'])
 
+
     //Material Design Component
     implementation 'com.google.android.material:material:1.4.0-alpha02'
 
