@@ -22,12 +22,18 @@ functions:
       - http:
           path: /api/auth
           method: post
-  journey:
-      handler: com.carecorner.handler.JourneyHandler
+  journeyBonVoyage:
+      handler: com.carecorner.handler.journey.BonVoyageHandler
       events:
         - http:
             path: /api/journey
             method: post
+  journeyWaypoint:
+      handler: com.carecorner.handler.journey.WaypointHandler
+      events:
+        - http:
+            path: /api/journey
+            method: put
   panic:
     handler: com.carecorner.handler.PanicHandler
     events:

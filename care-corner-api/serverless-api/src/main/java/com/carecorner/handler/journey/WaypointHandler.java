@@ -1,4 +1,4 @@
-package com.carecorner.handler;
+package com.carecorner.handler.journey;
 
 import com.carecorner.gateway.ApiGatewayResponse;
 import com.carecorner.gateway.Response;
@@ -11,6 +11,8 @@ import com.carecorner.dao.JourneyDao;
 import com.carecorner.dao.UserDao;
 import com.carecorner.notification.Messenger;
 
+import java.time.format.DateTimeFormatter;  
+import java.time.LocalDateTime;    
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
@@ -26,7 +28,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.RequestHandler;
 
-public class JourneyHandler implements RequestHandler<Map<String, Object>, ApiGatewayResponse> {
+public class WaypointHandler implements RequestHandler<Map<String, Object>, ApiGatewayResponse> {
 	private final JourneyDao journeryDao = JourneyDao.INSTANCE;
 	private final ContactDao contactDao = ContactDao.INSTANCE;
 	private final UserDao userDao = UserDao.INSTANCE;
@@ -34,7 +36,7 @@ public class JourneyHandler implements RequestHandler<Map<String, Object>, ApiGa
 
 	@Override
 	public ApiGatewayResponse handleRequest(Map<String, Object> input, Context context) {
-		logger.debug("Journey Handler received: {}", input);
+		logger.debug("Journey Waypoint Handler received: {}", input);
 
 		int statusCode = 401;
 		try {
@@ -42,23 +44,21 @@ public class JourneyHandler implements RequestHandler<Map<String, Object>, ApiGa
 			logger.debug("Params: {}", body);
 
 			String userId = body.get("user-id").asText();
-			String destination = body.get("destination").asText();
-			String eta = body.get("eta").asText();
+			String location = body.get("location").asText();
 
 			logger.debug("User ID: {}", userId);
-			logger.debug("Destination: {}", destination);
-			logger.debug("ETA: {}", eta);
+			logger.debug("Location: {}", location);
 
 			List<User> users = userDao.findByUserID(userId);
 			User user = users.get(0);
 
 			List<Contact> contacts = contactDao.findByUser(userId);
 			logger.debug("Contacts: {}", contacts.toString());
-			if (contacts.size() > 0) {
-				Contact contact = contacts.get(0);
+			for (int i = 0; i < contacts.size(); i = i + 1) {
+				Contact contact = contacts.get(i);
 				logger.debug("Contact: {}", contact);
 				Messenger.sendSMS(contact.getPhone(), 
-					buildBeginMessage(user, contact, destination, eta));
+					buildWaypointMessage(user, contact, location));
 			}
 		} catch (Exception exception) {
 			exception.printStackTrace();
@@ -72,7 +72,7 @@ public class JourneyHandler implements RequestHandler<Map<String, Object>, ApiGa
 					.build();
 		}
 
-		Response responseBody = new Response("data:", input);
+		Response responseBody = new Response("Waypoint", input);
 		return ApiGatewayResponse.builder()
 				.setStatusCode(statusCode)
 				.setObjectBody(responseBody)
@@ -80,11 +80,12 @@ public class JourneyHandler implements RequestHandler<Map<String, Object>, ApiGa
 				.build();
 	}
 
-	private String buildBeginMessage(User user, Contact contact, String destination, String ETA) {
-		String msg = "Hi %s, we wanted to let you know that %s has begun a walk and wanted to keep you informed. " +
-			"We'll update you as they progress towards %s, with a planned arrival of %s. Best, Care Corner <3";
+	private String buildWaypointMessage(User user, Contact contact, String location) {
+		String msg = "Location update for %s. At %s they were at point %s along their route. ";
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm"); 
+		LocalDateTime now = LocalDateTime.now();  
 
-		return String.format(msg, contact.getName(), user.getFname(), destination, ETA);
+		return String.format(msg, user.getFname(), formatter.format(now), location);
 	}
 }
 
