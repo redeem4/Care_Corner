@@ -16,6 +16,11 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.CareCorner"
         android:usesCleartextTraffic="true">
+
+        <!-- HERE SDK Credentials -->
+        <meta-data android:name="com.here.sdk.access_key_id" android:value="TMjbh5l38mKcc4u2MNvubw" />
+        <meta-data android:name="com.here.sdk.access_key_secret" android:value="ccd2bP2JW55WwYkF0IodD1jIW0rPeL-RLrmnS4lmAu9iU96qUGQlxuKD92XBFPgWah7P_anDmvD732YBEDDr2g  " />
+
         <activity android:name=".PanicActivity">
             android:exported="true"
             <intent-filter>
@@ -23,7 +28,6 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
         </activity>
 
         <service
@@ -55,15 +59,12 @@
         <activity android:name=".ResourceActivity" />
         <activity android:name=".FakePhoneCallMenuActivity" />
         <activity android:name=".CallingActivity" />
-
-        <service android:name=".EmulatedVoiceService" />
-
+        <service android:name="EmulatedVoiceService" />
         <activity android:name=".JournalMenuActivity" />
         <activity android:name=".JournalRecyclerMain" />
         <activity android:name=".JournalEditorActivity" />
         <activity android:name=".JournalReader" />
         <activity android:name=".SafeWalkMenuActivity" />
-
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />

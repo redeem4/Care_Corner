@@ -17,11 +17,7 @@ import android.widget.Button;
 
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link PanicDeactiveFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+
 public class PanicDeactiveFragment extends Fragment implements View.OnClickListener {
 
     private NavController panicNavController;
