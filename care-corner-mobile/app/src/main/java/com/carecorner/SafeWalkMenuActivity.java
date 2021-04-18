@@ -20,7 +20,7 @@ import org.json.JSONObject;
 import okhttp3.Response;
 
 public class SafeWalkMenuActivity extends AppCompatActivity {
-    Button btnStartWalk;
+    Button btnStartWalk, btnWalking, btnArrived;
     EditText destinationEntryBox, etaEntryBox;
 
     @Override
@@ -32,51 +32,127 @@ public class SafeWalkMenuActivity extends AppCompatActivity {
         btnStartWalk.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String journeyUrl = CareCornerApplication.getApiRoute("journey");
-
-                String location = destinationEntryBox.getText().toString();
-                String eta = etaEntryBox.getText().toString();
-                JSONObject destination = new JSONObject();
-                try {
-                    String userId = CareCornerApplication.getSession().getUserId();
-                    destination.put("user-id", userId);
-                    destination.put("event", "begin");
-                    destination.put("location", location);
-                    destination.put("eta", eta);
-                } catch(Exception error) {
-                    Log.e("Login:", "Issue creating credentaion Json");
-                }
-
-                AndroidNetworking.post(journeyUrl)
-                        .addHeaders("Content-Type", "application/json")
-                        .addJSONObjectBody(destination)
-                        .build()
-                        .getAsOkHttpResponse(new OkHttpResponseListener() {
-                            @Override
-                            public void onResponse(Response response) {
-                                if (response.isSuccessful()) {
-                                    // successful login
-//                                    startActivity(intent);
-                                } else {
-                                    // unsuccessful login
-                                    //                                   Toast.makeText(LoginActivity.this, "Wrong Credentials", Toast.LENGTH_SHORT).show();
-                                }
-                            }
-
-                            @Override
-                            public void onError(ANError error) {
-                                Log.e("Issue with Connection:", error.getResponse().toString());
-                            }
-                        });
+                startWalk();
             }
         });
 
+        btnWalking.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                continueWalk();
+            }
+        });
+
+        btnArrived.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                endWalk();
+            }
+        });
     }
 
     private void initViews() {
         btnStartWalk = findViewById(R.id.btnStartWalk);
+        btnArrived = findViewById(R.id.btnArrived);
+        btnWalking = findViewById(R.id.btnWalking);
         destinationEntryBox = findViewById(R.id.destinationEntryBox);
         etaEntryBox = findViewById(R.id.etaEntryBox);
+    }
+
+
+    private void startWalk() {
+        String journeyUrl = CareCornerApplication.getApiRoute("journey");
+
+        String destination = destinationEntryBox.getText().toString();
+        String eta = etaEntryBox.getText().toString();
+        JSONObject bonVoyage = new JSONObject();
+        try {
+            String userId = CareCornerApplication.getSession().getUserId();
+            bonVoyage.put("user-id", userId);
+            bonVoyage.put("destination", destination);
+            bonVoyage.put("eta", eta);
+        } catch(Exception error) {
+            Log.e("Login:", "Issue creating destination Json");
+        }
+
+        AndroidNetworking.post(journeyUrl)
+                .addHeaders("Content-Type", "application/json")
+                .addJSONObjectBody(bonVoyage)
+                .build()
+                .getAsOkHttpResponse(new OkHttpResponseListener() {
+                    @Override
+                    public void onResponse(Response response) {
+                        if (response.isSuccessful()) {
+                        } else {
+                        }
+                    }
+
+                    @Override
+                    public void onError(ANError error) {
+                        Log.e("Issue with Connection:", error.getResponse().toString());
+                    }
+                });
+    }
+
+
+    private void continueWalk() {
+        String journeyUrl = CareCornerApplication.getApiRoute("journey");
+        JSONObject location = new JSONObject();
+        try {
+            String userId = CareCornerApplication.getSession().getUserId();
+            location.put("user-id", userId);
+            location.put("location", "889 Updated address");
+        } catch(Exception error) {
+            Log.e("Login:", "Issue creating location Json");
+        }
+
+        AndroidNetworking.put(journeyUrl)
+                .addHeaders("Content-Type", "application/json")
+                .addJSONObjectBody(location)
+                .build()
+                .getAsOkHttpResponse(new OkHttpResponseListener() {
+                    @Override
+                    public void onResponse(Response response) {
+                        if (response.isSuccessful()) {
+                        } else {
+                        }
+                    }
+
+                    @Override
+                    public void onError(ANError error) {
+                        Log.e("Issue with Connection:", error.getResponse().toString());
+                    }
+                });
+    }
+
+
+    private void endWalk() {
+        String journeyUrl = CareCornerApplication.getApiRoute("journey/destination");
+        JSONObject arrival = new JSONObject();
+        try {
+            String userId = CareCornerApplication.getSession().getUserId();
+            arrival.put("user-id", userId);
+        } catch(Exception error) {
+            Log.e("Login:", "Issue creating arrival Json");
+        }
+
+        AndroidNetworking.post(journeyUrl)
+                .addHeaders("Content-Type", "application/json")
+                .addJSONObjectBody(arrival)
+                .build()
+                .getAsOkHttpResponse(new OkHttpResponseListener() {
+                    @Override
+                    public void onResponse(Response response) {
+                        if (response.isSuccessful()) {
+                        } else {
+                        }
+                    }
+
+                    @Override
+                    public void onError(ANError error) {
+                        Log.e("Issue with Connection:", error.getResponse().toString());
+                    }
+                });
     }
 
     /**
