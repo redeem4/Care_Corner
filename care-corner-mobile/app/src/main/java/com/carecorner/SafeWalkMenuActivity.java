@@ -32,12 +32,13 @@ public class SafeWalkMenuActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 CareCornerApplication application = (CareCornerApplication)getApplicationContext();
-                String authUrl = application.api + "/api/auth";
+                String authUrl = application.api + "/api/location";
 
                 String location = destinationEntryBox.getText().toString();
                 String eta = etaEntryBox.getText().toString();
                 JSONObject destination = new JSONObject();
                 try {
+                    destination.put("event", "begin");
                     destination.put("location", location);
                     destination.put("eta", eta);
                 } catch(Exception error) {
@@ -54,9 +55,10 @@ public class SafeWalkMenuActivity extends AppCompatActivity {
                                 if (response.isSuccessful()) {
                                     // successful login
 //                                    startActivity(intent);
-                                } else
+                                } else {
                                     // unsuccessful login
- //                                   Toast.makeText(LoginActivity.this, "Wrong Credentials", Toast.LENGTH_SHORT).show();
+                                    //                                   Toast.makeText(LoginActivity.this, "Wrong Credentials", Toast.LENGTH_SHORT).show();
+                                }
                             }
 
                             @Override
@@ -64,7 +66,6 @@ public class SafeWalkMenuActivity extends AppCompatActivity {
                                 Log.e("Issue with Connection:", error.getResponse().toString());
                             }
                         });
-
             }
         });
 

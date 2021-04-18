@@ -14,7 +14,7 @@ import java.util.List;
 public enum ContactDao {
   INSTANCE;
 
-  public List<Contact> findByUser(Integer user_id) {
+  public List<Contact> findByUser(String user_id) {
     final List<Contact> contacts = new ArrayList<>();
     String sql = String.format("SELECT * FROM contact WHERE user_id='%s'", user_id);
 

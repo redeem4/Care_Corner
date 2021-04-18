@@ -7,6 +7,7 @@ import com.carecorner.dao.ContactDao;
 import com.carecorner.pojo.Contact;
 import com.carecorner.dao.JourneyDao;
 import com.carecorner.pojo.Journey;
+import com.carecorner.notification.Messenger;
 
 import java.util.Collections;
 import java.util.List;
@@ -25,6 +26,7 @@ import com.amazonaws.services.lambda.runtime.RequestHandler;
 
 public class JourneyHandler implements RequestHandler<Map<String, Object>, ApiGatewayResponse> {
 	private final JourneyDao journeryDao = JourneyDao.INSTANCE;
+	private final ContactDao contactDao = ContactDao.INSTANCE;
 	private final Logger logger = LogManager.getLogger(this.getClass());
 
 	@Override
@@ -36,22 +38,21 @@ public class JourneyHandler implements RequestHandler<Map<String, Object>, ApiGa
 			JsonNode body = new ObjectMapper().readTree((String) input.get("body"));
 			logger.debug("Params: {}", body);
 
-			String location = body.get("location").asText();
+			String userId = body.get("user-id").asText();
+			String destination = body.get("destination").asText();
 			String eta = body.get("eta").asText();
 
-			logger.debug("Location: {}", location);
+			logger.debug("User ID: {}", userId);
+			logger.debug("Destination: {}", destination);
 			logger.debug("ETA: {}", eta);
-//			List<User> users = userDao.findByUsername(username);
-	//		logger.debug("Userss: {}", users.toString());
-/*			if (users.size() > 0) {
-				User user = users.get(0);
-				logger.debug("User: {}", user);
-				logger.debug("Comp: {}", user.getPassword());
-				if (user.getPassword().equals(password)) {
-					// authenticated
-					statusCode = 200;
-				}
-			}*/
+
+			List<Contact> contacts = contactDao.findByUser(userId);
+			logger.debug("Contacts: {}", contacts.toString());
+			if (contacts.size() > 0) {
+				Contact contact = contacts.get(0);
+				logger.debug("Contact: {}", contact);
+				Messenger.sendSMS(contact.getPhone());
+			}
 		} catch (Exception exception) {
 			exception.printStackTrace();
 

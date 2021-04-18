@@ -10,7 +10,7 @@ import androidx.annotation.Nullable;
 import com.androidnetworking.AndroidNetworking;
 
 public class CareCornerApplication extends Application {
-    final String apiCode = "6vdnsy91ut";
+    final String apiCode = "z445q4x5ix";
     String api = "http://10.0.2.2:4566/restapis/%s/local/_user_request_";
 
     @Override
