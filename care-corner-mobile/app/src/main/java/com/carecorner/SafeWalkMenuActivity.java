@@ -27,17 +27,19 @@ public class SafeWalkMenuActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.safe_walk_menu_activity);
+        initViews();
 
         btnStartWalk.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                CareCornerApplication application = (CareCornerApplication)getApplicationContext();
-                String authUrl = application.api + "/api/location";
+                String journeyUrl = CareCornerApplication.getApiRoute("journey");
 
                 String location = destinationEntryBox.getText().toString();
                 String eta = etaEntryBox.getText().toString();
                 JSONObject destination = new JSONObject();
                 try {
+                    String userId = CareCornerApplication.getSession().getUserId();
+                    destination.put("user-id", userId);
                     destination.put("event", "begin");
                     destination.put("location", location);
                     destination.put("eta", eta);
@@ -45,7 +47,7 @@ public class SafeWalkMenuActivity extends AppCompatActivity {
                     Log.e("Login:", "Issue creating credentaion Json");
                 }
 
-                AndroidNetworking.post(authUrl)
+                AndroidNetworking.post(journeyUrl)
                         .addHeaders("Content-Type", "application/json")
                         .addJSONObjectBody(destination)
                         .build()
@@ -69,6 +71,12 @@ public class SafeWalkMenuActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    private void initViews() {
+        btnStartWalk = findViewById(R.id.btnStartWalk);
+        destinationEntryBox = findViewById(R.id.destinationEntryBox);
+        etaEntryBox = findViewById(R.id.etaEntryBox);
     }
 
     /**
