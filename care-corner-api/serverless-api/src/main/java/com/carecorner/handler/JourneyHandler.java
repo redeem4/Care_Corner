@@ -5,8 +5,10 @@ import com.carecorner.gateway.Response;
 
 import com.carecorner.dao.ContactDao;
 import com.carecorner.pojo.Contact;
-import com.carecorner.dao.JourneyDao;
 import com.carecorner.pojo.Journey;
+import com.carecorner.pojo.User;
+import com.carecorner.dao.JourneyDao;
+import com.carecorner.dao.UserDao;
 import com.carecorner.notification.Messenger;
 
 import java.util.Collections;
@@ -27,6 +29,7 @@ import com.amazonaws.services.lambda.runtime.RequestHandler;
 public class JourneyHandler implements RequestHandler<Map<String, Object>, ApiGatewayResponse> {
 	private final JourneyDao journeryDao = JourneyDao.INSTANCE;
 	private final ContactDao contactDao = ContactDao.INSTANCE;
+	private final UserDao userDao = UserDao.INSTANCE;
 	private final Logger logger = LogManager.getLogger(this.getClass());
 
 	@Override
@@ -46,13 +49,16 @@ public class JourneyHandler implements RequestHandler<Map<String, Object>, ApiGa
 			logger.debug("Destination: {}", destination);
 			logger.debug("ETA: {}", eta);
 
+			List<User> users = userDao.findByUserID(userId);
+			User user = users.get(0);
+
 			List<Contact> contacts = contactDao.findByUser(userId);
 			logger.debug("Contacts: {}", contacts.toString());
 			if (contacts.size() > 0) {
 				Contact contact = contacts.get(0);
 				logger.debug("Contact: {}", contact);
 				Messenger.sendSMS(contact.getPhone(), 
-					"User has begun their journey!");
+					buildBeginMessage(user, contact, destination, eta));
 			}
 		} catch (Exception exception) {
 			exception.printStackTrace();
@@ -72,6 +78,13 @@ public class JourneyHandler implements RequestHandler<Map<String, Object>, ApiGa
 				.setObjectBody(responseBody)
 				.setHeaders(Collections.singletonMap("X-Powered-By", "Care Corner"))
 				.build();
+	}
+
+	private String buildBeginMessage(User user, Contact contact, String destination, String ETA) {
+		String msg = "Hi %s, we wanted to let you know that %s has begun a walk and wanted to keep you informed. " +
+			"We'll update you as they progress towards %s, with a planned arrival of %s. Best, Care Corner <3";
+
+		return String.format(msg, contact.getName(), user.getFname(), destination, ETA);
 	}
 }
 
