@@ -8,6 +8,7 @@ import com.carecorner.pojo.User;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.logging.log4j.LogManager;
@@ -29,6 +30,7 @@ public class AuthenticationHandler implements RequestHandler<Map<String, Object>
 	public ApiGatewayResponse handleRequest(Map<String, Object> input, Context context) {
 		logger.debug("Authentication Handler received: {}", input);
 
+		Integer userId = 0;
 		int statusCode = 401;
 		try {
 			JsonNode body = new ObjectMapper().readTree((String) input.get("body"));
@@ -40,14 +42,13 @@ public class AuthenticationHandler implements RequestHandler<Map<String, Object>
 			logger.debug("Username: {}", username);
 			logger.debug("Password: {}", password);
 			List<User> users = userDao.findByUsername(username);
-			logger.debug("Userss: {}", users.toString());
+			logger.debug("Users: {}", users.toString());
 			if (users.size() > 0) {
 				User user = users.get(0);
-				logger.debug("User: {}", user);
-				logger.debug("Comp: {}", user.getPassword());
 				if (user.getPassword().equals(password)) {
 					// authenticated
 					statusCode = 200;
+					userId = user.getId();
 				}
 			}
 		} catch (Exception exception) {
@@ -62,12 +63,16 @@ public class AuthenticationHandler implements RequestHandler<Map<String, Object>
 					.build();
 		}
 
-		Response responseBody = new Response("data:", input);
-		return ApiGatewayResponse.builder()
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("user-id", userId);
+		Response responseBody = new Response("Authenticated", map);
+		ApiGatewayResponse apiResponse = ApiGatewayResponse.builder()
 				.setStatusCode(statusCode)
 				.setObjectBody(responseBody)
 				.setHeaders(Collections.singletonMap("X-Powered-By", "Care Corner"))
 				.build();
+		logger.debug("Returning: {}", apiResponse.getBody());
+		return apiResponse;
 	}
 }
 
