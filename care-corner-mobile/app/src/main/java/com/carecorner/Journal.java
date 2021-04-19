@@ -1,8 +1,16 @@
 package com.carecorner;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class Journal {
     private String name;
     private String text;
+    private String date;
+    private String time;
+
+    private SimpleDateFormat s = new SimpleDateFormat("dd/MM/yyyy");
+    private SimpleDateFormat s2 = new SimpleDateFormat("hh:mm");
 
     /**
      * Default Constructor for the Journal Class
@@ -13,6 +21,23 @@ public class Journal {
     {
         this.name = name;
         this.text = text;
+        this.date = s.format(new Date());
+        this.time = s2.format(new Date());
+    }
+
+    /**
+     * Default Constructor for the Journal Class
+     * @param  name The name of the Journal
+     * @param  text The text of the Journal
+     * @param  date The date of the Journal
+     * @param  time The time of the Journal
+     */
+    public Journal(String name, String text, String date, String time)
+    {
+        this.name = name;
+        this.text = text;
+        this.date = date;
+        this.time = time;
     }
 
     public String getName() {
@@ -29,6 +54,22 @@ public class Journal {
 
     public void setText(String text) {
         this.text = text;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
     }
 
     @Override
