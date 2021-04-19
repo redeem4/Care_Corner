@@ -4,8 +4,11 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import com.carecorner.PlatformPositioningProvider;
 
 import android.app.Activity;
+import android.content.pm.PackageManager;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -25,15 +28,19 @@ import com.here.sdk.mapview.MapScene;
 import com.here.sdk.mapview.MapScheme;
 public class PanicActivity extends AppCompatActivity {
 
+    private static final String LOG_TAG = "some stuff";
     private ConstraintLayout mapSheet;
     private BottomSheetBehavior bottomSheetBehavior;
     private ImageView swipe_btn;
+    private ImageView my_location;
 
     //Map
     private static final String TAG = PanicActivity.class.getSimpleName();
     private PermissionsRequestor permissionsRequestor;
     private MapView mapView;
     MapImage userIcon;
+    PlatformPositioningProvider platformPositioningProvider;
+
 
 
 
@@ -44,6 +51,7 @@ public class PanicActivity extends AppCompatActivity {
 
         mapSheet = findViewById(R.id.map_sheet);
         swipe_btn = findViewById(R.id.map_swipe_up);
+        my_location = findViewById(R.id.my_location_icon);
 
         //controls how the BottomSheet (map) UI works
         bottomSheetBehavior = BottomSheetBehavior.from(mapSheet);
@@ -53,6 +61,9 @@ public class PanicActivity extends AppCompatActivity {
             public void onStateChanged(@NonNull View bottomSheet, int newState) {
 
                 switch (newState) {
+                    case BottomSheetBehavior.STATE_DRAGGING:
+                        bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+                        break;
                     case BottomSheetBehavior.STATE_HIDDEN:
                         bottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
 
@@ -60,8 +71,6 @@ public class PanicActivity extends AppCompatActivity {
                         swipe_btn.setImageDrawable(getResources().getDrawable(R.drawable.swipe_up_icon));
                         break;
                     case BottomSheetBehavior.STATE_EXPANDED:
-                        mapView.getCamera().lookAt(
-                                new GeoCoordinates(39.17719, -77.21111, 10000));
                         swipe_btn.setImageDrawable(getResources().getDrawable(R.drawable.swipe_down_icon));
                         break;
                 }
@@ -79,6 +88,7 @@ public class PanicActivity extends AppCompatActivity {
         mapView.onCreate(savedInstanceState);
 
 
+
         mapView.setOnReadyListener(new MapView.OnReadyListener() {
             @Override
             public void onMapViewReady() {
@@ -89,12 +99,43 @@ public class PanicActivity extends AppCompatActivity {
             }
         });
 
-        userIcon =  MapImageFactory.fromResource(this.getResources(),R.drawable.map_icon_target_50);
+        userIcon =  MapImageFactory.fromResource(this.getResources(),R.drawable.map_icon_user);
         MapMarker userMarker = new MapMarker(new GeoCoordinates(39.17719, -77.21111), userIcon);
         mapView.getMapScene().addMapMarker(userMarker);
 
+        //user location
+        platformPositioningProvider = new PlatformPositioningProvider(this);
+        platformPositioningProvider.startLocating(new PlatformPositioningProvider.PlatformLocationListener() {
+            @Override
+            public void onLocationUpdated(android.location.Location location) {
+                userMarker.setCoordinates(new GeoCoordinates(location.getLatitude(), location.getLongitude()));
+
+            }
+        });
+
+        my_location.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mapView.getCamera().lookAt(userMarker.getCoordinates());
+            }
+        });
+
+        swipe_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (bottomSheetBehavior.getState() == BottomSheetBehavior.STATE_EXPANDED){
+                    bottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
+                }else{
+                    bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+                }
+            }
+        });
+
         handleAndroidPermissions();
     }
+
+
+
 
     private void handleAndroidPermissions() {
         permissionsRequestor = new PermissionsRequestor(this);
