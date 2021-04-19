@@ -16,9 +16,7 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 
 public class JournalRecyclerMain extends AppCompatActivity implements MyRecyclerViewAdapter.ItemClickListener, AddJournalEntryDialog.AddJournalEntryDialogListener {
 
@@ -84,9 +82,11 @@ public class JournalRecyclerMain extends AppCompatActivity implements MyRecycler
         int insertIndex = data.size();
         if(journalName.equals(""))
         {
-            Date date = new Date();
-            SimpleDateFormat formatter = new SimpleDateFormat("M/d/yyyy");
-            journalName = formatter.format(date);
+            journalName = "New Journal Entry";
+        }
+        if(journalEntry.equals(""))
+        {
+            journalEntry = "";
         }
 
         int maxLength = 14;
