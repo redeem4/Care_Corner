@@ -12,10 +12,11 @@ public class Journal {
     Calendar calendar = new GregorianCalendar();
     int hour = calendar.get(Calendar.HOUR);
     int minute = calendar.get(Calendar.MINUTE);
+    String currentTime = String.format("%02d:%02d", hour, minute);
     int dayOfMonth = calendar.get(Calendar.DAY_OF_MONTH);
     int month = calendar.get(Calendar.MONTH);
     int year = calendar.get(Calendar.YEAR);
-
+    String currentDate = String.format("%02d/%02d/%02d", month, dayOfMonth, year);
     /**
      * Default Constructor for the Journal Class.
      * @param  name  The name of the Journal
@@ -25,8 +26,8 @@ public class Journal {
     {
         this.name = name;
         this.text = text;
-        this.date = month + "/" + dayOfMonth + "/" + year;
-        this.time = hour + ":" + minute;
+        this.date = currentDate;
+        this.time = currentTime;
     }
 
     /**
