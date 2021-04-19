@@ -12,6 +12,9 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
+import com.here.sdk.mapview.MapImage;
+import com.here.sdk.mapview.MapImageFactory;
+import com.here.sdk.mapview.MapMarker;
 import com.here.sdk.mapview.MapView;
 
 //HERE SDK
@@ -30,6 +33,7 @@ public class PanicActivity extends AppCompatActivity {
     private static final String TAG = PanicActivity.class.getSimpleName();
     private PermissionsRequestor permissionsRequestor;
     private MapView mapView;
+    MapImage userIcon;
 
 
 
@@ -51,10 +55,13 @@ public class PanicActivity extends AppCompatActivity {
                 switch (newState) {
                     case BottomSheetBehavior.STATE_HIDDEN:
                         bottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
+
                     case BottomSheetBehavior.STATE_COLLAPSED:
                         swipe_btn.setImageDrawable(getResources().getDrawable(R.drawable.swipe_up_icon));
                         break;
                     case BottomSheetBehavior.STATE_EXPANDED:
+                        mapView.getCamera().lookAt(
+                                new GeoCoordinates(39.17719, -77.21111, 10000));
                         swipe_btn.setImageDrawable(getResources().getDrawable(R.drawable.swipe_down_icon));
                         break;
                 }
@@ -71,6 +78,7 @@ public class PanicActivity extends AppCompatActivity {
         mapView = findViewById(R.id.map_view);
         mapView.onCreate(savedInstanceState);
 
+
         mapView.setOnReadyListener(new MapView.OnReadyListener() {
             @Override
             public void onMapViewReady() {
@@ -80,6 +88,10 @@ public class PanicActivity extends AppCompatActivity {
                 Log.d(TAG, "HERE Rendering Engine attached.");
             }
         });
+
+        userIcon =  MapImageFactory.fromResource(this.getResources(),R.drawable.map_icon_target_50);
+        MapMarker userMarker = new MapMarker(new GeoCoordinates(39.17719, -77.21111), userIcon);
+        mapView.getMapScene().addMapMarker(userMarker);
 
         handleAndroidPermissions();
     }
@@ -113,7 +125,7 @@ public class PanicActivity extends AppCompatActivity {
                 if (mapError == null) {
                     double distanceInMeters = 1000 * 10;
                     mapView.getCamera().lookAt(
-                            new GeoCoordinates(52.530932, 13.384915), distanceInMeters);
+                            new GeoCoordinates(36.88675, -76.30570), distanceInMeters);
                 } else {
                     Log.d(TAG, "Loading map failed: mapError: " + mapError.name());
                 }
