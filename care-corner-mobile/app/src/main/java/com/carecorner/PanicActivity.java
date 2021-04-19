@@ -117,6 +117,7 @@ public class PanicActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 mapView.getCamera().lookAt(userMarker.getCoordinates());
+                bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
             }
         });
 
