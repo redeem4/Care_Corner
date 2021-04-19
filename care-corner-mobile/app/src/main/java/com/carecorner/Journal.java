@@ -1,7 +1,7 @@
 package com.carecorner;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 public class Journal {
     private String name;
@@ -9,11 +9,15 @@ public class Journal {
     private String date;
     private String time;
 
-    private SimpleDateFormat s = new SimpleDateFormat("dd/MM/yyyy");
-    private SimpleDateFormat s2 = new SimpleDateFormat("hh:mm");
+    Calendar calendar = new GregorianCalendar();
+    int hour = calendar.get(Calendar.HOUR);
+    int minute = calendar.get(Calendar.MINUTE);
+    int dayOfMonth = calendar.get(Calendar.DAY_OF_MONTH);
+    int month = calendar.get(Calendar.MONTH);
+    int year = calendar.get(Calendar.YEAR);
 
     /**
-     * Default Constructor for the Journal Class
+     * Default Constructor for the Journal Class.
      * @param  name  The name of the Journal
      * @param  text The text of the Journal
      */
@@ -21,12 +25,12 @@ public class Journal {
     {
         this.name = name;
         this.text = text;
-        this.date = s.format(new Date());
-        this.time = s2.format(new Date());
+        this.date = month + "/" + dayOfMonth + "/" + year;
+        this.time = hour + ":" + minute;
     }
 
     /**
-     * Default Constructor for the Journal Class
+     * Overloaded Constructor for the Journal Class for setting the time/date.
      * @param  name The name of the Journal
      * @param  text The text of the Journal
      * @param  date The date of the Journal
