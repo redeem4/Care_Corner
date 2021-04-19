@@ -41,7 +41,7 @@
         android:layout_marginTop="44dp"
         android:autofillHints=""
         android:ems="10"
-        android:hint="numbers"
+        android:hint="@string/pin"
         android:inputType="numberPassword"
         app:layout_constraintEnd_toEndOf="@+id/txtJournalPassword"
         app:layout_constraintHorizontal_bias="0.0"
