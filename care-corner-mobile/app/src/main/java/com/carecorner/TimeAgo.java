@@ -27,7 +27,7 @@ public class TimeAgo {
         } else if (days == 1){
             return "a day ago";
         } else {
-            return hours + " hours ago";
+            return days + " days ago";
         }
     }
 }

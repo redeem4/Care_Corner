@@ -8,7 +8,6 @@
     app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior"
     app:behavior_hideable="true"
     app:behavior_peekHeight = "70dp"
-    tools:context="com.carecorner.PanicActivity"
     android:id="@+id/map_sheet"
     >
 
