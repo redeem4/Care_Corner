@@ -49,7 +49,7 @@ public class MainMenuActivity extends AppCompatActivity {
         btnJournal.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainMenuActivity.this, JournalMenuActivity.class);
+                Intent intent = new Intent(MainMenuActivity.this, JournalLogin.class);
                 startActivity(intent);
             }
         });

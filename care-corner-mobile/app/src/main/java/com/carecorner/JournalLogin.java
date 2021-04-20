@@ -2,6 +2,7 @@ package com.carecorner;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -9,7 +10,7 @@ import android.widget.EditText;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class JournalLogin extends AppCompatActivity {
-    private Button btnLogin, btnJournalPinCreate;
+    private Button btnJournalLogin, btnJournalPinCreate;
     private EditText txtJournalPinBox;
 
     @Override
@@ -19,12 +20,13 @@ public class JournalLogin extends AppCompatActivity {
         initViews();
 
 
-        btnLogin.setOnClickListener(new View.OnClickListener() {
+        btnJournalLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(JournalLogin.this, JournalMenuActivity.class);
                 //TODO: Create proper and secure login functionality that checks login information against database entries
-                if (txtJournalPinBox.getText().equals("1111")) {
+                Editable txtPin = txtJournalPinBox.getText();
+                if (txtPin.equals("1111")) {
                     startActivity(intent);
                 }
             }
@@ -44,7 +46,7 @@ public class JournalLogin extends AppCompatActivity {
 
     private void initViews() {
         txtJournalPinBox = findViewById(R.id.journalPinBox);
-        btnLogin = findViewById(R.id.btnJournalLogin);
+        btnJournalLogin = findViewById(R.id.btnJournalLogin);
         btnJournalPinCreate = findViewById(R.id.btnJournalPinCreate);
 
     }

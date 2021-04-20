@@ -57,6 +57,8 @@
     <string name="confirm_pin">Confirm Pin</string>
     <string name="numbers">Numbers</string>
     <string name="pin">Pin</string>
+    <string name="hello_blank_fragment" />
+    <string name="userid">UserID</string>
     <!-- <color name="lightblue">#94CCEo</color> -->
 
 
