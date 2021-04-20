@@ -11,6 +11,7 @@ import com.carecorner.dao.JourneyDao;
 import com.carecorner.dao.UserDao;
 import com.carecorner.notification.Messenger;
 
+import java.math.BigDecimal;
 import java.time.format.DateTimeFormatter;  
 import java.time.LocalDateTime;    
 import java.util.Collections;
@@ -44,11 +45,19 @@ public class DestinationHandler implements RequestHandler<Map<String, Object>, A
 			logger.debug("Params: {}", body);
 
 			String userId = body.get("user-id").asText();
+			BigDecimal latitude = new BigDecimal(body.get("latitude").asText());
+			BigDecimal longitude = new BigDecimal(body.get("longitude").asText());
 
 			logger.debug("User ID: {}", userId);
+			logger.debug("Longitude: {}", longitude);
+			logger.debug("Latitude: {}", latitude);
 
 			List<User> users = userDao.findByUserID(userId);
 			User user = users.get(0);
+
+			Journey journey = Journey.of(Integer.parseInt(userId), "Maiden Voyage", "",
+				new BigDecimal("0.0"), new BigDecimal("0.0"), latitude, longitude);
+			journeryDao.updateEndByUser(Integer.parseInt(userId), journey);
 
 			List<Contact> contacts = contactDao.findByUser(userId);
 			logger.debug("Contacts: {}", contacts.toString());
@@ -56,7 +65,8 @@ public class DestinationHandler implements RequestHandler<Map<String, Object>, A
 				Contact contact = contacts.get(i);
 				logger.debug("Contact: {}", contact);
 				Messenger.sendSMS(contact.getPhone(), 
-					buildDestinationMessage(user, contact));
+					buildDestinationMessage(user, contact)
+				);
 			}
 		} catch (Exception exception) {
 			exception.printStackTrace();

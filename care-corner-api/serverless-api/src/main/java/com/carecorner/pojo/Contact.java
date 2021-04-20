@@ -7,8 +7,8 @@ import lombok.Value;
 
 @Value(staticConstructor = "of")
 public class Contact {
-  String contact_id;
-  Integer user_id;
+  String contactId;
+  Integer userId;
   String name;
   String phone;
 }
