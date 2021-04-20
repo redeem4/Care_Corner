@@ -1,6 +1,8 @@
 package com.carecorner;
 
+import android.content.Context;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -19,6 +21,12 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.ToggleButton;
+
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import java.lang.reflect.Type;
+import java.util.Vector;
 
 
 public class PanicModeFragment extends Fragment implements View.OnClickListener {
@@ -45,6 +53,7 @@ public class PanicModeFragment extends Fragment implements View.OnClickListener 
     private LinearLayout incidents_linear_layout;
     private ImageButton incidents_btn;
     private Incident current_incident;
+    private Vector<Incident> incidents_list;
 
 
 
@@ -84,6 +93,8 @@ public class PanicModeFragment extends Fragment implements View.OnClickListener 
         //set click listeners
         activate_btn.setOnClickListener(this);
         incidents_btn.setOnClickListener(this);
+
+        loadIncidents();
 
 
         panicNavController = Navigation.findNavController(view);
@@ -143,6 +154,8 @@ public class PanicModeFragment extends Fragment implements View.OnClickListener 
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         //TODO: save incident to shared folder
+                        incidents_list.add(current_incident);
+                        saveIncident();
                     }
                 })
                 .setNegativeButton("No", new DialogInterface.OnClickListener() {
@@ -153,7 +166,27 @@ public class PanicModeFragment extends Fragment implements View.OnClickListener 
                 });
         AlertDialog dialog = builder.create();
         dialog.show();
-
         return dialog;
+    }
+
+    private void saveIncident() {
+        SharedPreferences sharedPreferences = getContext().getSharedPreferences("shared preferences", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        Gson gson = new Gson();
+        String json = gson.toJson(incidents_list);
+        editor.putString(getContext().getString(R.string.incident_list_key), json);
+        editor.apply();
+    }
+
+    private void loadIncidents(){
+        SharedPreferences sharedPreferences = getContext().getSharedPreferences("shared preferences", Context.MODE_PRIVATE);
+        Gson gson = new Gson();
+        String json = sharedPreferences.getString(getContext().getString(R.string.incident_list_key), null);
+        Type type = new TypeToken<Vector<Incident>>() {}.getType();
+        incidents_list = gson.fromJson(json, type);
+
+        if (incidents_list == null) {
+            incidents_list = new Vector<Incident>();
+        }
     }
 }

@@ -48,4 +48,18 @@ public class Incident {
         this.stop_time = now;
     }
 
+    @Override
+    public String toString() {
+        StringBuilder str = new StringBuilder(
+                "Incident id: " + this.id + "\n" +
+                "Recording File Name: " + this.recording_file_name + "\n" +
+                "Journey File Name: " + this.journey_file_name + "\n" +
+                "Start Time: " + this.start_time + "\n" +
+                "Stop Time: " + this.stop_time + "\n"
+        );
+
+        String incident_report = new String(str);
+        return incident_report;
+    }
+
 }
