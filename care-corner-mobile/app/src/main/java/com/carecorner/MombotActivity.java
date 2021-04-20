@@ -41,9 +41,9 @@ public class MombotActivity extends AppCompatActivity {
         if(entry.isEmpty())
             reply = "It seems nothing was entered.";
         else if(entry.contains(" bar"))
-            reply = "At a bar you should: \\n watch your drink being poured, " +
-                    "\\n not leave your drink unattended, " +
-                    "\\n and be aware of your surroundings. ";
+            reply = "At a bar you should: \n watch your drink being poured, " +
+                    "\n not leave your drink unattended, " +
+                    "\n and be aware of your surroundings. ";
         else if(entry.contains(" house"))
             reply = "At a house you should: \n let a friend know where you are going and who you are seeing " +
                     " \n and keep your phone with you at all times.";

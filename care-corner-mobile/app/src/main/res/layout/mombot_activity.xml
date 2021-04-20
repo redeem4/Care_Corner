@@ -6,6 +6,22 @@
     android:layout_height="match_parent"
     tools:context=".MombotActivity">
 
+    <ImageView
+        android:id="@+id/mombotLogo"
+        android:layout_width="124dp"
+        android:layout_height="86dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="26dp"
+        android:layout_marginRight="26dp"
+        android:layout_marginBottom="18dp"
+        android:background="#FFFFFF"
+        android:contentDescription="@string/mombot"
+        app:layout_constraintBottom_toTopOf="@+id/MombotEntryBox"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/Mombot"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/mom_bot_icon" />
+
     <EditText
         android:id="@+id/mombotResponseBox"
         android:layout_width="0dp"
@@ -72,6 +88,7 @@
         android:text="@string/mombot"
         android:textAppearance="@style/TextAppearance.AppCompat.Display2"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.324"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
