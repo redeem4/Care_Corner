@@ -44,6 +44,7 @@ public class JournalLogin extends AppCompatActivity {
     }
 
 
+
     private void initViews() {
         txtJournalPinBox = findViewById(R.id.journalPinBox);
         btnJournalLogin = findViewById(R.id.btnJournalLogin);
