@@ -48,7 +48,7 @@ public class JournalRecyclerMain extends AppCompatActivity implements MyRecycler
     public void onItemClick(View view, int position) {
         saveArrayList(data, "journals");
         Intent intent = new Intent(JournalRecyclerMain.this, JournalReader.class);
-        intent.putExtra("journalName", adapter.getItem(position).getName());
+        intent.putExtra("journalName", adapter.getItem(position).getUneditedName());
         intent.putExtra("text", adapter.getItem(position).getText());
         intent.putExtra("position", position);
         startActivity(intent);
@@ -80,10 +80,14 @@ public class JournalRecyclerMain extends AppCompatActivity implements MyRecycler
     @Override
     public void applyTexts(String journalName, String journalEntry) {
         int insertIndex = data.size();
+        String uneditedJournalName = journalName;
+
         if(journalName.equals(""))
         {
             journalName = "New Journal Entry";
+            uneditedJournalName = journalName;
         }
+
         if(journalEntry.equals(""))
         {
             journalEntry = "";
@@ -96,6 +100,7 @@ public class JournalRecyclerMain extends AppCompatActivity implements MyRecycler
         }
 
         Journal temp = new Journal(journalName, journalEntry);
+        temp.setUneditedName(uneditedJournalName);
         data.add(insertIndex, temp);
         adapter.notifyItemInserted(insertIndex);
     }

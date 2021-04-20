@@ -8,15 +8,18 @@ public class Journal {
     private String text;
     private String date;
     private String time;
+    private String uneditedName;
+    private Calendar calendar = new GregorianCalendar();
 
-    Calendar calendar = new GregorianCalendar();
-    int hour = calendar.get(Calendar.HOUR);
-    int minute = calendar.get(Calendar.MINUTE);
-    String currentTime = String.format("%02d:%02d", hour, minute);
-    int dayOfMonth = calendar.get(Calendar.DAY_OF_MONTH);
-    int month = calendar.get(Calendar.MONTH);
-    int year = calendar.get(Calendar.YEAR);
-    String currentDate = String.format("%02d/%02d/%02d", month, dayOfMonth, year);
+    private int hour = calendar.get(Calendar.HOUR);
+    private int minute = calendar.get(Calendar.MINUTE);
+    private String currentTime = String.format("%02d:%02d", hour, minute);
+
+    private int dayOfMonth = calendar.get(Calendar.DAY_OF_MONTH);
+    private int month = calendar.get(Calendar.MONTH);
+    private int year = calendar.get(Calendar.YEAR);
+    private String currentDate = String.format("%02d/%02d/%02d", month, dayOfMonth, year);
+
     /**
      * Default Constructor for the Journal Class.
      * @param  name  The name of the Journal
@@ -28,6 +31,7 @@ public class Journal {
         this.text = text;
         this.date = currentDate;
         this.time = currentTime;
+        this.uneditedName = name;
     }
 
     /**
@@ -75,6 +79,14 @@ public class Journal {
 
     public void setTime(String time) {
         this.time = time;
+    }
+
+    public String getUneditedName() {
+        return uneditedName;
+    }
+
+    public void setUneditedName(String name) {
+        this.uneditedName = name;
     }
 
     @Override
