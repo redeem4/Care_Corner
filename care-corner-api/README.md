@@ -87,6 +87,27 @@ To log your invocations verbosely to troubleshoot, add the 'l' switch:
     sls invoke local -f panic -l
     sls logs -f panic
 
+## My Sql
+
+To load the care corner schema and seed data:
+
+Connect to the API container:
+
+    docker exec -it care-corner-api /bin/bash
+
+Execute the create db script:
+
+    ./scripts/db-create.sh
+
+To reset the database when the schema has changed:
+
+    ./scripts/db-reset.sh
+
+Enter the database password `corner` when prompted.
+
+Your containerized mysql is now populated, connect with an sql client (or command line) to verify.
+
+
 ## Localstack
 
 Once you are running the containers via `docker compose up`, you can test that Localstack is running by browsing to: `http://localhost:4566/health'.

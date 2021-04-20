@@ -3,10 +3,11 @@ FROM node:current-buster as builder
 ARG DEBIAN_FRONTEND=noninteractive
 RUN apt-get update && \
     apt-get install -y \
+    default-mysql-client \
     python-dev \
     python-pip \
     zip \
-    unzip && \
+    unzip && \ 
     rm -rf /var/lib/apt/lists/*
 
 # awscli and awslocal
