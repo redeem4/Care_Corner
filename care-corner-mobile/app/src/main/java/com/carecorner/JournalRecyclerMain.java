@@ -116,11 +116,11 @@ public class JournalRecyclerMain extends AppCompatActivity implements MyRecycler
             // Test data to populate the RecyclerView with if the saved Journal List is empty.
             // Mainly for demonstration purposes.
             data = new ArrayList<Journal>();
-            data.add(new Journal("test 3/13/2021", "This is a test 1"));
-            data.add(new Journal("test 3/14/2021", "This is a test 2"));
-            data.add(new Journal("test 3/15/2021", "This is a test 3"));
-            data.add(new Journal("test 3/16/2021", "This is a test 4"));
-            data.add(new Journal("test 3/17/2021", "This is a test 5"));
+            data.add(new Journal("test 1", "This is a test 1"));
+            data.add(new Journal("test 2", "This is a test 2"));
+            data.add(new Journal("test 3", "This is a test 3"));
+            data.add(new Journal("test 4", "This is a test 4"));
+            data.add(new Journal("test 5", "This is a test 5"));
         }
         // set up the RecyclerView
         RecyclerView recyclerView = findViewById(R.id.recycler_view);
