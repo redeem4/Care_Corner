@@ -105,8 +105,9 @@ public class PanicModeFragment extends Fragment implements View.OnClickListener 
 
         loadIncidents();
         //TODO - delete this code here for testing
-        incident_count = incident_report.length();
+        incident_count = incidents_list.size();
         i=0;
+        incident_report.setText("There were " + incident_count + " incidents loaded");
 
 
         panicNavController = Navigation.findNavController(view);
@@ -131,7 +132,7 @@ public class PanicModeFragment extends Fragment implements View.OnClickListener 
             case R.id.panic_incident_btn:
                 //incidents button is pressed
                 String test_string = (incidents_list.get(i)).toString();
-                i = (i + 1) % (incident_count-1);
+                i = ((i + 1) % incident_count);
                 incident_report.setText(test_string);
 
                 break;
