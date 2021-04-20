@@ -4,11 +4,7 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 
 public class Journal {
-    private String name;
-    private String text;
-    private String date;
-    private String time;
-    private String uneditedName;
+    private String name, text, date, time, uneditedName;
     private Calendar calendar = new GregorianCalendar();
 
     private int hour = calendar.get(Calendar.HOUR);
