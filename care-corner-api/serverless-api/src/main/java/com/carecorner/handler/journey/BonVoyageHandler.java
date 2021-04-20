@@ -11,6 +11,7 @@ import com.carecorner.dao.JourneyDao;
 import com.carecorner.dao.UserDao;
 import com.carecorner.notification.Messenger;
 
+import java.math.BigDecimal;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
@@ -27,7 +28,7 @@ import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.RequestHandler;
 
 public class BonVoyageHandler implements RequestHandler<Map<String, Object>, ApiGatewayResponse> {
-	private final JourneyDao journeryDao = JourneyDao.INSTANCE;
+	private final JourneyDao journeyDao = JourneyDao.INSTANCE;
 	private final ContactDao contactDao = ContactDao.INSTANCE;
 	private final UserDao userDao = UserDao.INSTANCE;
 	private final Logger logger = LogManager.getLogger(this.getClass());
@@ -44,23 +45,31 @@ public class BonVoyageHandler implements RequestHandler<Map<String, Object>, Api
 			String userId = body.get("user-id").asText();
 			String destination = body.get("destination").asText();
 			String eta = body.get("eta").asText();
+			BigDecimal latitude = new BigDecimal(body.get("latitude").asText());
+			BigDecimal longitude = new BigDecimal(body.get("longitude").asText());
 
 			logger.debug("User ID: {}", userId);
 			logger.debug("Destination: {}", destination);
 			logger.debug("ETA: {}", eta);
+			logger.debug("Longitude: {}", longitude);
+			logger.debug("Latitude: {}", latitude);
 
 			List<User> users = userDao.findByUserID(userId);
 			User user = users.get(0);
+
+			Journey journey = Journey.of(userId, "Maiden Voyage", "",
+				latitude, longitude, new BigDecimal("0.0"), new BigDecimal("0.0"));
+			journeyDao.create(journey);
 
 			List<Contact> contacts = contactDao.findByUser(userId);
 			logger.debug("Contacts: {}", contacts.toString());
 			for (int i = 0; i < contacts.size(); i = i + 1) {
 				Contact contact = contacts.get(i);	
 				logger.debug("Contact: {}", contact);
-				Messenger.sendSMS(
+			/*	Messenger.sendSMS(
 					contact.getPhone(), 
-					buildBeginMessage(user, contact, destination, eta)
-				);
+					buildBeginMessage(user, contact, destination, eta)*/
+			//	);
 			}
 		} catch (Exception exception) {
 			exception.printStackTrace();
