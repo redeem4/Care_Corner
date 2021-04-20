@@ -28,20 +28,19 @@ import com.here.sdk.mapview.MapScene;
 import com.here.sdk.mapview.MapScheme;
 public class PanicActivity extends AppCompatActivity {
 
-    private static final String LOG_TAG = "some stuff";
+
+    //UI variables
     private ConstraintLayout mapSheet;
     private BottomSheetBehavior bottomSheetBehavior;
     private ImageView swipe_btn;
     private ImageView my_location;
 
-    //Map
+    //Map variables
     private static final String TAG = PanicActivity.class.getSimpleName();
     private PermissionsRequestor permissionsRequestor;
     private MapView mapView;
-    MapImage userIcon;
-    PlatformPositioningProvider platformPositioningProvider;
-
-
+    private MapImage userIcon;
+    private PlatformPositioningProvider platformPositioningProvider;
 
 
     @Override
@@ -87,8 +86,6 @@ public class PanicActivity extends AppCompatActivity {
         mapView = findViewById(R.id.map_view);
         mapView.onCreate(savedInstanceState);
 
-
-
         mapView.setOnReadyListener(new MapView.OnReadyListener() {
             @Override
             public void onMapViewReady() {
@@ -99,8 +96,9 @@ public class PanicActivity extends AppCompatActivity {
             }
         });
 
+        //setup user icon for map
         userIcon =  MapImageFactory.fromResource(this.getResources(),R.drawable.map_icon_user);
-        MapMarker userMarker = new MapMarker(new GeoCoordinates(39.17719, -77.21111), userIcon);
+        MapMarker userMarker = new MapMarker(new GeoCoordinates(36.88675, -76.30570), userIcon);
         mapView.getMapScene().addMapMarker(userMarker);
 
         //user location
@@ -113,6 +111,7 @@ public class PanicActivity extends AppCompatActivity {
             }
         });
 
+        //button actions
         my_location.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -175,6 +174,7 @@ public class PanicActivity extends AppCompatActivity {
         });
     }
 
+    //map controls
     @Override
     protected void onPause() {
         super.onPause();
