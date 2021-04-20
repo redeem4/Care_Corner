@@ -21,7 +21,6 @@ public class PanicModeFragment extends Fragment implements View.OnClickListener 
 
     private NavController panicNavController;
 
-
     //panic button and its states
     private ToggleButton activate_btn;
     private static final String DEACTIVATED_TEXT = "Activate";
@@ -46,10 +45,7 @@ public class PanicModeFragment extends Fragment implements View.OnClickListener 
         // Required empty public constructor
     }
 
-
-
-
-    @Override
+ @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
@@ -60,15 +56,15 @@ public class PanicModeFragment extends Fragment implements View.OnClickListener 
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        //set up panic_btn states
+        //link variables to widgets
         activate_btn = view.findViewById(R.id.activate_btn);
-        activate_btn.setText(R.string.panic_btn_deactivated);
-        activate_btn.setTextOff(DEACTIVATED_TEXT);
-        activate_btn.setTextOn(ACTIVATED_TEXT);
-
         panic_status = view.findViewById(R.id.panic_status);
         panic_status2 = view.findViewById(R.id.panic_status2);
         panic_timer = view.findViewById(R.id.panic_timer);
+
+        //set up panic_btn text when on/off
+        activate_btn.setTextOff(DEACTIVATED_TEXT);
+        activate_btn.setTextOn(ACTIVATED_TEXT);
 
         //set panic to deactivated state
         activate_btn.setChecked(PANIC_DEACTIVATED);
@@ -79,9 +75,6 @@ public class PanicModeFragment extends Fragment implements View.OnClickListener 
         //set click listeners
         activate_btn.setOnClickListener(this);
 
-
-
-
         panicNavController = Navigation.findNavController(view);
 
     }
@@ -90,6 +83,7 @@ public class PanicModeFragment extends Fragment implements View.OnClickListener 
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.activate_btn:
+                //panic mode activation switch
                 if(panic_activated){
                     deactivatePanicUI();}
                 else{activatePanicUI();}
@@ -97,6 +91,7 @@ public class PanicModeFragment extends Fragment implements View.OnClickListener 
         }
     }
 
+    //handles UI elements when Panic mode is activated
     private void activatePanicUI() {
         panic_activated = PANIC_ACTIVATED;
         activate_btn.setChecked(PANIC_ACTIVATED);
@@ -107,7 +102,7 @@ public class PanicModeFragment extends Fragment implements View.OnClickListener 
         panic_timer.start();
     }
 
-
+    //handles UI elements when Panic mode is activated
     private void deactivatePanicUI(){
         panic_activated = PANIC_DEACTIVATED;
         activate_btn.setChecked(PANIC_DEACTIVATED);
