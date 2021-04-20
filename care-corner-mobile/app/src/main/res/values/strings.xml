@@ -53,6 +53,7 @@
     <string name="panic_status_deactivated">Panic Mode is currently deactivated</string>
     <string name="panic_status_activated">Panic Mode is currently deactivated</string>
     <string name="incident_list_key">incidents list</string>
+    <string name="incident_report">incidents list</string>
     <!-- <color name="lightblue">#94CCEo</color> -->
 
 

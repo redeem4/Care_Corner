@@ -20,6 +20,7 @@ import android.widget.Chronometer;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import com.google.gson.Gson;
@@ -55,6 +56,11 @@ public class PanicModeFragment extends Fragment implements View.OnClickListener 
     private Incident current_incident;
     private Vector<Incident> incidents_list;
 
+    //TODO - delete this code here for testing
+    private TextView incident_report;
+    private int incident_count;
+    int i;
+
 
 
     public PanicModeFragment() {
@@ -80,6 +86,9 @@ public class PanicModeFragment extends Fragment implements View.OnClickListener 
         incidents_linear_layout = view.findViewById(R.id.panic_incident_linear_layout);
         incidents_btn = view.findViewById(R.id.panic_incident_btn);
 
+        //TODO - delete this code here for testing
+        incident_report = view.findViewById(R.id.incident_report);
+
         //set up panic_btn text when on/off
         activate_btn.setTextOff(DEACTIVATED_TEXT);
         activate_btn.setTextOn(ACTIVATED_TEXT);
@@ -95,6 +104,9 @@ public class PanicModeFragment extends Fragment implements View.OnClickListener 
         incidents_btn.setOnClickListener(this);
 
         loadIncidents();
+        //TODO - delete this code here for testing
+        incident_count = incident_report.length();
+        i=0;
 
 
         panicNavController = Navigation.findNavController(view);
@@ -117,7 +129,11 @@ public class PanicModeFragment extends Fragment implements View.OnClickListener 
 
             //Panic Mode Activation Button is pressed
             case R.id.panic_incident_btn:
-                //linear layour button is pressed
+                //incidents button is pressed
+                String test_string = (incidents_list.get(i)).toString();
+                i = (i + 1) % (incident_count-1);
+                incident_report.setText(test_string);
+
                 break;
         }
     }
