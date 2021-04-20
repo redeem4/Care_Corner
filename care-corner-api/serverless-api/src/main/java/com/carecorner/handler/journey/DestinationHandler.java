@@ -64,9 +64,9 @@ public class DestinationHandler implements RequestHandler<Map<String, Object>, A
 			for (int i = 0; i < contacts.size(); i = i + 1) {
 				Contact contact = contacts.get(i);
 				logger.debug("Contact: {}", contact);
-			//	Messenger.sendSMS(contact.getPhone(), 
-				//	buildDestinationMessage(user, contact)
-		//	);
+				Messenger.sendSMS(contact.getPhone(), 
+					buildDestinationMessage(user, contact)
+				);
 			}
 		} catch (Exception exception) {
 			exception.printStackTrace();
