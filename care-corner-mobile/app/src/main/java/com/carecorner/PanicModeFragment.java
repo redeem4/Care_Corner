@@ -1,9 +1,11 @@
 package com.carecorner;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -42,6 +44,7 @@ public class PanicModeFragment extends Fragment implements View.OnClickListener 
     private Chronometer panic_timer;
     private LinearLayout incidents_linear_layout;
     private ImageButton incidents_btn;
+    private Incident current_incident;
 
 
 
@@ -93,8 +96,12 @@ public class PanicModeFragment extends Fragment implements View.OnClickListener 
             //Panic Mode Activation Button is pressed
             case R.id.activate_btn:
                 if(panic_activated){
-                    deactivatePanicUI();}
-                else{activatePanicUI();}
+                    deactivatePanicUI();
+                    askIfIncident();
+                }else{
+                    activatePanicUI();
+                    current_incident = new Incident();
+                }
                 break;
 
             //Panic Mode Activation Button is pressed
@@ -125,5 +132,28 @@ public class PanicModeFragment extends Fragment implements View.OnClickListener 
         panic_timer.setVisibility(View.GONE);
         incidents_linear_layout.setVisibility(View.VISIBLE);
         panic_timer.stop();
+    }
+
+    public AlertDialog askIfIncident()
+    {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        builder.setTitle("Incident:")
+                .setMessage("Would you like to save this incident?")
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        //TODO: save incident to shared folder
+                    }
+                })
+                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        //TODO: go to home page
+                    }
+                });
+        AlertDialog dialog = builder.create();
+        dialog.show();
+
+        return dialog;
     }
 }
