@@ -71,6 +71,8 @@ public class SafeWalkMenuActivity extends AppCompatActivity {
             bonVoyage.put("user-id", userId);
             bonVoyage.put("destination", destination);
             bonVoyage.put("eta", eta);
+            bonVoyage.put("latitude", "80.00");
+            bonVoyage.put("longitude", "35.00");
         } catch(Exception error) {
             Log.e("Login:", "Issue creating destination Json");
         }
@@ -102,6 +104,8 @@ public class SafeWalkMenuActivity extends AppCompatActivity {
             String userId = CareCornerApplication.getSession().getUserId();
             location.put("user-id", userId);
             location.put("location", "889 Updated address");
+            location.put("latitude", "80.00");
+            location.put("longitude", "35.00");
         } catch(Exception error) {
             Log.e("Login:", "Issue creating location Json");
         }
@@ -132,6 +136,8 @@ public class SafeWalkMenuActivity extends AppCompatActivity {
         try {
             String userId = CareCornerApplication.getSession().getUserId();
             arrival.put("user-id", userId);
+            arrival.put("latitude", "80.00");
+            arrival.put("longitude", "35.00");
         } catch(Exception error) {
             Log.e("Login:", "Issue creating arrival Json");
         }
