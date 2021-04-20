@@ -16,12 +16,8 @@ import android.widget.Chronometer;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link PanicFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
-public class PanicFragment extends Fragment implements View.OnClickListener {
+
+public class PanicModeFragment extends Fragment implements View.OnClickListener {
 
     private NavController panicNavController;
 
@@ -46,7 +42,7 @@ public class PanicFragment extends Fragment implements View.OnClickListener {
 
 
 
-    public PanicFragment() {
+    public PanicModeFragment() {
         // Required empty public constructor
     }
 
