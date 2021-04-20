@@ -39,7 +39,7 @@ public enum JourneyDao {
       ResultSet rs = ps.executeQuery();
       while (rs.next()) {
           Journey journey = Journey.of(
-              rs.getString("user_id"),
+              rs.getInt("user_id"),
               rs.getString("journey_path"),
               rs.getString("time"),
               rs.getBigDecimal("start_latitude"),
@@ -55,29 +55,16 @@ public enum JourneyDao {
     return journeys;
   }
 
-  public List<Journey> UpdateByUser(Integer userId) {
+  public void updateEndByUser(Integer userId, Journey journey) {
     final List<Journey> journeys = new ArrayList<>();
-    String sql = String.format("select * from journey where user_id='%s'", userId);
+    String sql = String.format("update journey set end_latitude=%s, end_longitude=%s where user_id='%s'", 
+      journey.getEndLatitude(), journey.getEndLongitude(), userId);
 
     try (Connection conn = Database.connection();
          PreparedStatement ps = conn.prepareStatement(sql)) {
-
-      ResultSet rs = ps.executeQuery();
-      while (rs.next()) {
-          Journey journey = Journey.of(
-              rs.getString("journey_id"),
-              rs.getString("journey_path"),
-              rs.getString("time"),
-              rs.getBigDecimal("start_latitude"),
-              rs.getBigDecimal("start_longitude"),
-              rs.getBigDecimal("end_latitude"),
-              rs.getBigDecimal("end_longitude"));
-
-          journeys.add(journey);
-        }
+        ps.executeUpdate();
       } catch (SQLException e) {
         e.printStackTrace();
       }
-    return journeys;
   }
 }

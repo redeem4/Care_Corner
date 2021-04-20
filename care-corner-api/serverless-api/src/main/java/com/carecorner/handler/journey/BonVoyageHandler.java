@@ -57,7 +57,7 @@ public class BonVoyageHandler implements RequestHandler<Map<String, Object>, Api
 			List<User> users = userDao.findByUserID(userId);
 			User user = users.get(0);
 
-			Journey journey = Journey.of(userId, "Maiden Voyage", "",
+			Journey journey = Journey.of(Integer.parseInt(userId), "Maiden Voyage", "",
 				latitude, longitude, new BigDecimal("0.0"), new BigDecimal("0.0"));
 			journeyDao.create(journey);
 
@@ -66,10 +66,10 @@ public class BonVoyageHandler implements RequestHandler<Map<String, Object>, Api
 			for (int i = 0; i < contacts.size(); i = i + 1) {
 				Contact contact = contacts.get(i);	
 				logger.debug("Contact: {}", contact);
-			/*	Messenger.sendSMS(
+				Messenger.sendSMS(
 					contact.getPhone(), 
-					buildBeginMessage(user, contact, destination, eta)*/
-			//	);
+					buildBeginMessage(user, contact, destination, eta)
+				);
 			}
 		} catch (Exception exception) {
 			exception.printStackTrace();

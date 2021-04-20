@@ -8,7 +8,7 @@ import lombok.Value;
 
 @Value(staticConstructor = "of")
 public class Journey {
-  String userId;
+  Integer userId;
   String journeyPath;
   String time;
   BigDecimal startLatitude;
