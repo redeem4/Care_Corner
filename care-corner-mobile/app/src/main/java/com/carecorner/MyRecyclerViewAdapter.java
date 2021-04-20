@@ -38,6 +38,8 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
     public void onBindViewHolder(ViewHolder holder, int position) {
         Journal myJournal = mData.get(position);
         holder.myTextView.setText(myJournal.getName());
+        holder.dateText.setText(myJournal.getDate());
+        holder.timeText.setText(myJournal.getTime());
     }
 
     // total number of rows
@@ -48,7 +50,7 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
 
     // stores and recycles views as they are scrolled off screen
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        TextView myTextView;
+        TextView myTextView, dateText, timeText;
         Button btnDelete;
         ItemClickListener mOnBtnClickListener;
 
@@ -56,6 +58,8 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
             super(itemView);
             myTextView = itemView.findViewById(R.id.textView1);
             btnDelete = itemView.findViewById(R.id.btnDelete2);
+            dateText = itemView.findViewById(R.id.textViewDate);
+            timeText = itemView.findViewById(R.id.textViewTime);
             itemView.setOnClickListener(this);
 
             btnDelete.setOnClickListener(new View.OnClickListener() {

@@ -15,13 +15,16 @@ import org.json.JSONObject;
 
 import com.androidnetworking.AndroidNetworking;
 import com.androidnetworking.error.ANError;
+import com.androidnetworking.interfaces.JSONObjectRequestListener;
 import com.androidnetworking.interfaces.OkHttpResponseListener;
 import okhttp3.Response;
+import okhttp3.ResponseBody;
 import com.carecorner.util.NetworkConnection;
+
+import java.io.IOException;
 
 
 public class LoginActivity extends AppCompatActivity {
-
     Button btnLogin, btnRegister, BtnForgotUsername, BtnForgotPassword;
     EditText usernameEntryBox, passwordEntryBox;
     int counter = 3;
@@ -68,6 +71,7 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
     }
+
     private void initViews() {
         btnLogin = findViewById(R.id.btnLogin);
         usernameEntryBox = findViewById(R.id.usernameEntryBox);
@@ -78,8 +82,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void apiAuthenticate(Intent intent, String username, String password) {
-        CareCornerApplication application = (CareCornerApplication)getApplicationContext();
-        String authUrl = application.api + "/api/auth";
+        String authUrl = CareCornerApplication.getApiRoute("auth");
         JSONObject credentials = new JSONObject();
         try {
             credentials.put("username", username);
@@ -92,26 +95,30 @@ public class LoginActivity extends AppCompatActivity {
                 .addHeaders("Content-Type", "application/json")
                 .addJSONObjectBody(credentials)
                 .build()
-                .getAsOkHttpResponse(new OkHttpResponseListener() {
+                .getAsJSONObject(new JSONObjectRequestListener() {
                     @Override
-                    public void onResponse(Response response) {
-                        if (response.isSuccessful()) {
-                            // successful login
+                    public void onResponse(JSONObject response) {
+                        try {
+                            Log.d("Response {}:", response.toString());
+                            JSONObject data = response.getJSONObject("data");
+                            String userId = data.getString("user-id");
+                            CareCornerApplication.getSession().setUserId(userId);
                             startActivity(intent);
-                        } else
-                            // unsuccessful login
-                            Toast.makeText(LoginActivity.this, "Wrong Credentials", Toast.LENGTH_SHORT).show();
-                            counter--;
-
-                            if (counter == 0) {
-                                btnLogin.setEnabled(false);
-                                btnLogin.setBackgroundColor(Color.GRAY);
-                            }
+                        } catch(Exception exception){
+                            Log.e("Login Issue Parsing JSON: {}", exception.toString());
+                        }
                     }
 
                     @Override
                     public void onError(ANError error) {
-                        Log.e("Issue with Connection:", error.getResponse().toString());
+                        // unsuccessful login
+                        Toast.makeText(LoginActivity.this, "Wrong Credentials", Toast.LENGTH_SHORT).show();
+                        counter--;
+
+                        if (counter == 0) {
+                            btnLogin.setEnabled(false);
+                           btnLogin.setBackgroundColor(Color.GRAY);
+                        }
                     }
                 });
     }

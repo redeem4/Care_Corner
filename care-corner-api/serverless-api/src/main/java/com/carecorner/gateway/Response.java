@@ -5,18 +5,18 @@ import java.util.Map;
 public class Response {
 
 	private final String message;
-	private final Map<String, Object> input;
+	private final Map<String, Object> data;
 
-	public Response(String message, Map<String, Object> input) {
+	public Response(String message, Map<String, Object> data) {
 		this.message = message;
-		this.input = input;
+		this.data = data;
 	}
 
 	public String getMessage() {
 		return this.message;
 	}
 
-	public Map<String, Object> getInput() {
-		return this.input;
+	public Map<String, Object> getData() {
+		return this.data;
 	}
 }

@@ -14,6 +14,30 @@ import java.util.List;
 public enum UserDao {
   INSTANCE;
 
+  public List<User> findByUserID(String userId) {
+    final List<User> users = new ArrayList<>();
+    String sql = String.format("SELECT * FROM user WHERE id='%s'", userId);
+
+    try (Connection conn = Database.connection();
+         PreparedStatement ps = conn.prepareStatement(sql)) {
+
+      ResultSet rs = ps.executeQuery();
+      while (rs.next()) {
+          User user = User.of(
+              rs.getInt("id"),
+              rs.getString("username"),
+              rs.getString("fname"),
+              rs.getString("email"),
+              rs.getString("password"));
+
+          users.add(user);
+        }
+      } catch (SQLException e) {
+        e.printStackTrace();
+      }
+    return users;
+  }
+
   public List<User> findByUsername(String username) {
     final List<User> users = new ArrayList<>();
     String sql = String.format("SELECT * FROM user WHERE username='%s'", username);
