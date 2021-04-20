@@ -13,6 +13,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Chronometer;
+import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 
@@ -38,6 +40,8 @@ public class PanicModeFragment extends Fragment implements View.OnClickListener 
     private static final String PANIC_STATUS_DEACTIVATED2 = "To activate, hold down the button.";
 
     private Chronometer panic_timer;
+    private LinearLayout incidents_linear_layout;
+    private ImageButton incidents_btn;
 
 
 
@@ -61,6 +65,8 @@ public class PanicModeFragment extends Fragment implements View.OnClickListener 
         panic_status = view.findViewById(R.id.panic_status);
         panic_status2 = view.findViewById(R.id.panic_status2);
         panic_timer = view.findViewById(R.id.panic_timer);
+        incidents_linear_layout = view.findViewById(R.id.panic_incident_linear_layout);
+        incidents_btn = view.findViewById(R.id.panic_incident_btn);
 
         //set up panic_btn text when on/off
         activate_btn.setTextOff(DEACTIVATED_TEXT);
@@ -74,6 +80,8 @@ public class PanicModeFragment extends Fragment implements View.OnClickListener 
 
         //set click listeners
         activate_btn.setOnClickListener(this);
+        incidents_btn.setOnClickListener(this);
+
 
         panicNavController = Navigation.findNavController(view);
 
@@ -82,11 +90,16 @@ public class PanicModeFragment extends Fragment implements View.OnClickListener 
     @Override
     public void onClick(View v) {
         switch (v.getId()){
+            //Panic Mode Activation Button is pressed
             case R.id.activate_btn:
-                //panic mode activation switch
                 if(panic_activated){
                     deactivatePanicUI();}
                 else{activatePanicUI();}
+                break;
+
+            //Panic Mode Activation Button is pressed
+            case R.id.panic_incident_btn:
+                //linear layour button is pressed
                 break;
         }
     }
@@ -99,6 +112,7 @@ public class PanicModeFragment extends Fragment implements View.OnClickListener 
         panic_status2.setText(PANIC_STATUS_ACTIVATED2);
         panic_timer.setBase(SystemClock.elapsedRealtime());
         panic_timer.setVisibility(View.VISIBLE);
+        incidents_linear_layout.setVisibility(View.GONE);
         panic_timer.start();
     }
 
@@ -109,6 +123,7 @@ public class PanicModeFragment extends Fragment implements View.OnClickListener 
         panic_status.setText(PANIC_STATUS_DEACTIVATED);
         panic_status2.setText(PANIC_STATUS_DEACTIVATED2);
         panic_timer.setVisibility(View.GONE);
+        incidents_linear_layout.setVisibility(View.VISIBLE);
         panic_timer.stop();
     }
 }
