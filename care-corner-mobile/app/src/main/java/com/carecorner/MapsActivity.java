@@ -65,10 +65,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     try {
                         List<Address> addressList;
                         addressList = geocoder.getFromLocation(latitude, longitude, 1);
-                        String shelter = addressList.get(0).getLocality() + ""
+                        String str = addressList.get(0).getLocality() + ""
                                 + addressList.get(0).getPostalCode() + "\n"
                                 + addressList.get(0).getCountryName();
-                        mMap.addMarker(new MarkerOptions().position(latLng).title("shelter"));
+                        mMap.addMarker(new MarkerOptions().position(latLng).title("str"));
                         mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
                     } catch (IOException e) {
                         e.printStackTrace();

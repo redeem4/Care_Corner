@@ -25,8 +25,7 @@ public class JournalLogin extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(JournalLogin.this, JournalMenuActivity.class);
                 //TODO: Create proper and secure login functionality that checks login information against database entries
-                Editable txtPin = txtJournalPinBox.getText();
-                if (txtPin.equals("1111")) {
+                if (txtJournalPinBox.getText().toString().equals("1111")) {
                     startActivity(intent);
                 }
             }
