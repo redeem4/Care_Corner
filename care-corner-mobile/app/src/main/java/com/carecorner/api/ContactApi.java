@@ -22,9 +22,9 @@ public class ContactApi {
 
     public static JSONArray allContacts() {
         String userId = CareCornerApplication.getSession().getUserId();
-        String journeyUrl = CareCornerApplication.getApiRoute("contacts/" + userId);
+        String contactUrl = CareCornerApplication.getApiRoute("contacts/" + userId);
 
-        AndroidNetworking.get(journeyUrl)
+        AndroidNetworking.get(contactUrl)
                 .addHeaders("Content-Type", "application/json")
                 .build()
                 .getAsJSONObject(new JSONObjectRequestListener() {
@@ -45,5 +45,28 @@ public class ContactApi {
                     }
                 }) ;
         return contacts;
+    }
+
+    public static void updateContacts(JSONArray contacts) {
+        String userId = CareCornerApplication.getSession().getUserId();
+        String contactUrl = CareCornerApplication.getApiRoute("contacts/" + userId);
+
+        AndroidNetworking.put(contactUrl)
+                .addHeaders("Content-Type", "application/json")
+                .addJSONArrayBody(contacts)
+                .build()
+                .getAsOkHttpResponse(new OkHttpResponseListener() {
+                    @Override
+                    public void onResponse(Response response) {
+                        if (response.isSuccessful()) {
+                        } else {
+                        }
+                    }
+
+                    @Override
+                    public void onError(ANError error) {
+                        Log.e("Issue with Connection:", error.getResponse().toString());
+                    }
+                });
     }
 }
