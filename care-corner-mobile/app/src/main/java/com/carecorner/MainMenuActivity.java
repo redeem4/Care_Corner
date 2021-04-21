@@ -1,8 +1,15 @@
 package com.carecorner;
 
+
+import android.app.Activity;
+
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+
+import android.Manifest;
 
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
@@ -12,6 +19,8 @@ import java.util.Set;
 public class MainMenuActivity extends AppCompatActivity {
 
     private ImageButton btnFakePhoneCall, btnMomBot, btnSafeWalk, btnJournal, btnResourcesMenu, btnReportingAssistance, btnSettings, btnPanicButton;
+    private String recordPermission = Manifest.permission.RECORD_AUDIO;
+    private int PERMISSION_CODE = 21;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,6 +28,7 @@ public class MainMenuActivity extends AppCompatActivity {
         setContentView(R.layout.main_menu_activity);
 
         initViews();
+        checkPermissions();
 
         btnFakePhoneCall.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -85,7 +95,7 @@ public class MainMenuActivity extends AppCompatActivity {
         btnReportingAssistance.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainMenuActivity.this, SettingsActivity.class);
+                Intent intent = new Intent(MainMenuActivity.this, ReportingActivity.class);
                 startActivity(intent);
             }
         });
@@ -111,5 +121,16 @@ public class MainMenuActivity extends AppCompatActivity {
         super.onBackPressed();
         Intent intent = new Intent(MainMenuActivity.this, LoginActivity.class);
         startActivity(intent);
+    }
+
+    //TODO move permission code to fake Phone Screen
+    private boolean checkPermissions() {
+        if(ActivityCompat.checkSelfPermission(this, recordPermission) == PackageManager.PERMISSION_GRANTED){
+            return true;
+        }else{
+            ActivityCompat.requestPermissions(this, new String[]{recordPermission}, PERMISSION_CODE);
+            return false;
+        }
+
     }
 }

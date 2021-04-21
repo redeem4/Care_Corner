@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".PanicModeFragment">
+
+
+    <TextView
+        android:id="@+id/panic_status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="panic_status"
+        android:textAlignment="center"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@id/panic_status2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <TextView
+        android:id="@+id/panic_status2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="panic_status2"
+        android:textAlignment="center"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.168" />
+
+    <Chronometer
+        android:id="@+id/panic_timer"
+        android:layout_width="157dp"
+        android:layout_height="60dp"
+        android:layout_marginBottom="52dp"
+        android:textAlignment="center"
+        android:textSize="40sp"
+        app:layout_constraintBottom_toTopOf="@+id/activate_btn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.484"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/panic_status"
+        app:layout_constraintVertical_bias="0.96" />
+
+    <ToggleButton
+        android:id="@+id/activate_btn"
+        android:layout_width="116dp"
+        android:layout_height="116dp"
+        android:background="@drawable/selector_panic_btn"
+        android:textOff="@string/panic_btn_deactivated"
+        android:textOn="@string/panic_btn_activated"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.499" />
+
+
+    <LinearLayout
+        android:id="@+id/panic_incident_linear_layout"
+        android:layout_width="200dp"
+        android:layout_height="60dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/activate_btn"
+        app:layout_constraintVertical_bias=".10">
+
+        <ImageButton
+            android:id="@+id/panic_incident_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="67dp"
+            android:backgroundTint="#FFFFFF"
+            android:src="@drawable/incident_icon_50" />
+
+
+        <TextView
+            android:id="@+id/panic_incident_text"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:fontFamily="sans-serif-smallcaps"
+            android:text="Incidents"
+            android:textAlignment="viewStart"
+            android:gravity="center_vertical"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            tools:layout_editor_absoluteX="246dp"
+            tools:layout_editor_absoluteY="470dp" />
+
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/incident_report"
+        android:layout_width="352dp"
+        android:layout_height="117dp"
+        android:text="TextView"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/panic_incident_linear_layout"
+        app:layout_constraintVertical_bias="0.0"
+        tools:text="@string/incident_report" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

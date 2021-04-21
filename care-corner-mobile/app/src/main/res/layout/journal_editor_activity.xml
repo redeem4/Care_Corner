@@ -47,7 +47,7 @@
         android:layout_marginRight="25dp"
         android:layout_marginBottom="40dp"
         android:hint="Journal Entry"
-        android:inputType="text"
+        android:inputType="textCapSentences|textMultiLine"
         android:password="false"
         android:singleLine="false"
         android:gravity="top|left"

@@ -52,8 +52,18 @@
     <string name="below_are_optional">Below are optional</string>
     <string name="save">Save</string>
     <string name="panic_button">Panic Button</string>
+    <string name="reporting">Reporting Assistance</string>
+    <string name="submit">Submit</string>
+    <string name="entry_for_mombot">Entry for Mombot</string>
+    <string name="mombot_response">Mombot response</string>
+    <string name="panic_btn_text">Deactivated</string>
+    <string name="panic_btn_deactivated">Activate</string>
+    <string name="panic_btn_activated">Deactivate</string>
+    <string name="panic_status_deactivated">Panic Mode is currently deactivated</string>
+    <string name="panic_status_activated">Panic Mode is currently deactivated</string>
+    <string name="incident_list_key">incidents list</string>
+    <string name="incident_report">incidents list</string>
     <!-- <color name="lightblue">#94CCEo</color> -->
-
 
 
     <string-array name="spinnerWaitTime">
@@ -70,4 +80,6 @@
         <item>femalevoice.mp3</item>
         <item>femalevoice2.mp3</item>
     </string-array>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Panic Button is Deactivated</string>
 </resources>
