@@ -1,8 +1,11 @@
 package com.carecorner;
 
+import android.content.ComponentName;
 import android.content.Intent;
+import android.content.ServiceConnection;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.IBinder;
 import android.preference.PreferenceManager;
 import android.view.View;
 
@@ -18,6 +21,7 @@ import java.lang.reflect.Type;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Vector;
 
 public class ReportingActivity extends AppCompatActivity implements ReportingAdapter.ItemClickListener, AddReportingDialog.AddReportingDialogListener {
 
@@ -25,12 +29,22 @@ public class ReportingActivity extends AppCompatActivity implements ReportingAda
     ReportingAdapter theadapter;
     //private Button btnDelete, btnCreate;
 
+    //incident_list variables
+    private Vector<Incident> incidents_list;
+    private IncidentListService incidentListService;
+    private boolean isBound;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.reporting_activity);
         //initViews();
         setupRecyclerView();
+        //place in onCreated
+        Intent incidentListIntent = new Intent(this, IncidentListService.class);
+        this.bindService(incidentListIntent, incidentFilerConnection, this.BIND_AUTO_CREATE);
+        incidentListService = new IncidentListService();
+        incidents_list = new Vector<Incident>();
 
         //btnCreate.setOnClickListener(new View.OnClickListener() {
         //    @Override
@@ -38,6 +52,8 @@ public class ReportingActivity extends AppCompatActivity implements ReportingAda
         //        openDialog();
         //    }
         // });
+
+
          }
 
         /**
@@ -145,10 +161,11 @@ public class ReportingActivity extends AppCompatActivity implements ReportingAda
     /**
      * Connects and initializes every element in the layout to a variable.
      */
-        //private void initViews() {
-        //    btnDelete = findViewById(R.id.btnDelete2);
-        //    btnCreate = findViewById(R.id.btnCreate2);
-        //}
+        /*
+        private void initViews() {
+            btnDelete = findViewById(R.id.btnDelete2);
+            btnCreate = findViewById(R.id.btnCreate2);
+        }*/
 
         /**
          * Overrides the Back Button functionality to return to the Journal Main Menu.
@@ -205,6 +222,28 @@ public class ReportingActivity extends AppCompatActivity implements ReportingAda
             return -1;
         }
 
+    private ServiceConnection incidentFilerConnection = new ServiceConnection() {
+        @Override
+        public void onServiceConnected(ComponentName name, IBinder service) {
+            IncidentListService.IncidentListBinder binder = (IncidentListService.IncidentListBinder) service;
+            incidentListService = binder.getService();
 
+            isBound = true;
+        }
+
+        @Override
+        public void onServiceDisconnected(ComponentName name) {
+            isBound = false;
+        }
+    };
+
+    private void loadIncidents(){
+        incidents_list = incidentListService.loadIncidents(this);
     }
+
+    private void saveIncident() {
+        incidentListService.saveIncident(this, incidents_list);
+    }
+
+}
 
