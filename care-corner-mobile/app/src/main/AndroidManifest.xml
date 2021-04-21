@@ -66,12 +66,26 @@
         <activity android:name=".JournalRecyclerMain" />
         <activity android:name=".JournalEditorActivity" />
         <activity android:name=".JournalReader" />
-        <activity android:name=".SafeWalkMenuActivity" />
+        <activity android:name=".SafeWalkMenuActivity" >
+            android:exported="true"
+            <intent-filter>
+                <action android:name="android.intent.action.RECORDINGS" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <service
             android:name=".IncidentListService"
             android:enabled="true"
             android:exported="true" />
-        <activity android:name=".ReportingActivity" />
+        <activity android:name=".ReportingActivity" >
+            android:exported="true"
+            <intent-filter>
+                <action android:name="android.intent.action.RECORDINGS" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity android:name=".ReportingReader" />
         <activity android:name=".MombotActivity" />
         <meta-data

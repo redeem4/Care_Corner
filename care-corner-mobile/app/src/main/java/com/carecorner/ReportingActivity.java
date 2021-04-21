@@ -1,8 +1,11 @@
 package com.carecorner;
 
+import android.content.ComponentName;
 import android.content.Intent;
+import android.content.ServiceConnection;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.IBinder;
 import android.preference.PreferenceManager;
 import android.view.View;
 
@@ -18,6 +21,7 @@ import java.lang.reflect.Type;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Vector;
 
 public class ReportingActivity extends AppCompatActivity implements ReportingAdapter.ItemClickListener, AddReportingDialog.AddReportingDialogListener {
 
@@ -25,19 +29,31 @@ public class ReportingActivity extends AppCompatActivity implements ReportingAda
     ReportingAdapter theadapter;
     //private Button btnDelete, btnCreate;
 
+    //incident_list variables
+    private Vector<Incident> incidents_list;
+    private IncidentListService incidentListService;
+    private boolean isBound;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.reporting_activity);
+
+        //place in onCreated
+        Intent incidentListIntent = new Intent(this, IncidentListService.class);
+        this.bindService(incidentListIntent, incidentFilerConnection, this.BIND_AUTO_CREATE);
+        incidentListService = new IncidentListService();
+        incidents_list = new Vector<Incident>();
         //initViews();
         setupRecyclerView();
-
         //btnCreate.setOnClickListener(new View.OnClickListener() {
         //    @Override
         //    public void onClick(View v) {
         //        openDialog();
         //    }
         // });
+
+
          }
 
         /**
@@ -49,7 +65,8 @@ public class ReportingActivity extends AppCompatActivity implements ReportingAda
         public void onItemClick (View view,int position){
             saveArrayList(thedata, "reporting");
             Intent intent = new Intent(ReportingActivity.this, ReportingReader.class);
-            intent.putExtra("reportingName", theadapter.getItem(position).getName());
+            intent.putExtra("reportingName", theadapter.getItem(position).getId());
+            intent.putExtra("incident_report", theadapter.getItem(position).toString());
             //intent.putExtra("text", theadapter.getItem(position).getText());
             // intent.putExtra("position", position);
             startActivity(intent);
@@ -97,8 +114,10 @@ public class ReportingActivity extends AppCompatActivity implements ReportingAda
          * This function sets up the RecyclerView.
          */
         private void setupRecyclerView () {
+            loadIncidents();
             thedata = loadArrayList("reporting");
 
+            /*
             if (thedata == null || thedata.isEmpty()) {
                 // Test data to populate the RecyclerView with if the saved Journal List is empty.
                 // Mainly for demonstration purposes.
@@ -108,6 +127,9 @@ public class ReportingActivity extends AppCompatActivity implements ReportingAda
                 thedata.add(new Reporting("test 3/15/2021"));
 
             }
+            */
+
+
             // set up the RecyclerView
             RecyclerView recyclerView2 = findViewById(R.id.recycler_view2);
             LinearLayoutManager layoutManager = new LinearLayoutManager(this);
@@ -115,7 +137,7 @@ public class ReportingActivity extends AppCompatActivity implements ReportingAda
             DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerView2.getContext(),
                     layoutManager.getOrientation());
             recyclerView2.addItemDecoration(dividerItemDecoration);
-            theadapter = new ReportingAdapter(this, thedata, this);
+            theadapter = new ReportingAdapter(this, incidents_list, this);
             theadapter.setClickListener(this);
             recyclerView2.setAdapter(theadapter);
             applyEdits();
@@ -145,10 +167,11 @@ public class ReportingActivity extends AppCompatActivity implements ReportingAda
     /**
      * Connects and initializes every element in the layout to a variable.
      */
-        //private void initViews() {
-        //    btnDelete = findViewById(R.id.btnDelete2);
-        //    btnCreate = findViewById(R.id.btnCreate2);
-        //}
+        /*
+        private void initViews() {
+            btnDelete = findViewById(R.id.btnDelete2);
+            btnCreate = findViewById(R.id.btnCreate2);
+        }*/
 
         /**
          * Overrides the Back Button functionality to return to the Journal Main Menu.
@@ -205,6 +228,28 @@ public class ReportingActivity extends AppCompatActivity implements ReportingAda
             return -1;
         }
 
+    private ServiceConnection incidentFilerConnection = new ServiceConnection() {
+        @Override
+        public void onServiceConnected(ComponentName name, IBinder service) {
+            IncidentListService.IncidentListBinder binder = (IncidentListService.IncidentListBinder) service;
+            incidentListService = binder.getService();
 
+            isBound = true;
+        }
+
+        @Override
+        public void onServiceDisconnected(ComponentName name) {
+            isBound = false;
+        }
+    };
+
+    private void loadIncidents(){
+        incidents_list = incidentListService.loadIncidents(this);
     }
+
+    private void saveIncident() {
+        incidentListService.saveIncident(this, incidents_list);
+    }
+
+}
 

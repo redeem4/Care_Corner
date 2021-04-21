@@ -30,19 +30,20 @@ Setup
 
 2. Within your activity/Fragment, place this Override function (mine is near the bottom of my class)
 
-	    private ServiceConnection incidentFilerConnection = new ServiceConnection() {
-	        @Override
-	        public void onServiceConnected(ComponentName name, IBinder service) {
-	            IncidentListService.IncidentListBinder binder = (IncidentListService.IncidentListBinder) service;
-	            incidentFiler = binder.getService();
-				isBound = true;
-	        }
+        private ServiceConnection incidentFilerConnection = new ServiceConnection() {
+            @Override
+            public void onServiceConnected(ComponentName name, IBinder service) {
+                IncidentListService.IncidentListBinder binder = (IncidentListService.IncidentListBinder) service;
+                incidentListService = binder.getService();
+                isBound = true;
+            }
+    
+            @Override
+            public void onServiceDisconnected(ComponentName name) {
+                isBound = false;
+            }
+        };
 
-	        @Override
-	        public void onServiceDisconnected(ComponentName name) {
-	            isBound = false;
-	        }
-	    };
 
 3. Within your Oncreate or onViewCreated (depending on if its an actvity of Fragment) initialize and bind the service 
 
