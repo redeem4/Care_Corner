@@ -8,7 +8,6 @@
     app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior"
     app:behavior_hideable="true"
     app:behavior_peekHeight = "70dp"
-    tools:context="com.carecorner.PanicActivity"
     android:id="@+id/map_sheet"
     >
 
@@ -40,19 +39,18 @@
             android:paddingBottom="6dp"
             app:srcCompat="@drawable/swipe_up_icon" />
 
-        <TextView
-            android:id="@+id/map_tile"
+        <ImageView
+            android:id="@+id/my_location_icon"
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:layout_weight="4"
-            android:fontFamily="@font/playfair_display_bold"
             android:paddingTop="6dp"
             android:paddingEnd="24dp"
             android:paddingBottom="6dp"
-            android:text="Map"
             android:textAlignment="textEnd"
             android:textColor="@android:color/white"
-            android:textSize="20sp" />
+            android:textSize="20sp"
+            app:srcCompat="@drawable/map_icon_my_location" />/>
 
     </LinearLayout>
 

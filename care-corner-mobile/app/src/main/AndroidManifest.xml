@@ -5,6 +5,8 @@
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
 
     <application
         android:name=".CareCornerApplication"
@@ -65,6 +67,10 @@
         <activity android:name=".JournalEditorActivity" />
         <activity android:name=".JournalReader" />
         <activity android:name=".SafeWalkMenuActivity" />
+        <service
+            android:name=".IncidentListService"
+            android:enabled="true"
+            android:exported="true" />
         <activity android:name=".ReportingActivity" />
         <activity android:name=".ReportingReader" />
         <activity android:name=".MombotActivity" />

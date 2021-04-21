@@ -4,14 +4,20 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import com.carecorner.PlatformPositioningProvider;
 
 import android.app.Activity;
+import android.content.pm.PackageManager;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
+import com.here.sdk.mapview.MapImage;
+import com.here.sdk.mapview.MapImageFactory;
+import com.here.sdk.mapview.MapMarker;
 import com.here.sdk.mapview.MapView;
 
 //HERE SDK
@@ -22,15 +28,19 @@ import com.here.sdk.mapview.MapScene;
 import com.here.sdk.mapview.MapScheme;
 public class PanicActivity extends AppCompatActivity {
 
+
+    //UI variables
     private ConstraintLayout mapSheet;
     private BottomSheetBehavior bottomSheetBehavior;
     private ImageView swipe_btn;
+    private ImageView my_location;
 
-    //Map
+    //Map variables
     private static final String TAG = PanicActivity.class.getSimpleName();
     private PermissionsRequestor permissionsRequestor;
     private MapView mapView;
-
+    private MapImage userIcon;
+    private PlatformPositioningProvider platformPositioningProvider;
 
 
     @Override
@@ -40,6 +50,7 @@ public class PanicActivity extends AppCompatActivity {
 
         mapSheet = findViewById(R.id.map_sheet);
         swipe_btn = findViewById(R.id.map_swipe_up);
+        my_location = findViewById(R.id.my_location_icon);
 
         //controls how the BottomSheet (map) UI works
         bottomSheetBehavior = BottomSheetBehavior.from(mapSheet);
@@ -49,8 +60,12 @@ public class PanicActivity extends AppCompatActivity {
             public void onStateChanged(@NonNull View bottomSheet, int newState) {
 
                 switch (newState) {
+                    case BottomSheetBehavior.STATE_DRAGGING:
+                        bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+                        break;
                     case BottomSheetBehavior.STATE_HIDDEN:
                         bottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
+
                     case BottomSheetBehavior.STATE_COLLAPSED:
                         swipe_btn.setImageDrawable(getResources().getDrawable(R.drawable.swipe_up_icon));
                         break;
@@ -81,8 +96,46 @@ public class PanicActivity extends AppCompatActivity {
             }
         });
 
+        //setup user icon for map
+        userIcon =  MapImageFactory.fromResource(this.getResources(),R.drawable.map_icon_user);
+        MapMarker userMarker = new MapMarker(new GeoCoordinates(36.88675, -76.30570), userIcon);
+        mapView.getMapScene().addMapMarker(userMarker);
+
+        //user location
+        platformPositioningProvider = new PlatformPositioningProvider(this);
+        platformPositioningProvider.startLocating(new PlatformPositioningProvider.PlatformLocationListener() {
+            @Override
+            public void onLocationUpdated(android.location.Location location) {
+                userMarker.setCoordinates(new GeoCoordinates(location.getLatitude(), location.getLongitude()));
+
+            }
+        });
+
+        //button actions
+        my_location.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mapView.getCamera().lookAt(userMarker.getCoordinates());
+                bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+            }
+        });
+
+        swipe_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (bottomSheetBehavior.getState() == BottomSheetBehavior.STATE_EXPANDED){
+                    bottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
+                }else{
+                    bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+                }
+            }
+        });
+
         handleAndroidPermissions();
     }
+
+
+
 
     private void handleAndroidPermissions() {
         permissionsRequestor = new PermissionsRequestor(this);
@@ -113,7 +166,7 @@ public class PanicActivity extends AppCompatActivity {
                 if (mapError == null) {
                     double distanceInMeters = 1000 * 10;
                     mapView.getCamera().lookAt(
-                            new GeoCoordinates(52.530932, 13.384915), distanceInMeters);
+                            new GeoCoordinates(36.88675, -76.30570), distanceInMeters);
                 } else {
                     Log.d(TAG, "Loading map failed: mapError: " + mapError.name());
                 }
@@ -121,6 +174,7 @@ public class PanicActivity extends AppCompatActivity {
         });
     }
 
+    //map controls
     @Override
     protected void onPause() {
         super.onPause();
