@@ -35,27 +35,18 @@ public class UpdateHandler implements RequestHandler<Map<String, Object>, ApiGat
 			JsonNode body = new ObjectMapper().readTree((String) input.get("body"));
 			logger.debug("Params: {}", body);
 
-			String userId = body.get("user-id").asText();
-			String contactId = body.get("contact-id").asText();
-			String phone = body.get("phone").asText();
-			String name = body.get("phone").asText();
-
-			logger.debug("User ID: {}", userId);
-			logger.debug("Contact ID: {}", contactId);
-			logger.debug("Phone: {}", phone);
-			logger.debug("Name: {}", name);
-			/*
-
-			List<Contact> contacts = contactDao.findByUser(userId);
-			logger.debug("Contacts: {}", contacts.toString());
-			for (int i = 0; i < contacts.size(); i = i + 1) {
-				Contact contact = contacts.get(i);	
-				logger.debug("Contact: {}", contact);
-				Messenger.sendSMS(
-					contact.getPhone(), 
-					buildBeginMessage(user, contact, destination, eta)
-				);
-			}*/
+			for (final JsonNode contactArray : body) {
+				for (final JsonNode contactNode : contactArray) {
+					logger.debug("Contact: {}", contactNode);
+					Contact contact = Contact.of(
+						contactNode.get("contact-id").asText(),
+						Integer.parseInt(contactNode.get("user-id").asText()),
+						contactNode.get("name").asText(),
+						contactNode.get("phone").asText()
+					);
+					contactDao.updateContactById(contact);
+				}
+			}
 		} catch (Exception exception) {
 			exception.printStackTrace();
 

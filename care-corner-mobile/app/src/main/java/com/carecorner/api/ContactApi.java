@@ -48,8 +48,7 @@ public class ContactApi {
     }
 
     public static void updateContacts(JSONArray contacts) {
-        String userId = CareCornerApplication.getSession().getUserId();
-        String contactUrl = CareCornerApplication.getApiRoute("contacts/" + userId);
+        String contactUrl = CareCornerApplication.getApiRoute("contacts");
 
         AndroidNetworking.put(contactUrl)
                 .addHeaders("Content-Type", "application/json")
@@ -59,6 +58,7 @@ public class ContactApi {
                     @Override
                     public void onResponse(Response response) {
                         if (response.isSuccessful()) {
+                            Log.d("Contacts:", "updated");
                         } else {
                         }
                     }

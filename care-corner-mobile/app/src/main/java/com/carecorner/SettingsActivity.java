@@ -119,6 +119,7 @@ public class SettingsActivity extends AppCompatActivity {
 
         try {
             JSONArray contacts = new JSONArray();
+            String userId = CareCornerApplication.getSession().getUserId();
             for (int i = 0; i < 3; i++) {
                 JSONObject contact = new JSONObject();
                 // hacky
@@ -127,25 +128,29 @@ public class SettingsActivity extends AppCompatActivity {
                         contact.put("contact-id", contactId1);
                         contact.put("name", nm1);
                         contact.put("phone", ph1);
+                        contact.put("user-id", userId);
                         break;
                     case 1:
                         contact.put("contact-id", contactId2);
                         contact.put("name", nm2);
                         contact.put("phone", ph2);
+                        contact.put("user-id", userId);
                         break;
                     case 2:
                         contact.put("contact-id", contactId3);
                         contact.put("name", nm3);
                         contact.put("phone", ph3);
+                        contact.put("user-id", userId);
                         break;
                 }
             }
+            ContactApi.updateContacts(contacts);
         } catch(Exception error) {
             Log.d("Issue creating contacts to update:", error.toString());
         }
 
-        Intent intent = new Intent(SettingsActivity.this, MainMenuActivity.class);
-        startActivity(intent);
+//        Intent intent = new Intent(SettingsActivity.this, MainMenuActivity.class);
+ //       startActivity(intent);
     }
 
     /**
