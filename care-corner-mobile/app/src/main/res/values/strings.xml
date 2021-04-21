@@ -47,6 +47,9 @@
     <string name="edit_my_entry">Edit Entry</string>
     <string name="journal_reader">Journal Reader</string>
     <string name="title">Title</string>
+    <string name="emergency_contact_number">Emergency Contact Number</string>
+    <string name="emergency_contact_name">Emergency Contact Name</string>
+    <string name="below_are_optional">Below are optional</string>
     <!-- <color name="lightblue">#94CCEo</color> -->
 
 

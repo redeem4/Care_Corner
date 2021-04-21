@@ -7,14 +7,93 @@
     tools:context=".RegisterActivity">
 
     <EditText
+        android:id="@+id/EmergencyContactNumber3"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="408dp"
+        android:hint="@string/emergency_contact_number"
+        android:importantForAutofill="no"
+        android:inputType="phone"
+        app:layout_constraintEnd_toEndOf="@+id/passwordEntryBox"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/passwordEntryBox"
+        app:layout_constraintTop_toBottomOf="@+id/passwordEntryBox" />
+
+    <EditText
+        android:id="@+id/EmergencyContactName3"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="348dp"
+        android:hint="@string/emergency_contact_name"
+        android:importantForAutofill="no"
+        android:inputType="none|textPersonName"
+        app:layout_constraintEnd_toEndOf="@+id/passwordEntryBox"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/passwordEntryBox"
+        app:layout_constraintTop_toBottomOf="@+id/passwordEntryBox" />
+
+    <EditText
+        android:id="@+id/EmergencyContactNumber2"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="288dp"
+        android:hint="@string/emergency_contact_number"
+        android:importantForAutofill="no"
+        android:inputType="none|phone"
+        app:layout_constraintEnd_toEndOf="@+id/passwordEntryBox"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/passwordEntryBox"
+        app:layout_constraintTop_toBottomOf="@+id/passwordEntryBox" />
+
+    <EditText
+        android:id="@+id/EmergencyContactName2"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="228dp"
+        android:hint="@string/emergency_contact_name"
+        android:importantForAutofill="no"
+        android:inputType="none|textPersonName"
+        app:layout_constraintEnd_toEndOf="@+id/passwordEntryBox"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/passwordEntryBox"
+        app:layout_constraintTop_toBottomOf="@+id/passwordEntryBox" />
+
+    <EditText
+        android:id="@+id/EmergencyContactNumber1"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="168dp"
+        android:hint="@string/emergency_contact_number"
+        android:importantForAutofill="no"
+        android:inputType="none|number|phone"
+        app:layout_constraintEnd_toEndOf="@+id/passwordEntryBox"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/passwordEntryBox"
+        app:layout_constraintTop_toBottomOf="@+id/passwordEntryBox" />
+
+    <EditText
+        android:id="@+id/EmergencyContactName1"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="104dp"
+        android:hint="@string/emergency_contact_name"
+        android:importantForAutofill="no"
+        android:inputType="none|textPersonName"
+        app:layout_constraintEnd_toEndOf="@+id/passwordEntryBox"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/passwordEntryBox"
+        app:layout_constraintTop_toBottomOf="@+id/passwordEntryBox" />
+
+    <EditText
         android:id="@+id/usernameEntryBox"
         android:layout_width="250dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="80dp"
+        android:layout_marginTop="32dp"
         android:hint="@string/username"
         android:importantForAutofill="no"
         android:inputType="text"
         app:layout_constraintEnd_toEndOf="@+id/care_corner_logo"
+        app:layout_constraintHorizontal_bias="0.491"
         app:layout_constraintStart_toStartOf="@+id/care_corner_logo"
         app:layout_constraintTop_toBottomOf="@+id/care_corner_logo" />
 
@@ -22,11 +101,12 @@
         android:id="@+id/passwordEntryBox"
         android:layout_width="250dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="8dp"
         android:hint="@string/password"
         android:importantForAutofill="no"
         android:inputType="textPassword"
         app:layout_constraintEnd_toEndOf="@+id/usernameEntryBox"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/usernameEntryBox"
         app:layout_constraintTop_toBottomOf="@+id/usernameEntryBox" />
 
@@ -34,12 +114,12 @@
         android:id="@+id/emailEntryBox"
         android:layout_width="250dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="12dp"
         android:hint="@string/email"
         android:importantForAutofill="no"
         android:inputType="textWebEmailAddress"
         app:layout_constraintEnd_toEndOf="@+id/passwordEntryBox"
-        app:layout_constraintHorizontal_bias="0.503"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/passwordEntryBox"
         app:layout_constraintTop_toBottomOf="@+id/passwordEntryBox" />
 
@@ -47,22 +127,40 @@
         android:id="@+id/btnCreateAccount"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="150dp"
+        android:layout_marginTop="16dp"
         android:text="@string/create"
         app:layout_constraintEnd_toEndOf="@+id/passwordEntryBox"
-        app:layout_constraintHorizontal_bias="0.48"
+        app:layout_constraintHorizontal_bias="0.46"
         app:layout_constraintStart_toStartOf="@+id/passwordEntryBox"
-        app:layout_constraintTop_toBottomOf="@+id/emailEntryBox" />
+        app:layout_constraintTop_toBottomOf="@+id/EmergencyContactNumber3" />
 
     <ImageView
         android:id="@+id/care_corner_logo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="16dp"
         android:contentDescription="@string/avatar_picture"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:srcCompat="@tools:sample/avatars[0]" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="138dp"
+        android:layout_marginLeft="138dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="139dp"
+        android:layout_marginRight="139dp"
+        android:layout_marginBottom="16dp"
+        android:text="@string/below_are_optional"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@+id/EmergencyContactName1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/emailEntryBox" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
