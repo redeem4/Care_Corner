@@ -8,6 +8,9 @@ services:
       - database
     tty: true
     restart: always
+    environment:
+        - TWILIO_SID=AC54b271569eb025b6a774e3824ea33be0
+        - TWILIO_AUTH_TOKEN=fa390000cc69f248fc22dc6dfe1f3061
     networks:
       docker_network:
         ipv4_address: 10.5.0.5
@@ -39,6 +42,8 @@ services:
       - '8080:8080'
       - '4566:4566'
     environment:
+      - TWILIO_SID=AC54b271569eb025b6a774e3824ea33be0
+      - TWILIO_AUTH_TOKEN=fa390000cc69f248fc22dc6dfe1f3061
       - SERVICES= apigateway, lambda, s3, cloudformation, sts, iam, sns
       - DEFAULT_REGION=us-east-1
       - AWS_XRAY_SDK_ENABLED=true

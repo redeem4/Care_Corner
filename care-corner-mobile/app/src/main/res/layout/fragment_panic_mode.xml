@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".PanicFragment">
+
+
+    <TextView
+        android:id="@+id/panic_status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="panic_status"
+        android:textAlignment="center"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@id/panic_status2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <TextView
+        android:id="@+id/panic_status2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="panic_status2"
+        android:textAlignment="center"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.168" />
+
+    <Chronometer
+        android:id="@+id/panic_timer"
+        android:layout_width="157dp"
+        android:layout_height="60dp"
+        android:layout_marginBottom="52dp"
+        android:textAlignment="center"
+        android:textSize="40sp"
+        app:layout_constraintBottom_toTopOf="@+id/activate_btn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.484"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/panic_status"
+        app:layout_constraintVertical_bias="0.96" />
+
+    <ToggleButton
+        android:id="@+id/activate_btn"
+        android:layout_width="116dp"
+        android:layout_height="116dp"
+        android:background="@drawable/selector_panic_btn"
+        android:textOff="@string/panic_btn_deactivated"
+        android:textOn="@string/panic_btn_activated"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

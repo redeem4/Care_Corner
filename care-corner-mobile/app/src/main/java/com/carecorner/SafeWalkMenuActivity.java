@@ -3,14 +3,78 @@ package com.carecorner;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
+
+import com.androidnetworking.AndroidNetworking;
+import com.androidnetworking.error.ANError;
+import com.androidnetworking.interfaces.OkHttpResponseListener;
+import com.carecorner.util.JourneyApi;
+
+import org.json.JSONObject;
+
+import okhttp3.Response;
 
 public class SafeWalkMenuActivity extends AppCompatActivity {
+    Button btnStartWalk, btnWalking, btnArrived;
+    EditText destinationEntryBox, etaEntryBox;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.safe_walk_menu_activity);
+        initViews();
+
+        btnStartWalk.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startWalk();
+            }
+        });
+
+        btnWalking.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                continueWalk();
+            }
+        });
+
+        btnArrived.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                endWalk();
+            }
+        });
+    }
+
+    private void initViews() {
+        btnStartWalk = findViewById(R.id.btnStartWalk);
+        btnArrived = findViewById(R.id.btnArrived);
+        btnWalking = findViewById(R.id.btnWalking);
+        destinationEntryBox = findViewById(R.id.destinationEntryBox);
+        etaEntryBox = findViewById(R.id.etaEntryBox);
+    }
+
+
+    private void startWalk() {
+        String destination = destinationEntryBox.getText().toString();
+        String eta = etaEntryBox.getText().toString();
+        JourneyApi.bonVoyage(destination, eta, "80.00", "30.00");
+    }
+
+
+    private void continueWalk() {
+        JourneyApi.wayPoint("80.00", "30.00");
+    }
+
+
+    private void endWalk() {
+        JourneyApi.arrived("80.00", "30.00");
     }
 
     /**

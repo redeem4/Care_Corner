@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/panic_nav_graph"
+    app:startDestination="@id/panicDeactiveFragment">
+
+    <fragment
+        android:id="@+id/panicDeactiveFragment"
+        android:name="com.carecorner.PanicFragment"
+        android:label="fragment_panic_deactive"
+        tools:layout="@layout/fragment_panic_mode" >
+        <action
+            android:id="@+id/action_panicDeactiveFragment_to_panicMapFragment"
+            app:destination="@id/panicMapFragment"
+            app:exitAnim="@anim/fade_out"
+            app:popExitAnim="@anim/slide_out"
+            app:enterAnim="@anim/slide_in"
+            app:popEnterAnim="@anim/fade_in"
+            />
+    </fragment>
+    <fragment
+        android:id="@+id/panicMapFragment"
+        android:name="com.carecorner.PanicMapFragment"
+        android:label="fragment_panic_map"
+        tools:layout="@layout/fragment_panic_map" />
+</navigation>

@@ -14,13 +14,31 @@ provider:
 package:
  # artifact: 'build/distributions/com.carecorner-${self:provider.stage}.zip'
  artifact: 'build/libs/care-corner-api-dev-all.jar'
-  
+
 functions:
   authentication:
     handler: com.carecorner.handler.AuthenticationHandler
     events:
       - http:
           path: /api/auth
+          method: post
+  journeyBonVoyage:
+      handler: com.carecorner.handler.journey.BonVoyageHandler
+      events:
+        - http:
+            path: /api/journey
+            method: post
+  journeyWaypoint:
+      handler: com.carecorner.handler.journey.WaypointHandler
+      events:
+        - http:
+            path: /api/journey
+            method: put
+  journeyDestination:
+      handler: com.carecorner.handler.journey.DestinationHandler
+      events:
+        - http:
+          path: /api/journey/journey/destination
           method: post
   panic:
     handler: com.carecorner.handler.PanicHandler
