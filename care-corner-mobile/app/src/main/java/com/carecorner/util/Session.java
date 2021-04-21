@@ -24,6 +24,6 @@ public class Session {
     }
 
     public Boolean getArmedWalkState() {
-        return Boolean.parseBoolean(preferences.getString("armedWalk", ""));
+        return Boolean.parseBoolean(preferences.getString("armedWalk", "false"));
     }
 }
