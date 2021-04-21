@@ -22,6 +22,18 @@ functions:
       - http:
           path: /api/auth
           method: post
+  contactGet:
+      handler: com.carecorner.handler.contact.ContactHandler
+      events:
+        - http:
+          path: /api/contacts
+          method: get
+  contactUpdate:
+      handler: com.carecorner.handler.contact.UpdateHandler
+      events:
+        - http:
+          path: /api/contacs
+          method: put
   journeyBonVoyage:
       handler: com.carecorner.handler.journey.BonVoyageHandler
       events:
