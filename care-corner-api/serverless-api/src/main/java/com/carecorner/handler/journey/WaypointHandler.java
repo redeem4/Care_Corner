@@ -44,10 +44,12 @@ public class WaypointHandler implements RequestHandler<Map<String, Object>, ApiG
 			logger.debug("Params: {}", body);
 
 			String userId = body.get("user-id").asText();
-			String location = body.get("location").asText();
+			String latitude = body.get("latitude").asText();
+			String longitude = body.get("longitude").asText();
 
 			logger.debug("User ID: {}", userId);
-			logger.debug("Location: {}", location);
+			logger.debug("Longitude: {}", longitude);
+			logger.debug("Latitude: {}", latitude);
 
 			List<User> users = userDao.findByUserID(userId);
 			User user = users.get(0);
@@ -58,7 +60,7 @@ public class WaypointHandler implements RequestHandler<Map<String, Object>, ApiG
 				Contact contact = contacts.get(i);
 				logger.debug("Contact: {}", contact);
 				Messenger.sendSMS(contact.getPhone(), 
-					buildWaypointMessage(user, contact, location));
+					buildWaypointMessage(user, contact, latitude, longitude));
 			}
 		} catch (Exception exception) {
 			exception.printStackTrace();
@@ -80,12 +82,13 @@ public class WaypointHandler implements RequestHandler<Map<String, Object>, ApiG
 				.build();
 	}
 
-	private String buildWaypointMessage(User user, Contact contact, String location) {
-		String msg = "Location update for %s. At %s they were at point %s along their route. ";
+	private String buildWaypointMessage(User user, Contact contact, String latitude, String longitude) {
+		String msg = "Location update for %s. At %s they were at " +
+			"https://maps.google.com/?q=%s,%s";
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm"); 
 		LocalDateTime now = LocalDateTime.now();  
 
-		return String.format(msg, user.getFname(), formatter.format(now), location);
+		return String.format(msg, user.getFname(), formatter.format(now), latitude, longitude);
 	}
 }
 

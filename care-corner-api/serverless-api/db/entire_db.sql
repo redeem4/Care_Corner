@@ -85,7 +85,6 @@ CREATE TABLE `incident` (
   KEY `audio_id` (`audio_id`) /*!80000 INVISIBLE */,
   KEY `journey_id` (`journey_id`),
   CONSTRAINT `incident_audio_id_fk` FOREIGN KEY (`audio_id`) REFERENCES `audio` (`audio_id`),
-  CONSTRAINT `incident_journey_id_fk` FOREIGN KEY (`journey_id`) REFERENCES `journey` (`journey_id`),
   CONSTRAINT `incident_user_id_fk` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 );
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -106,27 +105,20 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `journey`;
 CREATE TABLE `journey` (
-  `journey_id` varchar(15) NOT NULL,
+  `user_id` varchar(15) NOT NULL,
+  `journey_id` int NOT NULL AUTO_INCREMENT,
   `journey_path` varchar(100) NOT NULL,
-  `time` datetime NOT NULL,
+  `time` varchar(255) NOT NULL,
   `start_latitude` decimal(8,5) DEFAULT NULL,
   `start_longitude` decimal(8,5) DEFAULT NULL,
   `end_latitude` decimal(8,5) DEFAULT NULL,
   `end_longitude` decimal(8,5) DEFAULT NULL,
-  PRIMARY KEY (`journey_id`),
-  UNIQUE KEY `journey_id_UNIQUE` (`journey_id`),
-  UNIQUE KEY `journey_path_UNIQUE` (`journey_path`)
+  PRIMARY KEY (`journey_id`)
 );
 
 --
 -- Dumping data for table `journey`
 --
-
-LOCK TABLES `journey` WRITE;
-/*!40000 ALTER TABLE `journey` DISABLE KEYS */;
-INSERT INTO `journey` VALUES ('j1','journey_path_1','2020-10-18 23:05:00',36.88408,-76.30507,36.88769,-76.30595),('j2','journey_path_2','2020-09-29 13:42:00',36.88686,-76.30175,36.88233,-76.30191),('j3','journey_path_3','2021-01-05 22:15:00',36.88574,-76.30769,36.88371,-76.29893);
-/*!40000 ALTER TABLE `journey` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `resource`

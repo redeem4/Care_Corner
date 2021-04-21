@@ -71,6 +71,9 @@
             android:name=".IncidentListService"
             android:enabled="true"
             android:exported="true" />
+        <activity android:name=".ReportingActivity" />
+        <activity android:name=".ReportingReader" />
+        <activity android:name=".MombotActivity" />
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />

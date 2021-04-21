@@ -3,21 +3,12 @@ package com.carecorner;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
-import com.androidnetworking.AndroidNetworking;
-import com.androidnetworking.error.ANError;
-import com.androidnetworking.interfaces.OkHttpResponseListener;
-
-import org.json.JSONObject;
-
-import okhttp3.Response;
+import com.carecorner.api.JourneyApi;
 
 public class SafeWalkMenuActivity extends AppCompatActivity {
     Button btnStartWalk, btnWalking, btnArrived;
@@ -61,98 +52,22 @@ public class SafeWalkMenuActivity extends AppCompatActivity {
 
 
     private void startWalk() {
-        String journeyUrl = CareCornerApplication.getApiRoute("journey");
-
         String destination = destinationEntryBox.getText().toString();
         String eta = etaEntryBox.getText().toString();
-        JSONObject bonVoyage = new JSONObject();
-        try {
-            String userId = CareCornerApplication.getSession().getUserId();
-            bonVoyage.put("user-id", userId);
-            bonVoyage.put("destination", destination);
-            bonVoyage.put("eta", eta);
-        } catch(Exception error) {
-            Log.e("Login:", "Issue creating destination Json");
-        }
 
-        AndroidNetworking.post(journeyUrl)
-                .addHeaders("Content-Type", "application/json")
-                .addJSONObjectBody(bonVoyage)
-                .build()
-                .getAsOkHttpResponse(new OkHttpResponseListener() {
-                    @Override
-                    public void onResponse(Response response) {
-                        if (response.isSuccessful()) {
-                        } else {
-                        }
-                    }
-
-                    @Override
-                    public void onError(ANError error) {
-                        Log.e("Issue with Connection:", error.getResponse().toString());
-                    }
-                });
+        CareCornerApplication.getSession().setArmedWalkState(true);
+        JourneyApi.bonVoyage(destination, eta, "80.00", "30.00");
     }
 
 
     private void continueWalk() {
-        String journeyUrl = CareCornerApplication.getApiRoute("journey");
-        JSONObject location = new JSONObject();
-        try {
-            String userId = CareCornerApplication.getSession().getUserId();
-            location.put("user-id", userId);
-            location.put("location", "889 Updated address");
-        } catch(Exception error) {
-            Log.e("Login:", "Issue creating location Json");
-        }
-
-        AndroidNetworking.put(journeyUrl)
-                .addHeaders("Content-Type", "application/json")
-                .addJSONObjectBody(location)
-                .build()
-                .getAsOkHttpResponse(new OkHttpResponseListener() {
-                    @Override
-                    public void onResponse(Response response) {
-                        if (response.isSuccessful()) {
-                        } else {
-                        }
-                    }
-
-                    @Override
-                    public void onError(ANError error) {
-                        Log.e("Issue with Connection:", error.getResponse().toString());
-                    }
-                });
+        JourneyApi.wayPoint("80.00", "30.00");
     }
 
 
     private void endWalk() {
-        String journeyUrl = CareCornerApplication.getApiRoute("journey/destination");
-        JSONObject arrival = new JSONObject();
-        try {
-            String userId = CareCornerApplication.getSession().getUserId();
-            arrival.put("user-id", userId);
-        } catch(Exception error) {
-            Log.e("Login:", "Issue creating arrival Json");
-        }
-
-        AndroidNetworking.post(journeyUrl)
-                .addHeaders("Content-Type", "application/json")
-                .addJSONObjectBody(arrival)
-                .build()
-                .getAsOkHttpResponse(new OkHttpResponseListener() {
-                    @Override
-                    public void onResponse(Response response) {
-                        if (response.isSuccessful()) {
-                        } else {
-                        }
-                    }
-
-                    @Override
-                    public void onError(ANError error) {
-                        Log.e("Issue with Connection:", error.getResponse().toString());
-                    }
-                });
+        CareCornerApplication.getSession().setArmedWalkState(false);
+        JourneyApi.arrived("80.00", "30.00");
     }
 
     /**
