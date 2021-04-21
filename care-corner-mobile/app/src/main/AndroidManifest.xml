@@ -66,6 +66,8 @@
         <activity android:name=".JournalRecyclerMain" />
         <activity android:name=".JournalEditorActivity" />
         <activity android:name=".JournalReader" />
+        <activity android:name=".MombotActivity"/>
+        <activity android:name=".SettingsActivity"/>
         <activity android:name=".SafeWalkMenuActivity" >
             android:exported="true"
             <intent-filter>
@@ -87,7 +89,6 @@
             </intent-filter>
         </activity>
         <activity android:name=".ReportingReader" />
-        <activity android:name=".MombotActivity" />
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />

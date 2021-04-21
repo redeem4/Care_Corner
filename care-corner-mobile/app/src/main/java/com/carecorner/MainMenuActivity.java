@@ -14,11 +14,11 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
 
-import androidx.appcompat.app.AppCompatActivity;
+import java.util.Set;
 
 public class MainMenuActivity extends AppCompatActivity {
 
-    private ImageButton btnFakePhoneCall, btnMomBot, btnSafeWalk, btnJournal, btnResourcesMenu, btnReportingAssistance;
+    private ImageButton btnFakePhoneCall, btnMomBot, btnSafeWalk, btnJournal, btnResourcesMenu, btnReportingAssistance, btnSettings, btnPanicButton;
     private String recordPermission = Manifest.permission.RECORD_AUDIO;
     private int PERMISSION_CODE = 21;
 
@@ -76,6 +76,22 @@ public class MainMenuActivity extends AppCompatActivity {
             }
         });
 
+        btnSettings.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainMenuActivity.this, SettingsActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        btnPanicButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainMenuActivity.this, SettingsActivity.class);
+                startActivity(intent);
+            }
+        });
+
         btnReportingAssistance.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -92,6 +108,8 @@ public class MainMenuActivity extends AppCompatActivity {
         btnJournal = findViewById(R.id.btnJournal);
         btnResourcesMenu = findViewById(R.id.btnResourcesMenu);
         btnReportingAssistance = findViewById(R.id.btnReportingAssistance);
+        btnPanicButton = findViewById(R.id.btnPanicButton);
+        btnSettings = findViewById(R.id.btnSetting);
     }
 
     /**
