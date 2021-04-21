@@ -44,45 +44,43 @@ public class PanicActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_panic);
+        mapInitViews();
 
-        mapSheet = findViewById(R.id.map_sheet);
-        swipe_btn = findViewById(R.id.map_swipe_up);
-        my_location = findViewById(R.id.my_location_icon);
-
-        // Get a MapView instance from the layout.
-        mapView = findViewById(R.id.map_view);
         mapView.onCreate(savedInstanceState);
 
+        startUserIcon();
+        userLocationListener();
         bottomSheetSetup();
+        onClickListenerSetup();
+        handleAndroidPermissions();
+    }
 
-        mapView.setOnReadyListener(new MapView.OnReadyListener() {
-            @Override
-            public void onMapViewReady() {
-                // This will be called each time after this activity is resumed.
-                // It will not be called before the first map scene was loaded.
-                // Any code that requires map data may not work as expected beforehand.
-                Log.d(TAG, "HERE Rendering Engine attached.");
-            }
-        });
-
-        //setup user icon for map
-        userIcon =  MapImageFactory.fromResource(this.getResources(),R.drawable.map_icon_user);
-        userMarker = new MapMarker(new GeoCoordinates(36.88675, -76.30570), userIcon);
-        mapView.getMapScene().addMapMarker(userMarker);
-
+    private void userLocationListener() {
         //user location
         platformPositioningProvider = new PlatformPositioningProvider(this);
         platformPositioningProvider.startLocating(new PlatformPositioningProvider.PlatformLocationListener() {
             @Override
             public void onLocationUpdated(android.location.Location location) {
                 userMarker.setCoordinates(new GeoCoordinates(location.getLatitude(), location.getLongitude()));
-
             }
         });
+    }
 
-        bottomSheetSetup();
-        onClickListenerSetup();
-        handleAndroidPermissions();
+    private void startUserIcon() {
+        //setup user icon for map
+        userIcon =  MapImageFactory.fromResource(this.getResources(),R.drawable.map_icon_user);
+        userMarker = new MapMarker(new GeoCoordinates(36.88675, -76.30570), userIcon);
+        mapView.getMapScene().addMapMarker(userMarker);
+    }
+
+    private void mapInitViews() {
+        //map drawer and its 2 buttons
+        mapSheet = findViewById(R.id.map_sheet);
+        swipe_btn = findViewById(R.id.map_swipe_up);
+        my_location = findViewById(R.id.my_location_icon);
+
+        // Get a MapView instance from the layout.
+        mapView = findViewById(R.id.map_view);
     }
 
 
