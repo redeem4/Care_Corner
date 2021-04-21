@@ -38,14 +38,14 @@ public class ReportingActivity extends AppCompatActivity implements ReportingAda
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.reporting_activity);
-        //initViews();
-        setupRecyclerView();
+
         //place in onCreated
         Intent incidentListIntent = new Intent(this, IncidentListService.class);
         this.bindService(incidentListIntent, incidentFilerConnection, this.BIND_AUTO_CREATE);
         incidentListService = new IncidentListService();
         incidents_list = new Vector<Incident>();
-
+        //initViews();
+        setupRecyclerView();
         //btnCreate.setOnClickListener(new View.OnClickListener() {
         //    @Override
         //    public void onClick(View v) {
@@ -65,7 +65,7 @@ public class ReportingActivity extends AppCompatActivity implements ReportingAda
         public void onItemClick (View view,int position){
             saveArrayList(thedata, "reporting");
             Intent intent = new Intent(ReportingActivity.this, ReportingReader.class);
-            intent.putExtra("reportingName", theadapter.getItem(position).getName());
+            intent.putExtra("reportingName", theadapter.getItem(position).getId());
             //intent.putExtra("text", theadapter.getItem(position).getText());
             // intent.putExtra("position", position);
             startActivity(intent);
@@ -113,8 +113,10 @@ public class ReportingActivity extends AppCompatActivity implements ReportingAda
          * This function sets up the RecyclerView.
          */
         private void setupRecyclerView () {
+            loadIncidents();
             thedata = loadArrayList("reporting");
 
+            /*
             if (thedata == null || thedata.isEmpty()) {
                 // Test data to populate the RecyclerView with if the saved Journal List is empty.
                 // Mainly for demonstration purposes.
@@ -124,6 +126,9 @@ public class ReportingActivity extends AppCompatActivity implements ReportingAda
                 thedata.add(new Reporting("test 3/15/2021"));
 
             }
+            */
+
+
             // set up the RecyclerView
             RecyclerView recyclerView2 = findViewById(R.id.recycler_view2);
             LinearLayoutManager layoutManager = new LinearLayoutManager(this);
@@ -131,7 +136,7 @@ public class ReportingActivity extends AppCompatActivity implements ReportingAda
             DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerView2.getContext(),
                     layoutManager.getOrientation());
             recyclerView2.addItemDecoration(dividerItemDecoration);
-            theadapter = new ReportingAdapter(this, thedata, this);
+            theadapter = new ReportingAdapter(this, incidents_list, this);
             theadapter.setClickListener(this);
             recyclerView2.setAdapter(theadapter);
             applyEdits();

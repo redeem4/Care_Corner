@@ -9,15 +9,16 @@ import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
+import java.util.Vector;
 
 public class ReportingAdapter extends RecyclerView.Adapter<ReportingAdapter.ViewHolder> {
 
-    private List<Reporting> rData;
+    private Vector<Incident> rData;
     private ItemClickListener rOnBtnClickListener;
     private LayoutInflater rInflater;
     private ItemClickListener rClickListener;
 
-    ReportingAdapter(Context context, List<Reporting> data, ItemClickListener OnBtnClickListener) {
+    ReportingAdapter(Context context, Vector<Incident> data, ItemClickListener OnBtnClickListener) {
         this.rInflater = LayoutInflater.from(context);
         this.rData = data;
         this.rOnBtnClickListener = OnBtnClickListener;
@@ -30,8 +31,8 @@ public class ReportingAdapter extends RecyclerView.Adapter<ReportingAdapter.View
 
     @Override
     public void onBindViewHolder(ReportingAdapter.ViewHolder holder, int position) {
-        Reporting myReporting = rData.get(position);
-        holder.thisTextView.setText(myReporting.getName());
+        Incident myReporting = rData.get(position);
+        holder.thisTextView.setText(myReporting.getId());
     }
 
     @Override
@@ -66,7 +67,7 @@ public class ReportingAdapter extends RecyclerView.Adapter<ReportingAdapter.View
             if (rClickListener != null) rClickListener.onItemClick(view, getAdapterPosition());
         }
     }
-    Reporting getItem(int id) {
+    Incident getItem(int id) {
         return rData.get(id);
     }
 
