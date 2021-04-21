@@ -4,11 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
-import com.carecorner.PlatformPositioningProvider;
 
-import android.app.Activity;
-import android.content.pm.PackageManager;
-import android.location.LocationManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -40,6 +36,7 @@ public class PanicActivity extends AppCompatActivity {
     private PermissionsRequestor permissionsRequestor;
     private MapView mapView;
     private MapImage userIcon;
+    private MapMarker userMarker;
     private PlatformPositioningProvider platformPositioningProvider;
 
 
@@ -52,6 +49,44 @@ public class PanicActivity extends AppCompatActivity {
         swipe_btn = findViewById(R.id.map_swipe_up);
         my_location = findViewById(R.id.my_location_icon);
 
+        // Get a MapView instance from the layout.
+        mapView = findViewById(R.id.map_view);
+        mapView.onCreate(savedInstanceState);
+
+        bottomSheetSetup();
+
+        mapView.setOnReadyListener(new MapView.OnReadyListener() {
+            @Override
+            public void onMapViewReady() {
+                // This will be called each time after this activity is resumed.
+                // It will not be called before the first map scene was loaded.
+                // Any code that requires map data may not work as expected beforehand.
+                Log.d(TAG, "HERE Rendering Engine attached.");
+            }
+        });
+
+        //setup user icon for map
+        userIcon =  MapImageFactory.fromResource(this.getResources(),R.drawable.map_icon_user);
+        userMarker = new MapMarker(new GeoCoordinates(36.88675, -76.30570), userIcon);
+        mapView.getMapScene().addMapMarker(userMarker);
+
+        //user location
+        platformPositioningProvider = new PlatformPositioningProvider(this);
+        platformPositioningProvider.startLocating(new PlatformPositioningProvider.PlatformLocationListener() {
+            @Override
+            public void onLocationUpdated(android.location.Location location) {
+                userMarker.setCoordinates(new GeoCoordinates(location.getLatitude(), location.getLongitude()));
+
+            }
+        });
+
+        bottomSheetSetup();
+        onClickListenerSetup();
+        handleAndroidPermissions();
+    }
+
+
+    private void bottomSheetSetup(){
         //controls how the BottomSheet (map) UI works
         bottomSheetBehavior = BottomSheetBehavior.from(mapSheet);
         bottomSheetBehavior.setPeekHeight(150);
@@ -82,35 +117,9 @@ public class PanicActivity extends AppCompatActivity {
             }
         });
 
-        // Get a MapView instance from the layout.
-        mapView = findViewById(R.id.map_view);
-        mapView.onCreate(savedInstanceState);
+    }
 
-        mapView.setOnReadyListener(new MapView.OnReadyListener() {
-            @Override
-            public void onMapViewReady() {
-                // This will be called each time after this activity is resumed.
-                // It will not be called before the first map scene was loaded.
-                // Any code that requires map data may not work as expected beforehand.
-                Log.d(TAG, "HERE Rendering Engine attached.");
-            }
-        });
-
-        //setup user icon for map
-        userIcon =  MapImageFactory.fromResource(this.getResources(),R.drawable.map_icon_user);
-        MapMarker userMarker = new MapMarker(new GeoCoordinates(36.88675, -76.30570), userIcon);
-        mapView.getMapScene().addMapMarker(userMarker);
-
-        //user location
-        platformPositioningProvider = new PlatformPositioningProvider(this);
-        platformPositioningProvider.startLocating(new PlatformPositioningProvider.PlatformLocationListener() {
-            @Override
-            public void onLocationUpdated(android.location.Location location) {
-                userMarker.setCoordinates(new GeoCoordinates(location.getLatitude(), location.getLongitude()));
-
-            }
-        });
-
+    private void onClickListenerSetup(){
         //button actions
         my_location.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -130,12 +139,7 @@ public class PanicActivity extends AppCompatActivity {
                 }
             }
         });
-
-        handleAndroidPermissions();
     }
-
-
-
 
     private void handleAndroidPermissions() {
         permissionsRequestor = new PermissionsRequestor(this);
