@@ -67,6 +67,10 @@
         <activity android:name=".JournalEditorActivity" />
         <activity android:name=".JournalReader" />
         <activity android:name=".SafeWalkMenuActivity" />
+        <service
+            android:name=".IncidentListService"
+            android:enabled="true"
+            android:exported="true" />
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />

@@ -1,8 +1,10 @@
 package com.carecorner;
 
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.SharedPreferences;
+import android.content.Intent;
+import android.content.ServiceConnection;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -12,6 +14,7 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
+import android.os.IBinder;
 import android.os.SystemClock;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,13 +23,8 @@ import android.widget.Chronometer;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 import android.widget.ToggleButton;
 
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-
-import java.lang.reflect.Type;
 import java.util.Vector;
 
 
@@ -54,7 +52,11 @@ public class PanicModeFragment extends Fragment implements View.OnClickListener 
     private LinearLayout incidents_linear_layout;
     private ImageButton incidents_btn;
     private Incident current_incident;
+
+    //incident_list variables
     private Vector<Incident> incidents_list;
+    private IncidentListService incidentListService;
+    private boolean isBound;
 
     //TODO - delete this code here for testing
     private TextView incident_report;
@@ -77,6 +79,11 @@ public class PanicModeFragment extends Fragment implements View.OnClickListener 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        //place in onCreated
+        Intent incidentListIntent = new Intent(getContext(), IncidentListService.class);
+        getContext().bindService(incidentListIntent, incidentFilerConnection, Context.BIND_AUTO_CREATE);
+        incidentListService = new IncidentListService();
 
         //link variables to widgets
         activate_btn = view.findViewById(R.id.activate_btn);
@@ -102,6 +109,8 @@ public class PanicModeFragment extends Fragment implements View.OnClickListener 
         //set click listeners
         activate_btn.setOnClickListener(this);
         incidents_btn.setOnClickListener(this);
+
+
 
         loadIncidents();
         //TODO - delete this code here for testing
@@ -172,6 +181,7 @@ public class PanicModeFragment extends Fragment implements View.OnClickListener 
                     public void onClick(DialogInterface dialog, int which) {
                         //TODO: save incident to shared folder
                         incidents_list.add(current_incident);
+                        incident_count++;
                         saveIncident();
                     }
                 })
@@ -187,23 +197,25 @@ public class PanicModeFragment extends Fragment implements View.OnClickListener 
     }
 
     private void saveIncident() {
-        SharedPreferences sharedPreferences = getContext().getSharedPreferences("shared preferences", Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        Gson gson = new Gson();
-        String json = gson.toJson(incidents_list);
-        editor.putString(getContext().getString(R.string.incident_list_key), json);
-        editor.apply();
+        incidentListService.saveIncident(getContext(), incidents_list);
     }
 
     private void loadIncidents(){
-        SharedPreferences sharedPreferences = getContext().getSharedPreferences("shared preferences", Context.MODE_PRIVATE);
-        Gson gson = new Gson();
-        String json = sharedPreferences.getString(getContext().getString(R.string.incident_list_key), null);
-        Type type = new TypeToken<Vector<Incident>>() {}.getType();
-        incidents_list = gson.fromJson(json, type);
-
-        if (incidents_list == null) {
-            incidents_list = new Vector<Incident>();
-        }
+        incidents_list = incidentListService.loadIncidents(getContext());
     }
+
+    private ServiceConnection incidentFilerConnection = new ServiceConnection() {
+        @Override
+        public void onServiceConnected(ComponentName name, IBinder service) {
+            IncidentListService.IncidentListBinder binder = (IncidentListService.IncidentListBinder) service;
+            incidentListService = binder.getService();
+
+            isBound = true;
+        }
+
+        @Override
+        public void onServiceDisconnected(ComponentName name) {
+            isBound = false;
+        }
+    };
 }
