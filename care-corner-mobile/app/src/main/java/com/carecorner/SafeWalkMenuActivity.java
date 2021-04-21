@@ -54,6 +54,8 @@ public class SafeWalkMenuActivity extends AppCompatActivity {
     private void startWalk() {
         String destination = destinationEntryBox.getText().toString();
         String eta = etaEntryBox.getText().toString();
+
+        CareCornerApplication.getSession().setArmedWalkState(true);
         JourneyApi.bonVoyage(destination, eta, "80.00", "30.00");
     }
 
@@ -64,6 +66,7 @@ public class SafeWalkMenuActivity extends AppCompatActivity {
 
 
     private void endWalk() {
+        CareCornerApplication.getSession().setArmedWalkState(false);
         JourneyApi.arrived("80.00", "30.00");
     }
 

@@ -16,7 +16,14 @@ public class Session {
     }
 
     public String getUserId() {
-        String userId = preferences.getString("userId", "");
-        return userId;
+        return preferences.getString("userId", "");
+    }
+
+    public void setArmedWalkState(boolean armed) {
+        preferences.edit().putString("armedWalk", Boolean.toString(armed)).commit();
+    }
+
+    public Boolean getArmedWalkState() {
+        return Boolean.parseBoolean(preferences.getString("armedWalk", ""));
     }
 }
