@@ -1,6 +1,5 @@
 package com.carecorner;
 
-import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -18,7 +17,7 @@ import android.widget.EditText;
 import com.carecorner.api.JourneyApi;
 
 
-public class SafeWalkFragment extends Fragment implements View.OnClickListener{
+public class SafeWalkMenuFragment extends Fragment implements View.OnClickListener{
     private NavController safeWalkNavController;
 
     //UI variables
@@ -26,7 +25,7 @@ public class SafeWalkFragment extends Fragment implements View.OnClickListener{
     EditText destinationEntryBox, etaEntryBox;
 
 
-    public SafeWalkFragment() {
+    public SafeWalkMenuFragment() {
         // Required empty public constructor
     }
 
@@ -34,7 +33,7 @@ public class SafeWalkFragment extends Fragment implements View.OnClickListener{
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_safe_walk, container, false);
+        return inflater.inflate(R.layout.safe_walk_menu_fragment, container, false);
     }
 
     @Override

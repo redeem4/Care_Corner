@@ -6,7 +6,7 @@
     app:startDestination="@id/safeWalkFragment">
     <fragment
         android:id="@+id/safeWalkFragment"
-        android:name="com.carecorner.SafeWalkFragment"
+        android:name="com.carecorner.SafeWalkMenuFragment"
         android:label="fragment_safe_walk"
-        tools:layout="@layout/fragment_safe_walk" />
+        tools:layout="@layout/safe_walk_menu_fragment" />
 </navigation>
