@@ -1,4 +1,4 @@
-package com.carecorner.util;
+package com.carecorner.api;
 
 import android.util.Log;
 
@@ -53,8 +53,8 @@ public class JourneyApi {
         try {
             String userId = CareCornerApplication.getSession().getUserId();
             location.put("user-id", userId);
-            location.put("latitude", "80.00");
-            location.put("longitude", "35.00");
+            location.put("latitude", latitude);
+            location.put("longitude", longitude);
         } catch(Exception error) {
             Log.e("Login:", "Issue creating location Json");
         }

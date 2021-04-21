@@ -3,22 +3,12 @@ package com.carecorner;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
-import com.androidnetworking.AndroidNetworking;
-import com.androidnetworking.error.ANError;
-import com.androidnetworking.interfaces.OkHttpResponseListener;
-import com.carecorner.util.JourneyApi;
-
-import org.json.JSONObject;
-
-import okhttp3.Response;
+import com.carecorner.api.JourneyApi;
 
 public class SafeWalkMenuActivity extends AppCompatActivity {
     Button btnStartWalk, btnWalking, btnArrived;
@@ -64,6 +54,8 @@ public class SafeWalkMenuActivity extends AppCompatActivity {
     private void startWalk() {
         String destination = destinationEntryBox.getText().toString();
         String eta = etaEntryBox.getText().toString();
+
+        CareCornerApplication.getSession().setArmedWalkState(true);
         JourneyApi.bonVoyage(destination, eta, "80.00", "30.00");
     }
 
@@ -74,6 +66,7 @@ public class SafeWalkMenuActivity extends AppCompatActivity {
 
 
     private void endWalk() {
+        CareCornerApplication.getSession().setArmedWalkState(false);
         JourneyApi.arrived("80.00", "30.00");
     }
 
