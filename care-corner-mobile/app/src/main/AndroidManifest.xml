@@ -67,7 +67,7 @@
         <activity android:name=".JournalEditorActivity" />
         <activity android:name=".JournalReader" />
         <activity android:name=".MombotActivity"/>
-        <activity android:name=".SettingsActivity"/>
+        <activity android:name=".SettingsActivity" android:exported="true"/>
         <activity android:name=".SafeWalkMenuActivity" >
             android:exported="true"
             <intent-filter>

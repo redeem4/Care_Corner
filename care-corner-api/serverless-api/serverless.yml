@@ -23,16 +23,16 @@ functions:
           path: /api/auth
           method: post
   contactGet:
-      handler: com.carecorner.handler.contact.ContactHandler
-      events:
-        - http:
-          path: /api/contacts
+    handler: com.carecorner.handler.contact.ContactHandler
+    events:
+      - http:
+          path: /api/contacts/{id}
           method: get
   contactUpdate:
-      handler: com.carecorner.handler.contact.UpdateHandler
-      events:
-        - http:
-          path: /api/contacs
+    handler: com.carecorner.handler.contact.UpdateHandler
+    events:
+      - http:
+          path: /api/contact
           method: put
   journeyBonVoyage:
       handler: com.carecorner.handler.journey.BonVoyageHandler
@@ -50,20 +50,8 @@ functions:
       handler: com.carecorner.handler.journey.DestinationHandler
       events:
         - http:
-          path: /api/journey/journey/destination
-          method: post
-  panic:
-    handler: com.carecorner.handler.PanicHandler
-    events:
-      - http:
-          path: /api/panic
-          method: post
-  resource:
-    handler: com.carecorner.handler.ResourceHandler
-    events:
-      - http:
-          path: /api/resources
-          method: get
+            path: /api/journey/journey/destination
+            method: post
 
 plugins:
   - serverless-localstack

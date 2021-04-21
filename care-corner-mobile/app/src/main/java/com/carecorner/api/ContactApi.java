@@ -5,8 +5,10 @@ import android.util.Log;
 import com.androidnetworking.AndroidNetworking;
 import com.androidnetworking.error.ANError;
 import com.androidnetworking.interfaces.JSONArrayRequestListener;
+import com.androidnetworking.interfaces.JSONObjectRequestListener;
 import com.androidnetworking.interfaces.OkHttpResponseListener;
 import com.carecorner.CareCornerApplication;
+import com.google.gson.JsonArray;
 
 import java.util.List;
 
@@ -16,27 +18,22 @@ import org.json.JSONObject;
 import okhttp3.Response;
 
 public class ContactApi {
+    private static JSONArray contacts = new JSONArray();
 
-    public static void allContacts() {
-        String journeyUrl = CareCornerApplication.getApiRoute("contacts");
+    public static JSONArray allContacts() {
+        String userId = CareCornerApplication.getSession().getUserId();
+        String journeyUrl = CareCornerApplication.getApiRoute("contacts/" + userId);
 
-        JSONObject packet = new JSONObject();
-        try {
-            String userId = CareCornerApplication.getSession().getUserId();
-            packet.put("user-id", userId);
-        } catch (Exception error) {
-            Log.e("All Contacts:", "Issue creating all contacts Json");
-        }
-
-        AndroidNetworking.post(journeyUrl)
+        AndroidNetworking.get(journeyUrl)
                 .addHeaders("Content-Type", "application/json")
-                .addJSONObjectBody(packet)
                 .build()
-                .getAsJSONArray(new JSONArrayRequestListener() {
+                .getAsJSONObject(new JSONObjectRequestListener() {
                     @Override
-                    public void onResponse(JSONArray response) {
+                    public void onResponse(JSONObject response) {
                         try {
-                            Log.d("Contacts: ", response.getString(0));
+                            Log.d("Response {}:", response.toString());
+                            JSONObject data = response.getJSONObject("data");
+                            contacts = data.getJSONArray("contacts");
                         } catch (Exception error) {
 
                         }
@@ -44,8 +41,9 @@ public class ContactApi {
 
                     @Override
                     public void onError(ANError error) {
-                        Log.e("Issue with Connection:", error.getResponse().toString());
+                        Log.e("Issue with Connection:", error.toString());
                     }
                 }) ;
+        return contacts;
     }
 }

@@ -32,27 +32,29 @@ public class ContactHandler implements RequestHandler<Map<String, Object>, ApiGa
 	public ApiGatewayResponse handleRequest(Map<String, Object> input, Context context) {
 		logger.debug("Contact Handler received: {}", input);
 
-		Map<String, Object> json = null;
+		Map<String, Object> json = new HashMap<>();
 		List<JsonNode> jsonNodes = new ArrayList<>();
 		try {
-			JsonNode body = new ObjectMapper().readTree((String) input.get("body"));
-			logger.debug("Params: {}", body);
+			Map<String,String> pathParameters =  (Map<String,String>)input.get("pathParameters");
+			String userId = pathParameters.get("id");
 			
-			String userId = body.get("user-id").asText();
 			logger.debug("User ID: {}", userId);
 
 			List<Contact> contacts = contactDao.findByUser(userId);
 			logger.debug("Contacts: {}", contacts.toString());
 			ObjectMapper mapper = new ObjectMapper();
-			ObjectNode contactNode = mapper.createObjectNode();
-			for (int i = 0; i < contacts.size(); i = i + 1) {
+			logger.debug("Contact Size: {}", contacts.size());
+			for (int i = 0; i < contacts.size(); i++) {
 				Contact contact = contacts.get(i);	
+				ObjectNode contactNode = mapper.createObjectNode();
 				contactNode.put("contact-id", contact.getContactId());
 				contactNode.put("name", contact.getName());
 				contactNode.put("phone", contact.getPhone());
 				jsonNodes.add(contactNode);
 			}
-			
+
+			json.put("contacts", jsonNodes);
+			logger.debug("Json {}", json);
 		} catch (Exception exception) {
 			logger.error("Error in contacts: " + exception);
 			exception.printStackTrace();

@@ -4,11 +4,21 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.androidnetworking.AndroidNetworking;
+import com.androidnetworking.error.ANError;
+import com.androidnetworking.interfaces.JSONObjectRequestListener;
+import com.carecorner.api.ContactApi;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+import org.w3c.dom.Text;
 
 public class SettingsActivity extends AppCompatActivity {
     //Button
@@ -31,23 +41,7 @@ public class SettingsActivity extends AppCompatActivity {
         eCP2 = findViewById(R.id.EmergencyContactNumber2);
         eCP3 = findViewById(R.id.EmergencyContactNumber3);
 
-        //Gustin FancyStuff
-        //getFromDatabase(n1, n2, n3, p1, p2, p3);
-        //nm1 = getFD(n1).toString(); etc?
-        nm1 = " ";
-        nm2 = " ";
-        nm3 = " ";
-        ph1 = " ";
-        ph2 = " ";
-        ph3 = " ";
-
-        eCN1.setText(nm1, TextView.BufferType.EDITABLE);
-        eCN2.setText(nm2, TextView.BufferType.EDITABLE);
-        eCN3.setText(nm3, TextView.BufferType.EDITABLE);
-        eCP1.setText(ph1, TextView.BufferType.EDITABLE);
-        eCP2.setText(ph2, TextView.BufferType.EDITABLE);
-        eCP3.setText(ph3, TextView.BufferType.EDITABLE);
-
+        updateContacts();
 
         //Create button
         btnSave.setOnClickListener(new View.OnClickListener() {
@@ -69,6 +63,56 @@ public class SettingsActivity extends AppCompatActivity {
             }
         });
     }
+
+    private void updateContacts() {
+        String userId = CareCornerApplication.getSession().getUserId();
+        String contactUrl = CareCornerApplication.getApiRoute("contacts/" + userId);
+
+        AndroidNetworking.get(contactUrl)
+                .addHeaders("Content-Type", "application/json")
+                .build()
+                .getAsJSONObject(new JSONObjectRequestListener() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        try {
+                            Log.d("Response {}:", response.toString());
+                            JSONObject data = response.getJSONObject("data");
+                            JSONArray contacts = data.getJSONArray("contacts");
+                            for (int i = 0; i < contacts.length(); ++i) {
+                                JSONObject contact = contacts.getJSONObject(i);
+                                String name = contact.getString("name");
+                                String phone = contact.getString("phone");
+                                String contactId = contact.getString("contact-id");
+                                Log.d("Contact: {}", name);
+                                // hacky
+                                switch (i) {
+                                    case 0:
+                                        eCN1.setText(name, TextView.BufferType.EDITABLE);
+                                        eCP1.setText(phone, TextView.BufferType.EDITABLE);
+                                        break;
+                                    case 1:
+                                        eCN2.setText(name, TextView.BufferType.EDITABLE);
+                                        eCP2.setText(phone, TextView.BufferType.EDITABLE);
+                                        break;
+                                    case 2:
+                                        eCN3.setText(name, TextView.BufferType.EDITABLE);
+                                        eCP3.setText(phone, TextView.BufferType.EDITABLE);
+                                        break;
+                                }
+
+                            }
+                        } catch (Exception error) {
+
+                        }
+                    }
+
+                    @Override
+                    public void onError(ANError error) {
+                        Log.e("Issue with Connection:", error.toString());
+                    }
+                }) ;
+    }
+
     /**
      * Overrides the Back Button functionality to return to the login screen.
      */
