@@ -57,7 +57,7 @@ public enum JourneyDao {
 
   public void updateEndByUser(Integer userId, Journey journey) {
     final List<Journey> journeys = new ArrayList<>();
-    String sql = String.format("update journey set end_latitude=%s, end_longitude=%s where user_id='%s'", 
+    String sql = String.format("update journey set end_latitude='%s', end_longitude='%s' where user_id='%s'", 
       journey.getEndLatitude(), journey.getEndLongitude(), userId);
 
     try (Connection conn = Database.connection();

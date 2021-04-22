@@ -36,4 +36,16 @@ public enum ContactDao {
       }
     return contacts;
   }
+
+  public void updateContactById(Contact contact) {
+    String sql = String.format("update contact set name='%s', phone='%s' where contact_id='%s'", 
+      contact.getName(), contact.getPhone(), contact.getContactId());
+
+    try (Connection conn = Database.connection();
+         PreparedStatement ps = conn.prepareStatement(sql)) {
+        ps.executeUpdate();
+      } catch (SQLException e) {
+        e.printStackTrace();
+      }
+  }
 }

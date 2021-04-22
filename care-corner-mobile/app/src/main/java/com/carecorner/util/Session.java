@@ -16,7 +16,7 @@ public class Session {
     }
 
     public String getUserId() {
-        return preferences.getString("userId", "");
+        return preferences.getString("userId", "111");
     }
 
     public void setArmedWalkState(boolean armed) {
