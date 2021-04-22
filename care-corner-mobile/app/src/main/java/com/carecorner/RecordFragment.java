@@ -36,11 +36,7 @@ import android.widget.Toast;
 import com.carecorner.RecorderService.RecorderBinder;
 
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link RecordFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+
 public class RecordFragment extends Fragment implements View.OnClickListener {
 
     //TODO - service Variables
@@ -127,7 +123,7 @@ public class RecordFragment extends Fragment implements View.OnClickListener {
                     //start recording
                     if (checkPermissions()) {
                         showTime(v);
-                        recorderService.startRecording(" ");
+                        recorderService.startRecording();
                         //startRecording();
                         recordBtn.setImageDrawable(getResources().getDrawable(R.drawable.record_btn_recording));
                         isRecording = true;

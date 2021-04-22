@@ -173,7 +173,7 @@ public class DialingActivity extends AppCompatActivity {
         if (checkPermissions()) {
             //TODO create recorder Intent in onCreate
 
-            recorderService.startRecording(" ");
+            recorderService.startRecording();
 
             isRecording = true;
         }
