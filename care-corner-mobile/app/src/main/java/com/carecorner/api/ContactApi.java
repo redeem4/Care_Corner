@@ -48,6 +48,7 @@ public class ContactApi {
     }
 
     public static void updateContacts(JSONArray contacts) {
+        Log.d("Contact Update:", contacts.toString());
         String contactUrl = CareCornerApplication.getApiRoute("contacts");
 
         AndroidNetworking.put(contactUrl)

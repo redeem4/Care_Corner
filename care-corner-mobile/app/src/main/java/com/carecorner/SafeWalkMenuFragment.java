@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +16,7 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.carecorner.api.JourneyApi;
+import com.google.android.material.bottomsheet.BottomSheetBehavior;
 
 
 public class SafeWalkMenuFragment extends Fragment implements View.OnClickListener{
@@ -41,13 +43,13 @@ public class SafeWalkMenuFragment extends Fragment implements View.OnClickListen
         super.onViewCreated(view, savedInstanceState);
         initViews(view);
 
-
         safeWalkNavController = Navigation.findNavController(view);
 
     }
 
     @Override
     public void onClick(View v) {
+        Log.d("on Click", "On click");
         switch (v.getId()){
             //Panic Mode Activation Button is pressed
             case R.id.btnStartWalk:
@@ -72,6 +74,14 @@ public class SafeWalkMenuFragment extends Fragment implements View.OnClickListen
         btnWalking = view.findViewById(R.id.btnWalking);
         destinationEntryBox = view.findViewById(R.id.destinationEntryBox);
         etaEntryBox = view.findViewById(R.id.etaEntryBox);
+
+        btnStartWalk.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startWalk();
+                ((SafeWalkMenuActivity)getActivity()).expandMap();
+            }
+        });
     }
 
     private void startWalk() {

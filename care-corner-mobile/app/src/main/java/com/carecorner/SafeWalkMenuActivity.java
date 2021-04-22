@@ -86,6 +86,10 @@ public class SafeWalkMenuActivity extends AppCompatActivity {
         mapView = findViewById(R.id.map_view);
     }
 
+    public void expandMap() {
+        bottomSheetBehavior = BottomSheetBehavior.from(mapSheet);
+        bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+    }
 
     private void bottomSheetSetup(){
         //controls how the BottomSheet (map) UI works

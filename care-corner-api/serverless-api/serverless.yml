@@ -32,7 +32,7 @@ functions:
     handler: com.carecorner.handler.contact.UpdateHandler
     events:
       - http:
-          path: /api/contact
+          path: /api/contacts
           method: put
   journeyBonVoyage:
       handler: com.carecorner.handler.journey.BonVoyageHandler
@@ -50,7 +50,7 @@ functions:
       handler: com.carecorner.handler.journey.DestinationHandler
       events:
         - http:
-            path: /api/journey/journey/destination
+            path: /api/journey/destination
             method: post
 
 plugins:
