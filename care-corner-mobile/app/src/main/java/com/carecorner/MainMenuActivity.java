@@ -87,7 +87,7 @@ public class MainMenuActivity extends AppCompatActivity {
         btnPanicButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainMenuActivity.this, SettingsActivity.class);
+                Intent intent = new Intent(MainMenuActivity.this, PanicActivity.class);
                 startActivity(intent);
             }
         });
