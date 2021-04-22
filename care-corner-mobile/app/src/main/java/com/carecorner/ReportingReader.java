@@ -85,7 +85,10 @@ public class ReportingReader extends AppCompatActivity {
                 if (isPlaying){
                     pauseAudio();
                 } else{
-                    if (fileToPlay != null){
+                    if (fileToPlay == null){
+                        setRecordingPath();
+                        playAudio(fileToPlay);
+                    }else{
                         resumeAudio();
                     }
                 }
@@ -113,8 +116,7 @@ public class ReportingReader extends AppCompatActivity {
 
             }
         });
-        setRecordingPath();
-        playAudio(fileToPlay);
+
     }
 
     private void setTitle(){
