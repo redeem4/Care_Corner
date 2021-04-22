@@ -46,17 +46,39 @@ public class RecorderService extends Service {
         mediaRecorder = null;
     }
 
+    public void startRecording() {
+
+        String recordPath = this.getExternalFilesDir("/").getAbsolutePath();
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy_MM_dd_hh_mm_ss", Locale.CANADA);
+        Date now = new Date();
+
+
+        recordFile = "Recording_" + formatter.format(now) + ".3gp";
+        mediaRecorder = new MediaRecorder();
+        mediaRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
+        mediaRecorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
+        mediaRecorder.setOutputFile(recordPath + "/" + recordFile);
+        mediaRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB);
+        lastRecording = recordPath + "/" + recordFile;
+
+        try {
+            mediaRecorder.prepare();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        mediaRecorder.start();
+
+    }
+
     public void startRecording(String fileName) {
 
         String recordPath = this.getExternalFilesDir("/").getAbsolutePath();
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy_MM_dd_hh_mm_ss", Locale.CANADA);
         Date now = new Date();
 
-        if(fileName == " "){
-            recordFile = "Recording_" + formatter.format(now) + ".3gp";
-        }else{
-            recordFile = "Recording_" + fileName + ".3gp";}
 
+        recordFile = fileName;
         mediaRecorder = new MediaRecorder();
         mediaRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
         mediaRecorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
