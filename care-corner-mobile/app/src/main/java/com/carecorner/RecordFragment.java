@@ -36,11 +36,7 @@ import android.widget.Toast;
 import com.carecorner.RecorderService.RecorderBinder;
 
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link RecordFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+
 public class RecordFragment extends Fragment implements View.OnClickListener {
 
     //TODO - service Variables

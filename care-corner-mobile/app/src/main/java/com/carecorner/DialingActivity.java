@@ -175,7 +175,6 @@ public class DialingActivity extends AppCompatActivity {
 
             recorderService.startRecording();
 
-            //startRecording();
             isRecording = true;
         }
     }

@@ -1,15 +1,18 @@
 package com.carecorner;
 
+import android.Manifest;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.ServiceConnection;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
+import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -24,6 +27,7 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.ToggleButton;
+import com.carecorner.RecorderService.RecorderBinder;
 
 import java.util.Vector;
 
@@ -63,6 +67,13 @@ public class PanicModeFragment extends Fragment implements View.OnClickListener 
     private int incident_count;
     int i;
 
+    //Media Recorder Variables
+    private String recordPermission = Manifest.permission.RECORD_AUDIO;
+    private int PERMISSION_CODE = 21;
+    private String recordFile;
+    private RecorderService recorderService;
+    private boolean isRecording = false;
+
 
 
     public PanicModeFragment() {
@@ -84,6 +95,12 @@ public class PanicModeFragment extends Fragment implements View.OnClickListener 
         Intent incidentListIntent = new Intent(getContext(), IncidentListService.class);
         getContext().bindService(incidentListIntent, incidentFilerConnection, Context.BIND_AUTO_CREATE);
         incidentListService = new IncidentListService();
+
+        Intent recorderIntent = new Intent(getContext(), RecorderService.class);
+        getContext().bindService(recorderIntent, recorderConnection, Context.BIND_AUTO_CREATE);
+        recorderService = new RecorderService();
+
+
 
         //link variables to widgets
         activate_btn = view.findViewById(R.id.activate_btn);
@@ -112,6 +129,7 @@ public class PanicModeFragment extends Fragment implements View.OnClickListener 
 
 
 
+
         loadIncidents();
         //TODO - delete this code here for testing
         incident_count = incidents_list.size();
@@ -130,10 +148,12 @@ public class PanicModeFragment extends Fragment implements View.OnClickListener 
             case R.id.activate_btn:
                 if(panic_activated){
                     deactivatePanicUI();
+                    current_incident.setStop_time();
                     askIfIncident();
                 }else{
                     activatePanicUI();
                     current_incident = new Incident();
+                    recorderService.startRecording(current_incident.getRecording_file_name());
                 }
                 break;
 
@@ -202,6 +222,7 @@ public class PanicModeFragment extends Fragment implements View.OnClickListener 
 
     private void loadIncidents(){
         incidents_list = incidentListService.loadIncidents(getContext());
+
     }
 
     private ServiceConnection incidentFilerConnection = new ServiceConnection() {
@@ -218,4 +239,51 @@ public class PanicModeFragment extends Fragment implements View.OnClickListener 
             isBound = false;
         }
     };
+
+    private ServiceConnection recorderConnection = new ServiceConnection() {
+        @Override
+        public void onServiceConnected(ComponentName name, IBinder service) {
+            //IncidentListService.IncidentListBinder binder = (IncidentListService.IncidentListBinder) service;
+            RecorderService.RecorderBinder binder = (RecorderService.RecorderBinder) service;
+            //incidentListService = binder.getService();
+            recorderService = binder.getService();
+
+            isBound = true;
+        }
+
+        @Override
+        public void onServiceDisconnected(ComponentName name) {
+            isBound = false;
+        }
+    };
+
+    //Rec_requirement
+    private void start_audio_recording() {
+        if (checkPermissions()) {
+            //TODO create recorder Intent in onCreate
+
+            recorderService.startRecording(" ");
+
+            isRecording = true;
+        }
+    }
+    //Rec_requirement
+    private void stop_audio_recording() {
+        recorderService.stopRecording();
+        //stopRecording();
+
+
+        isRecording = false;
+    }
+
+    //TODO move permission code to fake Phone Screen
+    private boolean checkPermissions() {
+        if(ActivityCompat.checkSelfPermission(getActivity(), recordPermission) == PackageManager.PERMISSION_GRANTED){
+            return true;
+        }else{
+            ActivityCompat.requestPermissions(getActivity(), new String[]{recordPermission}, PERMISSION_CODE);
+            return false;
+        }
+
+    }
 }

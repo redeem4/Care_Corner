@@ -16,7 +16,7 @@ public class Incident {
         Date now = new Date();
 
         id = "Incident_" + formatter.format(now);
-        recording_file_name = "Recording_" + formatter.format(now) + ".3gp";
+        recording_file_name = "Incident_" + formatter.format(now) + ".3gp";
         journey_file_name = "Journey_" + formatter.format(now);
         start_time = now;
         stop_time = null;

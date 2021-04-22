@@ -25,6 +25,13 @@ public class RecorderService extends Service {
     @Override
     //client calls to bound service start here
     public IBinder onBind(Intent intent) {
+
+        try {
+            recordFile = intent.getStringExtra("recordFile");
+        }
+        catch(NullPointerException e) {
+            recordFile = " ";
+        }
         return  recorderBinder;
     }
 
@@ -45,8 +52,8 @@ public class RecorderService extends Service {
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy_MM_dd_hh_mm_ss", Locale.CANADA);
         Date now = new Date();
 
-        recordFile = "Recording_" + formatter.format(now) + ".3gp";
 
+        recordFile = "FPC_Recording_" + formatter.format(now) + ".3gp";
         mediaRecorder = new MediaRecorder();
         mediaRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
         mediaRecorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
@@ -63,6 +70,32 @@ public class RecorderService extends Service {
         mediaRecorder.start();
 
     }
+
+    public void startRecording(String fileName) {
+
+        String recordPath = this.getExternalFilesDir("/").getAbsolutePath();
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy_MM_dd_hh_mm_ss", Locale.CANADA);
+        Date now = new Date();
+
+
+        recordFile = fileName;
+        mediaRecorder = new MediaRecorder();
+        mediaRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
+        mediaRecorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
+        mediaRecorder.setOutputFile(recordPath + "/" + recordFile);
+        mediaRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB);
+        lastRecording = recordPath + "/" + recordFile;
+
+        try {
+            mediaRecorder.prepare();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        mediaRecorder.start();
+
+    }
+
 
     //always needed to bind client to service
     public class RecorderBinder extends  Binder{
