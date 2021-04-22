@@ -164,10 +164,16 @@ public class PanicModeFragment extends Fragment implements View.OnClickListener 
 
             //Incident Button is pressed
             case R.id.panic_incident_btn:
-                //incidents button is pressed
                 String test_string = (incidents_list.get(i)).toString();
                 i = ((i + 1) % incident_count);
                 incident_report.setText(test_string);
+
+                break;
+
+            //Home Button is pressed
+            case R.id.panic_home_btn:
+                Intent intent = new Intent(getActivity(), MainMenuActivity.class);
+                startActivity(intent);
 
                 break;
 
