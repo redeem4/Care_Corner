@@ -116,7 +116,7 @@ public class SafeWalkMenuFragment extends Fragment implements View.OnClickListen
         String eta = etaEntryBox.getText().toString();
 
         CareCornerApplication.getSession().setArmedWalkState(true);
-        JourneyApi.bonVoyage(destination, eta, "80.00", "30.00");
+        JourneyApi.bonVoyage(destination, eta, "81.00", "30.00");
     }
 
 

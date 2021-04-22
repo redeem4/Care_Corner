@@ -77,22 +77,24 @@ public class SafeWalkMenuActivity extends AppCompatActivity {
             public void onLocationUpdated(android.location.Location location) {
                 userMarker.setCoordinates(new GeoCoordinates(location.getLatitude(), location.getLongitude()));
 
-                Log.d("Safe Walk:", "Location update");
-                Instant beHereNow = Instant.now();
+                boolean armed = CareCornerApplication.getSession().getArmedWalkState();
+                if (armed == true) {
+                    Log.d("Safe Walk:", "Location update");
+                    Instant beHereNow = Instant.now();
 
-                String previousTimeStamp = CareCornerApplication.getSession().getTimestamp();
-                if (previousTimeStamp != "") {
-                    Instant prevMoment = Instant.parse(previousTimeStamp);
-                    Duration duration = Duration.between(beHereNow, prevMoment);
-                    Log.d("Safe Walk:", Long.toString(duration.getSeconds()));
-                    if (Math.abs(duration.getSeconds()) > 30) {
-                        JourneyApi.wayPoint(Double.toString(location.getLatitude()), Double.toString(location.getLongitude()));
+                    String previousTimeStamp = CareCornerApplication.getSession().getTimestamp();
+                    if (previousTimeStamp != "") {
+                        Instant prevMoment = Instant.parse(previousTimeStamp);
+                        Duration duration = Duration.between(beHereNow, prevMoment);
+                        Log.d("Safe Walk:", Long.toString(duration.getSeconds()));
+                        if (Math.abs(duration.getSeconds()) > 30) {
+                            JourneyApi.wayPoint(Double.toString(location.getLatitude()), Double.toString(location.getLongitude()));
+                            CareCornerApplication.getSession().setTimestamp(beHereNow.toString());
+                        }
+                    } else {
                         CareCornerApplication.getSession().setTimestamp(beHereNow.toString());
                     }
-                } else {
-                    CareCornerApplication.getSession().setTimestamp(beHereNow.toString());
                 }
-
             }
         });
     }
