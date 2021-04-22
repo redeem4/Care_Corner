@@ -127,7 +127,7 @@ public class RecordFragment extends Fragment implements View.OnClickListener {
                     //start recording
                     if (checkPermissions()) {
                         showTime(v);
-                        recorderService.startRecording();
+                        recorderService.startRecording(" ");
                         //startRecording();
                         recordBtn.setImageDrawable(getResources().getDrawable(R.drawable.record_btn_recording));
                         isRecording = true;

@@ -25,6 +25,13 @@ public class RecorderService extends Service {
     @Override
     //client calls to bound service start here
     public IBinder onBind(Intent intent) {
+
+        try {
+            recordFile = intent.getStringExtra("recordFile");
+        }
+        catch(NullPointerException e) {
+            recordFile = " ";
+        }
         return  recorderBinder;
     }
 
@@ -39,13 +46,16 @@ public class RecorderService extends Service {
         mediaRecorder = null;
     }
 
-    public void startRecording() {
+    public void startRecording(String fileName) {
 
         String recordPath = this.getExternalFilesDir("/").getAbsolutePath();
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy_MM_dd_hh_mm_ss", Locale.CANADA);
         Date now = new Date();
 
-        recordFile = "Recording_" + formatter.format(now) + ".3gp";
+        if(fileName == " "){
+            recordFile = "Recording_" + formatter.format(now) + ".3gp";
+        }else{
+            recordFile = "Recording_" + fileName + ".3gp";}
 
         mediaRecorder = new MediaRecorder();
         mediaRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
@@ -63,6 +73,7 @@ public class RecorderService extends Service {
         mediaRecorder.start();
 
     }
+
 
     //always needed to bind client to service
     public class RecorderBinder extends  Binder{
