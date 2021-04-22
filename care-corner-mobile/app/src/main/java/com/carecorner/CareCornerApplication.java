@@ -11,7 +11,8 @@ import com.androidnetworking.AndroidNetworking;
 import com.carecorner.util.Session;
 
 public class CareCornerApplication extends Application {
-    private static final String apiCode = "qphbgithtp";
+//    private static final String apiCode = "qphbgithtp";
+    private static final String apiCode = "dc8t1lf20x";
     private static String api = "http://10.0.2.2:4566/restapis/%s/local/_user_request_/api/";
     private static Session session;
     private static Context context;
