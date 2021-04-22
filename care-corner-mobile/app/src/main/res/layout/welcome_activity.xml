@@ -10,10 +10,9 @@
         android:id="@+id/btnLoginMenu"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="112dp"
-        android:layout_marginLeft="112dp"
         android:layout_marginTop="88dp"
         android:text="@string/login"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView2" />
 
