@@ -37,7 +37,7 @@ public class DestinationHandler implements RequestHandler<Map<String, Object>, A
 
 	@Override
 	public ApiGatewayResponse handleRequest(Map<String, Object> input, Context context) {
-		logger.debug("Journey Waypoint Handler received: {}", input);
+		logger.debug("Journey Destination Handler received: {}", input);
 
 		int statusCode = 401;
 		try {
