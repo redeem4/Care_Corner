@@ -53,7 +53,7 @@ public class RecorderService extends Service {
         Date now = new Date();
 
 
-        recordFile = "Recording_" + formatter.format(now) + ".3gp";
+        recordFile = "FPC_Recording_" + formatter.format(now) + ".3gp";
         mediaRecorder = new MediaRecorder();
         mediaRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
         mediaRecorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);

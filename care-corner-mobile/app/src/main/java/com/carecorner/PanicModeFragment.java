@@ -148,6 +148,7 @@ public class PanicModeFragment extends Fragment implements View.OnClickListener 
             case R.id.activate_btn:
                 if(panic_activated){
                     deactivatePanicUI();
+                    current_incident.setStop_time();
                     askIfIncident();
                 }else{
                     activatePanicUI();
