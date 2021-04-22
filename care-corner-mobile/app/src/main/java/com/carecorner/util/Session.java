@@ -4,6 +4,10 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class Session {
     private SharedPreferences preferences;
 
@@ -25,5 +29,13 @@ public class Session {
 
     public Boolean getArmedWalkState() {
         return Boolean.parseBoolean(preferences.getString("armedWalk", "false"));
+    }
+
+    public void setTimestamp(String timestamp) {
+        preferences.edit().putString("timestamp", timestamp).commit();
+    }
+
+    public String getTimestamp() {
+        return preferences.getString("timestamp", "");
     }
 }

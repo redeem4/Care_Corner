@@ -5,6 +5,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
+import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -12,6 +13,14 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.time.Duration;
+import java.time.Instant;
+import java.time.LocalTime;
+import java.util.Calendar;
+import java.util.Date;
 
 import com.carecorner.api.JourneyApi;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
@@ -23,6 +32,8 @@ import com.here.sdk.mapview.MapMarker;
 import com.here.sdk.mapview.MapScene;
 import com.here.sdk.mapview.MapScheme;
 import com.here.sdk.mapview.MapView;
+
+import java.util.Calendar;
 
 public class SafeWalkMenuActivity extends AppCompatActivity {
     Button btnStartWalk, btnWalking, btnArrived;
@@ -65,6 +76,25 @@ public class SafeWalkMenuActivity extends AppCompatActivity {
             @Override
             public void onLocationUpdated(android.location.Location location) {
                 userMarker.setCoordinates(new GeoCoordinates(location.getLatitude(), location.getLongitude()));
+
+                boolean armed = CareCornerApplication.getSession().getArmedWalkState();
+                if (armed == true) {
+                    Log.d("Safe Walk:", "Location update");
+                    Instant beHereNow = Instant.now();
+
+                    String previousTimeStamp = CareCornerApplication.getSession().getTimestamp();
+                    if (previousTimeStamp != "") {
+                        Instant prevMoment = Instant.parse(previousTimeStamp);
+                        Duration duration = Duration.between(beHereNow, prevMoment);
+                        Log.d("Safe Walk:", Long.toString(duration.getSeconds()));
+                        if (Math.abs(duration.getSeconds()) > 30) {
+                            JourneyApi.wayPoint(Double.toString(location.getLatitude()), Double.toString(location.getLongitude()));
+                            CareCornerApplication.getSession().setTimestamp(beHereNow.toString());
+                        }
+                    } else {
+                        CareCornerApplication.getSession().setTimestamp(beHereNow.toString());
+                    }
+                }
             }
         });
     }
@@ -74,6 +104,9 @@ public class SafeWalkMenuActivity extends AppCompatActivity {
         userIcon =  MapImageFactory.fromResource(this.getResources(),R.drawable.map_icon_user);
         userMarker = new MapMarker(new GeoCoordinates(36.88675, -76.30570), userIcon);
         mapView.getMapScene().addMapMarker(userMarker);
+
+
+
     }
 
     private void mapInitViews() {
@@ -86,6 +119,10 @@ public class SafeWalkMenuActivity extends AppCompatActivity {
         mapView = findViewById(R.id.map_view);
     }
 
+    public void expandMap() {
+        bottomSheetBehavior = BottomSheetBehavior.from(mapSheet);
+        bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+    }
 
     private void bottomSheetSetup(){
         //controls how the BottomSheet (map) UI works

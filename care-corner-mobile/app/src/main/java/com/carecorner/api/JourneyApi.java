@@ -79,6 +79,7 @@ public class JourneyApi {
     }
 
     public static void arrived(String latitude, String longitude) {
+        Log.d("Safe Walk:", "Arrived API Call");
         String journeyUrl = CareCornerApplication.getApiRoute("journey/destination");
         JSONObject arrival = new JSONObject();
         try {
@@ -87,9 +88,10 @@ public class JourneyApi {
             arrival.put("latitude", latitude);
             arrival.put("longitude", longitude);
         } catch(Exception error) {
-            Log.e("Login:", "Issue creating arrival Json");
+            Log.e("Safe Walk", "Issue creating arrival Json");
         }
 
+        Log.d("Safe Walk API Call:", journeyUrl);
         AndroidNetworking.post(journeyUrl)
                 .addHeaders("Content-Type", "application/json")
                 .addJSONObjectBody(arrival)

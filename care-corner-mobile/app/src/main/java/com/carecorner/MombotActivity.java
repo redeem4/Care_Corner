@@ -37,27 +37,35 @@ public class MombotActivity extends AppCompatActivity {
     public String response(String entry)
     {
         entry = entry.toLowerCase();
+        entry = " " + entry; //Checks for the silly case of someone only entering "Bar"
         String reply = "";
         if(entry.isEmpty())
             reply = "It seems nothing was entered.";
         else if(entry.contains(" bar"))
             reply = "At a bar you should: \n watch your drink being poured, " +
                     "\n not leave your drink unattended, " +
-                    "\n and be aware of your surroundings. ";
+                    "\n and be aware of your surroundings. " +
+                    "\n Consider using Safe Walk on your journey there or setting up a Fake Call";
         else if(entry.contains(" house"))
             reply = "At a house you should: \n let a friend know where you are going and who you are seeing " +
-                    " \n and keep your phone with you at all times.";
+                    "\n and keep your phone with you at all times."+
+                    "\n Consider using Safe Walk on your journey there or setting up a Fake Call";
         else if(entry.contains(" club"))
             reply = "At a club you should: \n watch your drink being poured, " +
                     "\n not leave your drink unattended, " +
-                    "\n and be aware of your surroundings.";
+                    "\n and be aware of your surroundings."+
+                    "\n Consider using Safe Walk on your journey there or setting up a Fake Call";
         else if(entry.contains(" restaurant"))
             reply = "At a restaurant you should: \n meet at a public place, " +
                     "\n not leave your drink unattended, " +
-                    "\n and tell someone you trust about your plans.";
+                    "\n and tell someone you trust about your plans."+
+                    "\n Consider using Safe Walk on your journey there or setting up a Fake Call";
         else if(entry.contains(" movies"))
             reply = "At the movies you should: \n meet at a public place " +
-                    "\n and tell someone you trust about your plans";
+                    "\n and tell someone you trust about your plans"+
+                    "\n Consider using Safe Walk on your journey there or setting up a Fake Call";
+        else if(entry.contains(" visit mom"))
+            reply = "It is about time you visit your Mom!";
         else
             reply = "Sorry, I do not yet have a response for that.";
         return reply;
