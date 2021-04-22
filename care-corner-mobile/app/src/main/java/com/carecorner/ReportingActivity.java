@@ -77,6 +77,7 @@ public class ReportingActivity extends AppCompatActivity implements ReportingAda
             Intent intent = new Intent(ReportingActivity.this, ReportingReader.class);
             intent.putExtra("reportingName", theadapter.getItem(position).getId());
             intent.putExtra("incident_report", theadapter.getItem(position).toString());
+            intent.putExtra("recording_name", theadapter.getItem(position).getRecording_file_name());
             //intent.putExtra("text", theadapter.getItem(position).getText());
             // intent.putExtra("position", position);
             startActivity(intent);
