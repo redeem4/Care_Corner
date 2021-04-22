@@ -116,7 +116,7 @@ public class SettingsActivity extends AppCompatActivity {
         String contactId1 = eCN1.getTag().toString();
         String contactId2 = eCN2.getTag().toString();
         String contactId3 = eCN3.getTag().toString();
-
+        Log.d("Contact Update:", nm1);
         try {
             JSONArray contacts = new JSONArray();
             String userId = CareCornerApplication.getSession().getUserId();
@@ -143,6 +143,7 @@ public class SettingsActivity extends AppCompatActivity {
                         contact.put("user-id", userId);
                         break;
                 }
+                contacts.put(contact);
             }
             ContactApi.updateContacts(contacts);
         } catch(Exception error) {

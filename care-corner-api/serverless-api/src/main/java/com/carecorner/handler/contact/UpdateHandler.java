@@ -28,24 +28,22 @@ public class UpdateHandler implements RequestHandler<Map<String, Object>, ApiGat
 
 	@Override
 	public ApiGatewayResponse handleRequest(Map<String, Object> input, Context context) {
-		logger.debug("Journey BonVoyage Handler received: {}", input);
+		logger.debug("Contact Handler received: {}", input);
 
 		int statusCode = 401;
 		try {
 			JsonNode body = new ObjectMapper().readTree((String) input.get("body"));
 			logger.debug("Params: {}", body);
 
-			for (final JsonNode contactArray : body) {
-				for (final JsonNode contactNode : contactArray) {
-					logger.debug("Contact: {}", contactNode);
-					Contact contact = Contact.of(
-						contactNode.get("contact-id").asText(),
-						Integer.parseInt(contactNode.get("user-id").asText()),
-						contactNode.get("name").asText(),
-						contactNode.get("phone").asText()
-					);
-					contactDao.updateContactById(contact);
-				}
+			for (final JsonNode contactNode : body) {
+				logger.debug("Contact: {}", contactNode);
+				Contact contact = Contact.of(
+					contactNode.get("contact-id").asText(),
+					Integer.parseInt(contactNode.get("user-id").asText()),
+					contactNode.get("name").asText(),
+					contactNode.get("phone").asText()
+				);
+				contactDao.updateContactById(contact);
 			}
 		} catch (Exception exception) {
 			exception.printStackTrace();
