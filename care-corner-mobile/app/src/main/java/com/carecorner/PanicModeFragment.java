@@ -64,10 +64,7 @@ public class PanicModeFragment extends Fragment implements View.OnClickListener 
     private IncidentListService incidentListService;
     private boolean isBound;
 
-    //TODO - delete this code here for testing
-    private TextView incident_report;
-    private int incident_count;
-    int i;
+
 
     //Media Recorder Variables
     private String recordPermission = Manifest.permission.RECORD_AUDIO;
@@ -114,8 +111,6 @@ public class PanicModeFragment extends Fragment implements View.OnClickListener 
         panic_home_btn = view.findViewById(R.id.panic_home_btn);
 
 
-        //TODO - delete this code here for testing
-        incident_report = view.findViewById(R.id.incident_report);
 
         //set up panic_btn text when on/off
         activate_btn.setTextOff(DEACTIVATED_TEXT);
@@ -135,11 +130,7 @@ public class PanicModeFragment extends Fragment implements View.OnClickListener 
 
 
 
-        loadIncidents();
-        //TODO - delete this code here for testing
-        incident_count = incidents_list.size();
-        i=0;
-        incident_report.setText("There were " + incident_count + " incidents loaded");
+
 
 
         panicNavController = Navigation.findNavController(view);
@@ -164,16 +155,15 @@ public class PanicModeFragment extends Fragment implements View.OnClickListener 
 
             //Incident Button is pressed
             case R.id.panic_incident_btn:
-                String test_string = (incidents_list.get(i)).toString();
-                i = ((i + 1) % incident_count);
-                incident_report.setText(test_string);
+                Intent intent = new Intent(getActivity(), ReportingActivity.class);
+                startActivity(intent);
 
                 break;
 
             //Home Button is pressed
             case R.id.panic_home_btn:
-                Intent intent = new Intent(getActivity(), MainMenuActivity.class);
-                startActivity(intent);
+                Intent i = new Intent(getActivity(), MainMenuActivity.class);
+                startActivity(i);
 
                 break;
 
@@ -216,7 +206,6 @@ public class PanicModeFragment extends Fragment implements View.OnClickListener 
                     public void onClick(DialogInterface dialog, int which) {
                         //TODO: save incident to shared folder
                         incidents_list.add(current_incident);
-                        incident_count++;
                         saveIncident();
                     }
                 })
