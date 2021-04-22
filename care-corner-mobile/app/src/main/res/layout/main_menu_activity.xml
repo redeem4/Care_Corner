@@ -6,16 +6,20 @@
     android:layout_height="match_parent"
     tools:context=".MainMenuActivity">
 
-    <TextView
+
+
+    <ImageView
         android:id="@+id/CareCornerLogo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="@string/app_name"
-        android:textSize="60sp"
+        android:layout_width="404dp"
+        android:layout_height="64dp"
+        android:layout_marginStart="3dp"
+        android:layout_marginLeft="3dp"
+        android:layout_marginBottom="32dp"
+        android:contentDescription="@string/title"
         app:layout_constraintEnd_toEndOf="@id/main_menu_logo"
         app:layout_constraintStart_toStartOf="@id/main_menu_logo"
-        app:layout_constraintTop_toBottomOf="@+id/main_menu_logo" />
+        app:layout_constraintTop_toBottomOf="@+id/main_menu_logo"
+        app:srcCompat="@drawable/care_corner_header" />
 
     <ImageButton
         android:id="@+id/btnMomBot"
@@ -177,7 +181,7 @@
         android:background="#FFFFFF"
         android:contentDescription="@string/settings"
         android:scaleType="fitXY"
-        android:src="@drawable/settings_button_icon"
+        android:src="@drawable/settings_btn_icon"
         android:visibility="visible"
         app:layout_constraintEnd_toEndOf="@+id/reporting_assistance_text"
         app:layout_constraintHorizontal_bias="0.583"
@@ -205,7 +209,7 @@
         android:background="#FFFFFF"
         android:contentDescription="@string/panic_button"
         android:scaleType="fitXY"
-        android:src="@drawable/panic_button_icon"
+        android:src="@drawable/panic_btn_icon"
         android:visibility="visible"
         app:layout_constraintEnd_toEndOf="@+id/resources_text"
         app:layout_constraintHorizontal_bias="0.51"
@@ -257,21 +261,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/care_corner_logo" />
 
-    <ImageView
-        android:id="@+id/imageView4"
-        android:layout_width="404dp"
-        android:layout_height="64dp"
-        android:layout_marginStart="3dp"
-        android:layout_marginLeft="3dp"
-        android:layout_marginBottom="32dp"
-        android:contentDescription="@string/title"
-        app:layout_constraintBottom_toTopOf="@+id/btnFakePhoneCall"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.397"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/main_menu_logo"
-        app:layout_constraintVertical_bias="1.0"
-        app:srcCompat="@drawable/care_corner_header" />
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

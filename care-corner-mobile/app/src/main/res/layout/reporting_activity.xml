@@ -10,8 +10,8 @@ tools:context=".ReportingActivity">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view2"
-        android:layout_width="408dp"
-        android:layout_height="502dp"
+        android:layout_width="406dp"
+        android:layout_height="478dp"
         android:layout_marginTop="156dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.333"
@@ -22,7 +22,7 @@ tools:context=".ReportingActivity">
         android:id="@+id/textView3"
         android:layout_width="395dp"
         android:layout_height="98dp"
-        android:layout_marginTop="42dp"
+        android:layout_marginTop="60dp"
         android:layout_marginBottom="34dp"
         android:text="@string/reporting_assistance"
         android:textAppearance="@style/TextAppearance.AppCompat.Display2"
@@ -32,6 +32,16 @@ tools:context=".ReportingActivity">
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0" />
+
+    <ImageButton
+        android:id="@+id/reporting_home_btn"
+        android:layout_width="74dp"
+        android:layout_height="65dp"
+        android:src="@drawable/home_icon"
+        android:adjustViewBounds="true"
+        android:padding="0dp"
+        android:scaleType="fitCenter"
+        android:background="@android:color/transparent"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

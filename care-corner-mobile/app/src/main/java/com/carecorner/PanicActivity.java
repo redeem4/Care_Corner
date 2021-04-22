@@ -5,9 +5,12 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageButton;
+import android.widget.ImageSwitcher;
 import android.widget.ImageView;
 
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
@@ -54,6 +57,7 @@ public class PanicActivity extends AppCompatActivity {
         onClickListenerSetup();
         handleAndroidPermissions();
     }
+
 
     private void userLocationListener() {
         //user location
@@ -126,6 +130,7 @@ public class PanicActivity extends AppCompatActivity {
                 bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
             }
         });
+
 
         swipe_btn.setOnClickListener(new View.OnClickListener() {
             @Override

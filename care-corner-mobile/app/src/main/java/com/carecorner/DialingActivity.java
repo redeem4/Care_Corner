@@ -80,7 +80,9 @@ public class DialingActivity extends AppCompatActivity {
                 stop_fake_call_voice();
                 lastRecording = recorderService.getLastRecording();
                 stop_audio_recording();
-                Toast.makeText(DialingActivity.this, "Panic Button Activated!", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(DialingActivity.this, PanicActivity.class);
+                startActivity(intent);
+
                 return true;
             }
         });

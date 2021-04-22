@@ -97,17 +97,15 @@
 
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/incident_report"
-        android:layout_width="352dp"
-        android:layout_height="117dp"
-        android:text="TextView"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/panic_incident_linear_layout"
-        app:layout_constraintVertical_bias="0.0"
-        tools:text="@string/incident_report" />
+    <ImageButton
+        android:id="@+id/panic_home_btn"
+        android:layout_width="74dp"
+        android:layout_height="65dp"
+        android:src="@drawable/home_icon"
+        android:adjustViewBounds="true"
+        android:padding="0dp"
+        android:scaleType="fitCenter"
+        android:background="@android:color/transparent"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

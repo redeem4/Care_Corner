@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.os.IBinder;
 import android.preference.PreferenceManager;
 import android.view.View;
+import android.widget.ImageButton;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DividerItemDecoration;
@@ -33,11 +34,20 @@ public class ReportingActivity extends AppCompatActivity implements ReportingAda
     private Vector<Incident> incidents_list;
     private IncidentListService incidentListService;
     private boolean isBound;
+    private ImageButton reporting_home_btn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.reporting_activity);
+        reporting_home_btn = findViewById(R.id.reporting_home_btn);
+        reporting_home_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ReportingActivity.this, MainMenuActivity.class);
+                startActivity(intent);
+            }
+        });
 
         //place in onCreated
         Intent incidentListIntent = new Intent(this, IncidentListService.class);
@@ -67,6 +77,7 @@ public class ReportingActivity extends AppCompatActivity implements ReportingAda
             Intent intent = new Intent(ReportingActivity.this, ReportingReader.class);
             intent.putExtra("reportingName", theadapter.getItem(position).getId());
             intent.putExtra("incident_report", theadapter.getItem(position).toString());
+            intent.putExtra("recording_name", theadapter.getItem(position).getRecording_file_name());
             //intent.putExtra("text", theadapter.getItem(position).getText());
             // intent.putExtra("position", position);
             startActivity(intent);

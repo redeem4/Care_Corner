@@ -24,6 +24,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Chronometer;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.ToggleButton;
@@ -55,6 +56,7 @@ public class PanicModeFragment extends Fragment implements View.OnClickListener 
     private Chronometer panic_timer;
     private LinearLayout incidents_linear_layout;
     private ImageButton incidents_btn;
+    private ImageButton panic_home_btn;
     private Incident current_incident;
 
     //incident_list variables
@@ -62,10 +64,7 @@ public class PanicModeFragment extends Fragment implements View.OnClickListener 
     private IncidentListService incidentListService;
     private boolean isBound;
 
-    //TODO - delete this code here for testing
-    private TextView incident_report;
-    private int incident_count;
-    int i;
+
 
     //Media Recorder Variables
     private String recordPermission = Manifest.permission.RECORD_AUDIO;
@@ -109,9 +108,9 @@ public class PanicModeFragment extends Fragment implements View.OnClickListener 
         panic_timer = view.findViewById(R.id.panic_timer);
         incidents_linear_layout = view.findViewById(R.id.panic_incident_linear_layout);
         incidents_btn = view.findViewById(R.id.panic_incident_btn);
+        panic_home_btn = view.findViewById(R.id.panic_home_btn);
 
-        //TODO - delete this code here for testing
-        incident_report = view.findViewById(R.id.incident_report);
+
 
         //set up panic_btn text when on/off
         activate_btn.setTextOff(DEACTIVATED_TEXT);
@@ -126,15 +125,12 @@ public class PanicModeFragment extends Fragment implements View.OnClickListener 
         //set click listeners
         activate_btn.setOnClickListener(this);
         incidents_btn.setOnClickListener(this);
+        panic_home_btn.setOnClickListener(this);
 
 
 
 
-        loadIncidents();
-        //TODO - delete this code here for testing
-        incident_count = incidents_list.size();
-        i=0;
-        incident_report.setText("There were " + incident_count + " incidents loaded");
+
 
 
         panicNavController = Navigation.findNavController(view);
@@ -157,14 +153,21 @@ public class PanicModeFragment extends Fragment implements View.OnClickListener 
                 }
                 break;
 
-            //Panic Mode Activation Button is pressed
+            //Incident Button is pressed
             case R.id.panic_incident_btn:
-                //incidents button is pressed
-                String test_string = (incidents_list.get(i)).toString();
-                i = ((i + 1) % incident_count);
-                incident_report.setText(test_string);
+                Intent intent = new Intent(getActivity(), ReportingActivity.class);
+                startActivity(intent);
 
                 break;
+
+            //Home Button is pressed
+            case R.id.panic_home_btn:
+                Intent i = new Intent(getActivity(), MainMenuActivity.class);
+                startActivity(i);
+
+                break;
+
+
         }
     }
 
@@ -176,6 +179,7 @@ public class PanicModeFragment extends Fragment implements View.OnClickListener 
         panic_status2.setText(PANIC_STATUS_ACTIVATED2);
         panic_timer.setBase(SystemClock.elapsedRealtime());
         panic_timer.setVisibility(View.VISIBLE);
+        panic_home_btn.setVisibility(View.GONE);
         incidents_linear_layout.setVisibility(View.GONE);
         panic_timer.start();
     }
@@ -188,6 +192,7 @@ public class PanicModeFragment extends Fragment implements View.OnClickListener 
         panic_status2.setText(PANIC_STATUS_DEACTIVATED2);
         panic_timer.setVisibility(View.GONE);
         incidents_linear_layout.setVisibility(View.VISIBLE);
+        panic_home_btn.setVisibility(View.VISIBLE);
         panic_timer.stop();
     }
 
@@ -201,7 +206,6 @@ public class PanicModeFragment extends Fragment implements View.OnClickListener 
                     public void onClick(DialogInterface dialog, int which) {
                         //TODO: save incident to shared folder
                         incidents_list.add(current_incident);
-                        incident_count++;
                         saveIncident();
                     }
                 })
