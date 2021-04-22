@@ -88,7 +88,6 @@ public class ReportingReader extends AppCompatActivity {
                     if (fileToPlay != null){
                         resumeAudio();
                     }
-
                 }
             }
         });
@@ -114,6 +113,8 @@ public class ReportingReader extends AppCompatActivity {
 
             }
         });
+        setRecordingPath();
+        playAudio(fileToPlay);
     }
 
     private void setTitle(){
@@ -141,6 +142,7 @@ public class ReportingReader extends AppCompatActivity {
         String path = getExternalFilesDir("/").getAbsolutePath();
 
         recordPath = path + "/" + recording_file_name;
+        fileToPlay = new File(recordPath);
 
     }
 
@@ -167,6 +169,7 @@ public class ReportingReader extends AppCompatActivity {
 
     private void pauseAudio(){
         mediaPlayer.pause();
+        playerHeader.setText("Paused");
         //change pause button to play button image
         playBtn.setImageDrawable(getResources().getDrawable(R.drawable.player_play_btn, null));
         isPlaying = false;
@@ -176,6 +179,7 @@ public class ReportingReader extends AppCompatActivity {
 
     private void resumeAudio(){
         mediaPlayer.start();
+        playerHeader.setText("Playing");
         //change play button to pause button image
         playBtn.setImageDrawable(getResources().getDrawable(R.drawable.player_pause_btn, null));
         isPlaying = true;
