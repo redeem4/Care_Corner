@@ -65,7 +65,7 @@ public class MombotActivity extends AppCompatActivity {
                     "\n and tell someone you trust about your plans"+
                     "\n Consider using Safe Walk on your journey there or setting up a Fake Call";
         else if(entry.contains(" visit mom"))
-            reply = "It is about time you visit your Mom!"
+            reply = "It is about time you visit your Mom!";
         else
             reply = "Sorry, I do not yet have a response for that.";
         return reply;
